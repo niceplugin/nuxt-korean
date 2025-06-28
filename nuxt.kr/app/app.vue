@@ -33,7 +33,7 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
 onNuxtReady(() => fetchList())
 
 useHead({
-  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: The Intuitive Web Framework',
+  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: 직관적인 웹 프레임워크',
   meta: [
     { key: 'theme-color', name: 'theme-color', content: color }
   ]

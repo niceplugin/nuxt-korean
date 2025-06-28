@@ -32,7 +32,7 @@ useSeoMeta({
 })
 
 if (import.meta.server) {
-  const description = 'Create high-quality web applications with Nuxt, the open source framework that makes full-stack development with Vue.js intuitive.'
+  const description = 'Nuxt와 함께 고품질 웹 애플리케이션을 만들어보세요. Vue.js로 직관적인 풀스택 개발을 가능하게 하는 오픈 소스 프레임워크입니다.'
   useSeoMeta({
     ogTitle: title,
     description: description,
@@ -120,7 +120,7 @@ onMounted(() => {
       </template>
 
       <template #title>
-        The Progressive<br><span class="text-primary">Web Framework</span>
+        진보적인<br><span class="text-primary">웹 프레임워크</span>
       </template>
 
       <template #description>
@@ -131,7 +131,7 @@ onMounted(() => {
         <div class="flex flex-col gap-4">
           <div class="flex items-center flex-wrap gap-2">
             <UButton to="/docs/getting-started/installation" size="xl">
-              Get started
+              시작하기
             </UButton>
             <UButton size="xl" color="neutral" variant="subtle" trailing-icon="i-lucide-play-circle" @click="videoModalOpen = true">
               Nuxt in 100 seconds
@@ -353,7 +353,7 @@ onMounted(() => {
                   {{ formatNumber(stats.monthlyDownloads) }}
                 </span>
                 <p class="text-sm">
-                  Monthly downloads
+                  월간 다운로드
                 </p>
               </div>
             </div>
@@ -369,7 +369,7 @@ onMounted(() => {
                   {{ formatNumber(stats.stars) }}
                 </span>
                 <p class="text-sm">
-                  GitHub Stars
+                  GitHub 별
                 </p>
               </div>
             </div>
@@ -400,7 +400,7 @@ onMounted(() => {
                 <span class="font-medium">
                   {{ page.stats.x }}
                 </span>
-                <p>Followers</p>
+                <p>팔로워</p>
               </div>
             </div>
           </UPageCard>
@@ -414,7 +414,7 @@ onMounted(() => {
                 <span class="font-medium">
                   {{ page.stats.discord }}
                 </span>
-                <p>Members</p>
+                <p>멤버</p>
               </div>
             </div>
           </UPageCard>
@@ -532,10 +532,11 @@ onMounted(() => {
     <UPageSection
       id="showcase"
       headline="Showcase"
-      title="Real-world Web Applications built with Nuxt"
+      title="Nuxt로 제작된 실제 웹 애플리케이션"
       :links="[{
         label: 'View all websites',
-        to: '/showcase',
+        to: 'https://nuxt.com/showcase',
+        target: '_blank',
         color: 'neutral',
         size: 'md'
       }]"

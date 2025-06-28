@@ -226,16 +226,7 @@ export default defineContentConfig({
     landing: defineCollection({
       type: 'page',
       source: [
-        { include: 'index.md' },
-        { include: 'blog.yml' },
-        { include: 'modules.yml' },
-        { include: 'deploy.yml' },
-        { include: 'templates.yml' },
-        { include: 'video-courses.yml' },
-        { include: 'enterprise/sponsors.yml' },
-        { include: 'enterprise/agencies.yml' },
-        { include: 'newsletter.yml' },
-        { include: 'enterprise/jobs.yml' }
+        { include: 'index.md' }
       ],
       schema: PageHero
     }),

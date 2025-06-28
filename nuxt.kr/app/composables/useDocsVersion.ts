@@ -18,14 +18,14 @@ const versions: Version[] = [{
   tagColor: 'primary',
   path: '/docs',
   collection: 'docsv3'
-}, {
-  label: 'Version 4',
-  tag: 'alpha',
-  shortTag: 'v4',
-  branch: 'main',
-  tagColor: 'warning',
-  path: '/docs/4.x',
-  collection: 'docsv4'
+// }, {
+//   label: 'Version 4',
+//   tag: 'alpha',
+//   shortTag: 'v4',
+//   branch: 'main',
+//   tagColor: 'warning',
+//   path: '/docs/4.x',
+//   collection: 'docsv4'
 }]
 
 export const useDocsVersion = () => {

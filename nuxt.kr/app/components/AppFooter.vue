@@ -6,6 +6,9 @@ const { footerLinks } = useFooterLinks()
   <USeparator icon="i-simple-icons-nuxtdotjs" class="h-px" />
 
   <UFooter :ui="{ top: 'border-b border-default' }">
+    <div class="text-center">
+      모두를 위한 한글화
+    </div>
     <template #top>
       <UContainer>
         <UFooterColumns :columns="footerLinks">

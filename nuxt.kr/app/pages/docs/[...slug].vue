@@ -161,7 +161,7 @@ if (import.meta.server) {
 
         <UPageBody>
           <ContentRenderer v-if="page.body" :value="page" />
-          <div>
+          <div v-if="false">
             <Feedback :page="page" />
             <USeparator class="mt-6 mb-10">
               <div class="flex items-center gap-2 text-sm text-muted">
@@ -180,7 +180,8 @@ if (import.meta.server) {
 
         <template #right>
           <UContentToc :links="page.body?.toc?.links" highlight class="lg:backdrop-blur-none">
-            <template #bottom>
+            <span>이 페이지 목차</span>
+            <template v-if="false" #bottom>
               <USeparator v-if="page.body?.toc?.links?.length" type="dashed" />
               <UPageLinks title="Community" :links="communityLinks" />
               <USeparator type="dashed" />
