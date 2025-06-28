@@ -18,6 +18,7 @@ onMounted(() => {
 <template>
   <div>
     <UBanner
+      v-if="false"
       id="nuxt-tips-michael"
       title="Learn Nuxt with a Collection of 100+ Tips!"
       icon="i-lucide-wand"

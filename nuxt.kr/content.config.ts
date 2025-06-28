@@ -1,8 +1,9 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
 const docsV3Source = {
-  cwd: process.env.NUXT_PATH ?? undefined,
-  repository: !process.env.NUXT_PATH ? 'https://github.com/nuxt/nuxt/tree/3.x' : undefined,
+  cwd: process.cwd().replace('nuxt.kr', 'nuxt_docs'),
+  // cwd: process.env.NUXT_PATH ?? undefined,
+  // repository: !process.env.NUXT_PATH ? 'https://github.com/nuxt/nuxt/tree/3.x' : undefined,
   include: 'docs/**/*',
   exclude: ['docs/**/*.json']
 }
@@ -16,8 +17,9 @@ const docsV3Source = {
 // }
 
 const examplesV3Source = {
-  cwd: process.env.NUXT_EXAMPLES_PATH ?? undefined,
-  repository: !process.env.NUXT_EXAMPLES_PATH ? 'https://github.com/nuxt/examples' : undefined,
+  cwd: process.cwd().replace('nuxt.kr', 'nuxt_examples'),
+  // cwd: process.env.NUXT_EXAMPLES_PATH ?? undefined,
+  // repository: !process.env.NUXT_EXAMPLES_PATH ? 'https://github.com/nuxt/examples' : undefined,
   include: '.docs/**/*',
   prefix: '/docs/4.examples'
 }
@@ -67,41 +69,41 @@ const BaseSection = z.object({
   description: z.string()
 })
 
-// const Author = z.object({
-//   name: z.string(),
-//   description: z.string().optional(),
-//   username: z.string().optional(),
-//   twitter: z.string().optional(),
-//   bluesky: z.string().optional(),
-//   to: z.string().optional(),
-//   avatar: Image.optional()
-// })
+const Author = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  twitter: z.string().optional(),
+  bluesky: z.string().optional(),
+  to: z.string().optional(),
+  avatar: Image.optional()
+})
 
-// const Testimonial = z.object({
-//   quote: z.string(),
-//   author: Author
-// })
+const Testimonial = z.object({
+  quote: z.string(),
+  author: Author
+})
 
-// const PageFeature = z.object({
-//   title: z.string(),
-//   description: z.string(),
-//   icon: z.string().editor({ input: 'icon' }),
-//   to: z.string().optional(),
-//   target: z.enum(['_blank', '_self']).optional(),
-//   soon: z.boolean().optional()
-// })
+const PageFeature = z.object({
+  title: z.string(),
+  description: z.string(),
+  icon: z.string().editor({ input: 'icon' }),
+  to: z.string().optional(),
+  target: z.enum(['_blank', '_self']).optional(),
+  soon: z.boolean().optional()
+})
 
-// const PageSection = BaseSection.extend({
-//   links: z.array(Button),
-//   features: z.array(PageFeature),
-//   image: DualModeImage,
-//   cta: z.object({
-//     title: z.string(),
-//     label: z.string(),
-//     to: z.string(),
-//     icon: z.string()
-//   }).optional()
-// })
+const PageSection = BaseSection.extend({
+  links: z.array(Button),
+  features: z.array(PageFeature),
+  image: DualModeImage,
+  cta: z.object({
+    title: z.string(),
+    label: z.string(),
+    to: z.string(),
+    icon: z.string()
+  }).optional()
+})
 
 const PageHero = BaseSection.extend({
   image: DualModeImage.optional(),
@@ -145,56 +147,56 @@ const ShowcaseItem = z.object({
 
 export default defineContentConfig({
   collections: {
-    // index: defineCollection({
-    //   type: 'data',
-    //   source: 'index.yml',
-    //   schema: z.object({
-    //     hero: z.object({
-    //       title: z.string(),
-    //       description: z.string(),
-    //       cta: Link.extend({
-    //         icon: z.string()
-    //       }),
-    //       tabs: z.array(z.object({
-    //         title: z.string(),
-    //         icon: z.string(),
-    //         content: z.string()
-    //       }))
-    //     }),
-    //     logos: z.object({
-    //       title: z.string(),
-    //       companies: z.array(DualModeImage)
-    //     }),
-    //     features: PageSection,
-    //     foundation: PageSection.extend({
-    //       items: z.array(z.object({
-    //         id: z.string(),
-    //         title: z.string(),
-    //         description: z.string(),
-    //         logo: z.string(),
-    //         color: z.string(),
-    //         gradient: z.string(),
-    //         link: Link
-    //       }))
-    //     }),
-    //     modules: PageSection,
-    //     testimonial: Testimonial,
-    //     deploy: PageSection,
-    //     contributors: PageSection,
-    //     stats: PageSection.extend({
-    //       community: BaseSection,
-    //       x: z.number(),
-    //       discord: z.string(),
-    //       cta: Button
-    //     }),
-    //     support: PageSection.extend({
-    //       companies: z.array(Image.pick({ src: true, alt: true }))
-    //     }),
-    //     sponsors: PageSection.extend({
-    //       cta: Button
-    //     })
-    //   })
-    // }),
+    index: defineCollection({
+      type: 'data',
+      source: 'index.yml',
+      schema: z.object({
+        hero: z.object({
+          title: z.string(),
+          description: z.string(),
+          cta: Link.extend({
+            icon: z.string()
+          }),
+          tabs: z.array(z.object({
+            title: z.string(),
+            icon: z.string(),
+            content: z.string()
+          }))
+        }),
+        logos: z.object({
+          title: z.string(),
+          companies: z.array(DualModeImage)
+        }),
+        features: PageSection,
+        foundation: PageSection.extend({
+          items: z.array(z.object({
+            id: z.string(),
+            title: z.string(),
+            description: z.string(),
+            logo: z.string(),
+            color: z.string(),
+            gradient: z.string(),
+            link: Link
+          }))
+        }),
+        modules: PageSection,
+        testimonial: Testimonial,
+        deploy: PageSection,
+        contributors: PageSection,
+        stats: PageSection.extend({
+          community: BaseSection,
+          x: z.number(),
+          discord: z.string(),
+          cta: Button
+        }),
+        support: PageSection.extend({
+          companies: z.array(Image.pick({ src: true, alt: true }))
+        }),
+        sponsors: PageSection.extend({
+          cta: Button
+        })
+      })
+    }),
     docsv3: defineCollection({
       type: 'page',
       source: [docsV3Source, examplesV3Source],

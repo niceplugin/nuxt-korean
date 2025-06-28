@@ -218,11 +218,11 @@ export default defineNuxtConfig({
   },
   llms: {
     domain: 'https://nuxt.com',
-    title: 'Nuxt Docs',
-    description: 'Nuxt is an open source framework that makes web development intuitive and powerful. Create performant and production-grade full-stack web apps and websites with confidence.',
+    title: 'Nuxt 문서',
+    description: 'Nuxt는 웹 개발을 직관적이고 강력하게 만들어주는 오픈 소스 프레임워크입니다. 성능이 뛰어나고 실전용(full-stack) 웹 앱과 웹사이트를 자신 있게 구축하세요.',
     full: {
-      title: 'Nuxt Docs',
-      description: 'The complete Nuxt documentation and blog posts written in Markdown (MDC syntax).'
+      title: 'Nuxt 문서',
+      description: 'Markdown(MDC 문법)으로 작성된 Nuxt의 전체 문서와 블로그 글을 제공합니다.'
     }
   },
   turnstile: {
