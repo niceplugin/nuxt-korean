@@ -181,10 +181,10 @@ if (import.meta.server) {
         <template #right>
           <UContentToc :links="page.body?.toc?.links" highlight class="lg:backdrop-blur-none">
             <span>이 페이지 목차</span>
-            <template v-if="false" #bottom>
+            <template #bottom>
               <USeparator v-if="page.body?.toc?.links?.length" type="dashed" />
-              <UPageLinks title="Community" :links="communityLinks" />
-              <USeparator type="dashed" />
+              <UPageLinks v-if="false" title="Community" :links="communityLinks" />
+              <USeparator v-if="false" type="dashed" />
               <SocialLinks />
               <Ads />
             </template>

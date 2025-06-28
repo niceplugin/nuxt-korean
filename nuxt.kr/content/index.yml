@@ -485,11 +485,11 @@ sponsors:
   title: 후원사
   description: Nuxt는 기여자와 후원사 덕분에 MIT 라이선스 하에 항상 무료이자 오픈 소스로 남을 것입니다.
   links:
-    - label: 후원사가 되기
-      to: 'https://github.com/sponsors/nuxt'
-      color: neutral
-      trailingIcon: i-lucide-heart
-      trailing: true
+#    - label: 후원사가 되기
+#      to: 'https://github.com/sponsors/nuxt'
+#      color: neutral
+#      trailingIcon: i-lucide-heart
+#      trailing: true
     - label: 모든 후원사 보기
       to: https://nuxt.com/enterprise/sponsors
       target: _blank
