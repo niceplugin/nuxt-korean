@@ -1,6 +1,6 @@
 ---
 title: "useError"
-description: useError composable returns the global Nuxt error that is being handled.
+description: useError 컴포저블은 처리 중인 전역 Nuxt 오류를 반환합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,23 +8,23 @@ links:
     size: xs
 ---
 
-The composable returns the global Nuxt error that is being handled and it is available on both client and server.
+이 컴포저블은 처리 중인 전역 Nuxt 오류를 반환하며, 클라이언트와 서버 모두에서 사용할 수 있습니다.
 
 ```ts
 const error = useError()
 ```
 
-`useError` sets an error in the state and creates a reactive as well as SSR-friendly global Nuxt error across components.
+`useError`는 상태에 오류를 설정하고, 컴포넌트 전반에 걸쳐 반응형이면서 SSR에 친화적인 전역 Nuxt 오류를 생성합니다.
 
-Nuxt errors have the following properties:
+Nuxt 오류는 다음과 같은 속성을 가집니다:
 
 ```ts
 interface {
-  //  HTTP response status code
+  //  HTTP 응답 상태 코드
   statusCode: number
-  // HTTP response status message
+  // HTTP 응답 상태 메시지
   statusMessage: string
-  // Error message
+  // 오류 메시지
   message: string
 }
 ```

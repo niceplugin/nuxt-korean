@@ -1,6 +1,6 @@
 ---
 title: "nuxt analyze"
-description: "Analyze the production bundle or your Nuxt application."
+description: "프로덕션 번들 또는 Nuxt 애플리케이션을 분석합니다."
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -14,28 +14,28 @@ npx nuxt analyze [ROOTDIR] [--cwd=<directory>] [--logLevel=<silent|info|verbose>
 ```
 <!--/analyze-cmd-->
 
-The `analyze` command builds Nuxt and analyzes the production bundle (experimental).
+`analyze` 명령은 Nuxt를 빌드하고 프로덕션 번들을 분석합니다(실험적).
 
-## Arguments
+## [인자](#arguments)
 
 <!--analyze-args-->
-Argument | Description
+인자 | 설명
 --- | ---
-`ROOTDIR="."` | Specifies the working directory (default: `.`)
+`ROOTDIR="."` | 작업 디렉터리를 지정합니다(기본값: `.`)
 <!--/analyze-args-->
 
-## Options
+## [옵션](#options)
 
 <!--analyze-opts-->
-Option | Default | Description
+옵션 | 기본값 | 설명
 --- | --- | ---
-`--cwd=<directory>` |  | Specify the working directory, this takes precedence over ROOTDIR (default: `.`)
-`--logLevel=<silent\|info\|verbose>` |  | Specify build-time log level
-`--dotenv` |  | Path to `.env` file to load, relative to the root directory
-`--name=<name>` | `default` | Name of the analysis
-`--no-serve` |  | Skip serving the analysis results
+`--cwd=<directory>` |  | 작업 디렉터리를 지정합니다. 이 값이 ROOTDIR보다 우선합니다(기본값: `.`)
+`--logLevel=<silent\|info\|verbose>` |  | 빌드 시 로그 레벨을 지정합니다
+`--dotenv` |  | 루트 디렉터리를 기준으로 불러올 `.env` 파일의 경로
+`--name=<name>` | `default` | 분석의 이름
+`--no-serve` |  | 분석 결과 제공을 건너뜁니다
 <!--/analyze-opts-->
 
 ::note
-This command sets `process.env.NODE_ENV` to `production`.
+이 명령은 `process.env.NODE_ENV`를 `production`으로 설정합니다.
 ::

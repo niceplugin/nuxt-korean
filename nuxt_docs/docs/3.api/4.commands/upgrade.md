@@ -1,6 +1,6 @@
 ---
 title: "nuxt upgrade"
-description: The upgrade command upgrades Nuxt to the latest version.
+description: upgrade 명령어는 Nuxt를 최신 버전으로 업그레이드합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -14,24 +14,24 @@ npx nuxt upgrade [ROOTDIR] [--cwd=<directory>] [--logLevel=<silent|info|verbose>
 ```
 <!--/upgrade-cmd-->
 
-The `upgrade` command upgrades Nuxt to the latest version.
+`upgrade` 명령어는 Nuxt를 최신 버전으로 업그레이드합니다.
 
-## Arguments
+## [인자](#arguments)
 
 <!--upgrade-args-->
-Argument | Description
+인자 | 설명
 --- | ---
-`ROOTDIR="."` | Specifies the working directory (default: `.`)
+`ROOTDIR="."` | 작업 디렉토리를 지정합니다 (기본값: `.`)
 <!--/upgrade-args-->
 
-## Options
+## [옵션](#options)
 
 <!--upgrade-opts-->
-Option | Default | Description
+옵션 | 기본값 | 설명
 --- | --- | ---
-`--cwd=<directory>` |  | Specify the working directory, this takes precedence over ROOTDIR (default: `.`)
-`--logLevel=<silent\|info\|verbose>` |  | Specify build-time log level
-`--dedupe` |  | Will deduplicate dependencies but not recreate the lockfile
-`-f, --force` |  | Force upgrade to recreate lockfile and node_modules
-`-ch, --channel=<stable\|nightly>` | `stable` | Specify a channel to install from (default: stable)
+`--cwd=<directory>` |  | 작업 디렉토리를 지정합니다. 이 값이 ROOTDIR보다 우선합니다 (기본값: `.`)
+`--logLevel=<silent\|info\|verbose>` |  | 빌드 시 로그 레벨을 지정합니다
+`--dedupe` |  | 의존성을 중복 제거하지만 lockfile은 새로 생성하지 않습니다
+`-f, --force` |  | lockfile과 node_modules를 새로 생성하여 강제로 업그레이드합니다
+`-ch, --channel=<stable\|nightly>` | `stable` | 설치할 채널을 지정합니다 (기본값: stable)
 <!--/upgrade-opts-->

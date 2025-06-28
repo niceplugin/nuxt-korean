@@ -1,6 +1,6 @@
 ---
 title: 'useNuxtApp'
-description: 'Access the shared runtime context of the Nuxt Application.'
+description: 'Nuxt 애플리케이션의 공유 런타임 컨텍스트에 접근합니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,7 +8,7 @@ links:
     size: xs
 ---
 
-`useNuxtApp` is a built-in composable that provides a way to access shared runtime context of Nuxt, also known as the [Nuxt context](/docs/guide/going-further/nuxt-app#the-nuxt-context), which is available on both client and server side (but not within Nitro routes). It helps you access the Vue app instance, runtime hooks, runtime config variables and internal states, such as `ssrContext` and `payload`.
+`useNuxtApp`은 Nuxt의 공유 런타임 컨텍스트(일명 [Nuxt 컨텍스트](/docs/guide/going-further/nuxt-app#the-nuxt-context))에 접근할 수 있는 내장 컴포저블입니다. 이 컨텍스트는 클라이언트와 서버 모두에서 사용할 수 있지만(Nitro 라우트 내에서는 사용할 수 없음), Vue 앱 인스턴스, 런타임 훅, 런타임 설정 변수, `ssrContext` 및 `payload`와 같은 내부 상태에 접근하는 데 도움이 됩니다.
 
 ```vue [app.vue]
 <script setup lang="ts">
@@ -16,46 +16,46 @@ const nuxtApp = useNuxtApp()
 </script>
 ```
 
-If runtime context is unavailable in your scope, `useNuxtApp` will throw an exception when called. You can use [`tryUseNuxtApp`](#tryusenuxtapp) instead for composables that do not require `nuxtApp`, or to simply check if context is available or not without an exception.
+현재 스코프에서 런타임 컨텍스트를 사용할 수 없는 경우, `useNuxtApp`을 호출하면 예외가 발생합니다. `nuxtApp`이 필요하지 않은 컴포저블이거나, 예외 없이 컨텍스트의 사용 가능 여부만 확인하고 싶다면 [`tryUseNuxtApp`](#tryusenuxtapp)을 대신 사용할 수 있습니다.
 
 <!--
 note
-By default, the shared runtime context of Nuxt is namespaced under the [`buildId`](/docs/api/nuxt-config#buildid) option. It allows the support of multiple runtime contexts.
+기본적으로 Nuxt의 공유 런타임 컨텍스트는 [`buildId`](/docs/api/nuxt-config#buildid) 옵션 아래에 네임스페이스로 구분됩니다. 이를 통해 여러 런타임 컨텍스트를 지원할 수 있습니다.
 
-## Params
+## [Params](#params)
 
-- `appName`: an optional application name. If you do not provide it, the Nuxt `buildId` option is used. Otherwise, it must match with an existing `buildId`. -->
+- `appName`: 선택적인 애플리케이션 이름입니다. 제공하지 않으면 Nuxt의 `buildId` 옵션이 사용됩니다. 그렇지 않으면 기존의 `buildId`와 일치해야 합니다. -->
 
-## Methods
+## [Methods](#methods)
 
-### `provide (name, value)`
+### [`provide (name, value)`](#provide-name-value)
 
-`nuxtApp` is a runtime context that you can extend using [Nuxt plugins](/docs/guide/directory-structure/plugins). Use the `provide` function to create Nuxt plugins to make values and helper methods available in your Nuxt application across all composables and components.
+`nuxtApp`은 [Nuxt 플러그인](/docs/guide/directory-structure/plugins)을 사용하여 확장할 수 있는 런타임 컨텍스트입니다. `provide` 함수를 사용하여 Nuxt 플러그인을 생성하고, 값과 헬퍼 메서드를 Nuxt 애플리케이션의 모든 컴포저블과 컴포넌트에서 사용할 수 있도록 제공합니다.
 
-`provide` function accepts `name` and `value` parameters.
+`provide` 함수는 `name`과 `value` 파라미터를 받습니다.
 
 ```js
 const nuxtApp = useNuxtApp()
 nuxtApp.provide('hello', (name) => `Hello ${name}!`)
 
-// Prints "Hello name!"
+// "Hello name!"이 출력됩니다!
 console.log(nuxtApp.$hello('name'))
 ```
 
-As you can see in the example above, `$hello` has become the new and custom part of `nuxtApp` context and it is available in all places where `nuxtApp` is accessible.
+위 예시에서 볼 수 있듯이, `$hello`는 `nuxtApp` 컨텍스트의 새로운 커스텀 속성이 되었으며, `nuxtApp`에 접근할 수 있는 모든 곳에서 사용할 수 있습니다.
 
-### `hook(name, cb)`
+### [`hook(name, cb)`](#hookname-cb)
 
-Hooks available in `nuxtApp` allows you to customize the runtime aspects of your Nuxt application. You can use runtime hooks in Vue.js composables and [Nuxt plugins](/docs/guide/directory-structure/plugins) to hook into the rendering lifecycle.
+`nuxtApp`에서 사용할 수 있는 훅을 통해 Nuxt 애플리케이션의 런타임 동작을 커스터마이즈할 수 있습니다. Vue.js 컴포저블과 [Nuxt 플러그인](/docs/guide/directory-structure/plugins)에서 런타임 훅을 사용하여 렌더링 라이프사이클에 연결할 수 있습니다.
 
-`hook` function is useful for adding custom logic by hooking into the rendering lifecycle at a specific point. `hook` function is mostly used when creating Nuxt plugins.
+`hook` 함수는 특정 시점의 렌더링 라이프사이클에 커스텀 로직을 추가할 때 유용합니다. 주로 Nuxt 플러그인을 만들 때 사용됩니다.
 
-See [Runtime Hooks](/docs/api/advanced/hooks#app-hooks-runtime) for available runtime hooks called by Nuxt.
+Nuxt에서 호출하는 사용 가능한 런타임 훅은 [Runtime Hooks](/docs/api/advanced/hooks#app-hooks-runtime)를 참고하세요.
 
 ```ts [plugins/test.ts]
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook('page:start', () => {
-    /* your code goes here */
+    /* 여기에 코드를 작성하세요 */
   })
   nuxtApp.hook('vue:error', (..._args) => {
     console.log('vue:error')
@@ -66,44 +66,44 @@ export default defineNuxtPlugin((nuxtApp) => {
 })
 ```
 
-### `callHook(name, ...args)`
+### [`callHook(name, ...args)`](#callhookname-args)
 
-`callHook` returns a promise when called with any of the existing hooks.
+`callHook`은 기존 훅 중 하나를 호출할 때 프로미스를 반환합니다.
 
 ```ts
 await nuxtApp.callHook('my-plugin:init')
 ```
 
-## Properties
+## [Properties](#properties)
 
-`useNuxtApp()` exposes the following properties that you can use to extend and customize your app and share state, data and variables.
+`useNuxtApp()`은 앱을 확장하고 커스터마이즈하며 상태, 데이터, 변수를 공유할 수 있는 다음과 같은 속성을 노출합니다.
 
-### `vueApp`
+### [`vueApp`](#vueapp)
 
-`vueApp` is the global Vue.js [application instance](https://vuejs.org/api/application.html#application-api) that you can access through `nuxtApp`.
+`vueApp`은 `nuxtApp`을 통해 접근할 수 있는 전역 Vue.js [애플리케이션 인스턴스](https://vuejs.org/api/application.html#application-api)입니다.
 
-Some useful methods:
-- [`component()`](https://vuejs.org/api/application.html#app-component) - Registers a global component if passing both a name string and a component definition, or retrieves an already registered one if only the name is passed.
-- [`directive()`](https://vuejs.org/api/application.html#app-directive) - Registers a global custom directive if passing both a name string and a directive definition, or retrieves an already registered one if only the name is passed[(example)](/docs/guide/directory-structure/plugins#vue-directives).
-- [`use()`](https://vuejs.org/api/application.html#app-use) - Installs a **[Vue.js Plugin](https://vuejs.org/guide/reusability/plugins.html)** [(example)](/docs/guide/directory-structure/plugins#vue-plugins).
+유용한 메서드:
+- [`component()`](https://vuejs.org/api/application.html#app-component) - 이름 문자열과 컴포넌트 정의를 모두 전달하면 전역 컴포넌트를 등록하고, 이름만 전달하면 이미 등록된 컴포넌트를 반환합니다.
+- [`directive()`](https://vuejs.org/api/application.html#app-directive) - 이름 문자열과 디렉티브 정의를 모두 전달하면 전역 커스텀 디렉티브를 등록하고, 이름만 전달하면 이미 등록된 디렉티브를 반환합니다[(예시)](/docs/guide/directory-structure/plugins#vue-directives).
+- [`use()`](https://vuejs.org/api/application.html#app-use) - **[Vue.js 플러그인](https://vuejs.org/guide/reusability/plugins.html)**을 설치합니다[(예시)](/docs/guide/directory-structure/plugins#vue-plugins).
 
 :read-more{icon="i-simple-icons-vuedotjs" to="https://vuejs.org/api/application.html#application-api"}
 
-### `ssrContext`
+### [`ssrContext`](#ssrcontext)
 
-`ssrContext` is generated during server-side rendering and it is only available on the server side.
+`ssrContext`는 서버 사이드 렌더링 중에 생성되며, 서버 측에서만 사용할 수 있습니다.
 
-Nuxt exposes the following properties through `ssrContext`:
-- `url` (string) -  Current request url.
-- `event` ([unjs/h3](https://github.com/unjs/h3) request event) - Access the request & response of the current route.
-- `payload` (object) - NuxtApp payload object.
+Nuxt는 `ssrContext`를 통해 다음과 같은 속성을 제공합니다:
+- `url` (string) - 현재 요청 URL.
+- `event` ([unjs/h3](https://github.com/unjs/h3) 요청 이벤트) - 현재 라우트의 요청 및 응답에 접근합니다.
+- `payload` (object) - NuxtApp payload 객체.
 
-### `payload`
+### [`payload`](#payload)
 
-`payload` exposes data and state variables from server side to client side. The following keys will be available on the client after they have been passed from the server side:
+`payload`는 서버 측에서 클라이언트 측으로 데이터와 상태 변수를 노출합니다. 서버 측에서 전달된 후 클라이언트에서 다음 키를 사용할 수 있습니다:
 
-- `serverRendered` (boolean) - Indicates if response is server-side-rendered.
-- `data` (object) - When you fetch the data from an API endpoint using either [`useFetch`](/docs/api/composables/use-fetch) or [`useAsyncData`](/docs/api/composables/use-async-data) , resulting payload can be accessed from the `payload.data`. This data is cached and helps you prevent fetching the same data in case an identical request is made more than once.
+- `serverRendered` (boolean) - 응답이 서버 사이드 렌더링되었는지 여부를 나타냅니다.
+- `data` (object) - [`useFetch`](/docs/api/composables/use-fetch) 또는 [`useAsyncData`](/docs/api/composables/use-async-data)를 사용하여 API 엔드포인트에서 데이터를 가져오면, 결과 payload는 `payload.data`에서 접근할 수 있습니다. 이 데이터는 캐시되어 동일한 요청이 여러 번 발생할 경우 중복 요청을 방지합니다.
 
   ::code-group
   ```vue [app.vue]
@@ -118,11 +118,11 @@ Nuxt exposes the following properties through `ssrContext`:
   ```
   ::
 
-  After fetching the value of `count` using [`useAsyncData`](/docs/api/composables/use-async-data) in the example above, if you access `payload.data`, you will see `{ count: 1 }` recorded there.
+  위 예시에서 [`useAsyncData`](/docs/api/composables/use-async-data)를 사용해 `count` 값을 가져온 후, `payload.data`에 접근하면 `{ count: 1 }`이 기록되어 있는 것을 볼 수 있습니다.
 
-  When accessing the same `payload.data` from [`ssrcontext`](#ssrcontext), you can access the same value on the server side as well.
+  동일한 [`ssrcontext`](#ssrcontext)에서 `payload.data`에 접근하면 서버 측에서도 동일한 값을 확인할 수 있습니다.
 
-- `state` (object) - When you use [`useState`](/docs/api/composables/use-state) composable in Nuxt to set shared state, this state data is accessed through `payload.state.[name-of-your-state]`.
+- `state` (object) - Nuxt에서 [`useState`](/docs/api/composables/use-state) 컴포저블을 사용해 공유 상태를 설정하면, 이 상태 데이터는 `payload.state.[name-of-your-state]`를 통해 접근할 수 있습니다.
 
   ```ts [plugins/my-plugin.ts]
   export const useColor = () => useState<string>('color', () => 'pink')
@@ -134,21 +134,21 @@ Nuxt exposes the following properties through `ssrContext`:
   })
   ```
 
-  It is also possible to use more advanced types, such as `ref`, `reactive`, `shallowRef`, `shallowReactive` and `NuxtError`.
+  또한 `ref`, `reactive`, `shallowRef`, `shallowReactive`, `NuxtError`와 같은 더 고급 타입도 사용할 수 있습니다.
 
-  Since [Nuxt v3.4](https://nuxt.com/blog/v3-4#payload-enhancements), it is possible to define your own reducer/reviver for types that are not supported by Nuxt.
+  [Nuxt v3.4](https://nuxt.com/blog/v3-4#payload-enhancements)부터는 Nuxt에서 지원하지 않는 타입에 대해 직접 reducer/reviver를 정의할 수 있습니다.
 
-  :video-accordion{title="Watch a video from Alexander Lichter about serializing payloads, especially with regards to classes" videoId="8w6ffRBs8a4"}
+  :video-accordion{title="Alexander Lichter가 클래스와 관련된 payload 직렬화에 대해 설명하는 영상을 시청하세요" videoId="8w6ffRBs8a4"}
 
-  In the example below, we define a reducer (or a serializer) and a reviver (or deserializer) for the [Luxon](https://moment.github.io/luxon/#/) DateTime class, using a payload plugin.
+  아래 예시에서는 [Luxon](https://moment.github.io/luxon/#/) DateTime 클래스를 위한 reducer(또는 serializer)와 reviver(또는 deserializer)를 payload 플러그인으로 정의합니다.
 
   ```ts [plugins/date-time-payload.ts]
   /**
-   * This kind of plugin runs very early in the Nuxt lifecycle, before we revive the payload.
-   * You will not have access to the router or other Nuxt-injected properties.
+   * 이 종류의 플러그인은 Nuxt 라이프사이클에서 매우 이른 시점에 실행되며, payload를 복원하기 전에 실행됩니다.
+   * 라우터나 Nuxt에서 주입된 다른 속성에는 접근할 수 없습니다.
    *
-   * Note that the "DateTime" string is the type identifier and must
-   * be the same on both the reducer and the reviver.
+   * "DateTime" 문자열은 타입 식별자이며,
+   * reducer와 reviver 모두에서 동일해야 합니다.
    */
   export default definePayloadPlugin((nuxtApp) => {
     definePayloadReducer('DateTime', (value) => {
@@ -160,9 +160,9 @@ Nuxt exposes the following properties through `ssrContext`:
   })
   ```
 
-### `isHydrating`
+### [`isHydrating`](#ishydrating)
 
-Use `nuxtApp.isHydrating` (boolean) to check if the Nuxt app is hydrating on the client side.
+클라이언트 측에서 Nuxt 앱이 하이드레이션 중인지 확인하려면 `nuxtApp.isHydrating`(boolean)을 사용하세요.
 
 ```ts [components/nuxt-error-boundary.ts]
 export default defineComponent({
@@ -177,13 +177,13 @@ export default defineComponent({
 })
 ```
 
-### `runWithContext`
+### [`runWithContext`](#runwithcontext)
 
 ::note
-You are likely here because you got a "Nuxt instance unavailable" message. Please use this method sparingly, and report examples that are causing issues, so that it can ultimately be solved at the framework level.
+"Nuxt 인스턴스를 사용할 수 없음" 메시지로 인해 이곳에 오셨을 수 있습니다. 이 메서드는 꼭 필요한 경우에만 사용하시고, 문제가 되는 예시를 보고해주시면 프레임워크 차원에서 궁극적으로 해결할 수 있습니다.
 ::
 
-The `runWithContext` method is meant to be used to call a function and give it an explicit Nuxt context. Typically, the Nuxt context is passed around implicitly and you do not need to worry about this. However, when working with complex `async`/`await` scenarios in middleware/plugins, you can run into instances where the current instance has been unset after an async call.
+`runWithContext` 메서드는 함수를 호출할 때 명시적으로 Nuxt 컨텍스트를 부여하는 데 사용됩니다. 일반적으로 Nuxt 컨텍스트는 암묵적으로 전달되므로 신경 쓸 필요가 없습니다. 하지만 미들웨어/플러그인에서 복잡한 `async`/`await` 시나리오를 다룰 때, 비동기 호출 이후 현재 인스턴스가 해제되는 경우가 발생할 수 있습니다.
 
 ```ts [middleware/auth.ts]
 export default defineNuxtRouteMiddleware(async (to, from) => {
@@ -191,96 +191,96 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   let user
   try {
     user = await fetchUser()
-    // the Vue/Nuxt compiler loses context here because of the try/catch block.
+    // try/catch 블록 때문에 Vue/Nuxt 컴파일러가 컨텍스트를 잃어버립니다.
   } catch (e) {
     user = null
   }
   if (!user) {
-    // apply the correct Nuxt context to our `navigateTo` call.
+    // `navigateTo` 호출에 올바른 Nuxt 컨텍스트를 적용합니다.
     return nuxtApp.runWithContext(() => navigateTo('/auth'))
   }
 })
 ```
 
-#### Usage
+#### [사용법](#usage)
 
 ```js
 const result = nuxtApp.runWithContext(() => functionWithContext())
 ```
 
-- `functionWithContext`: Any function that requires the context of the current Nuxt application. This context will be correctly applied automatically.
+- `functionWithContext`: 현재 Nuxt 애플리케이션의 컨텍스트가 필요한 모든 함수. 이 컨텍스트는 자동으로 올바르게 적용됩니다.
 
-`runWithContext` will return whatever is returned by `functionWithContext`.
+`runWithContext`는 `functionWithContext`가 반환하는 값을 그대로 반환합니다.
 
-#### A Deeper Explanation of Context
+#### [컨텍스트에 대한 더 깊은 설명](#a-deeper-explanation-of-context)
 
-Vue.js Composition API (and Nuxt composables similarly) work by depending on an implicit context. During the lifecycle, Vue sets the temporary instance of the current component (and Nuxt temporary instance of nuxtApp) to a global variable and unsets it in same tick. When rendering on the server side, there are multiple requests from different users and nuxtApp running in a same global context. Because of this, Nuxt and Vue immediately unset this global instance to avoid leaking a shared reference between two users or components.
+Vue.js Composition API(및 Nuxt 컴포저블도 마찬가지)는 암묵적인 컨텍스트에 의존하여 동작합니다. 라이프사이클 동안 Vue는 현재 컴포넌트의 임시 인스턴스(및 Nuxt의 임시 nuxtApp 인스턴스)를 전역 변수에 설정하고, 같은 틱에서 해제합니다. 서버 측 렌더링 시에는 여러 사용자의 요청이 동시에 들어오고, nuxtApp이 동일한 전역 컨텍스트에서 실행됩니다. 이 때문에 Nuxt와 Vue는 두 사용자나 컴포넌트 간에 공유 참조가 누출되는 것을 방지하기 위해 즉시 이 전역 인스턴스를 해제합니다.
 
-What it does mean? The Composition API and Nuxt Composables are only available during lifecycle and in same tick before any async operation:
+이게 무슨 의미일까요? Composition API와 Nuxt 컴포저블은 라이프사이클 중, 그리고 비동기 작업 전 동일한 틱 내에서만 사용할 수 있습니다:
 
 ```js
-// --- Vue internal ---
+// --- Vue 내부 --- 
 const _vueInstance = null
 const getCurrentInstance = () => _vueInstance
 // ---
 
-// Vue / Nuxt sets a global variable referencing to current component in _vueInstance when calling setup()
+// Vue / Nuxt는 setup() 호출 시 _vueInstance에 현재 컴포넌트를 전역 변수로 설정합니다.
 async function setup() {
-  getCurrentInstance() // Works
-  await someAsyncOperation() // Vue unsets the context in same tick before async operation!
+  getCurrentInstance() // 동작함
+  await someAsyncOperation() // Vue는 비동기 작업 전 같은 틱에서 컨텍스트를 해제함!
   getCurrentInstance() // null
 }
 ```
 
-The classic solution to this, is caching the current instance on first call to a local variable like `const instance = getCurrentInstance()` and use it in the next composable call but the issue is that any nested composable calls now needs to explicitly accept the instance as an argument and not depend on the implicit context of composition-api. This is design limitation with composables and not an issue per-se.
+이 문제에 대한 고전적인 해결책은 첫 호출 시 현재 인스턴스를 로컬 변수에 캐싱(`const instance = getCurrentInstance()`)하고, 이후 컴포저블 호출에서 이를 사용하는 것입니다. 하지만 이 경우, 중첩된 모든 컴포저블 호출이 인스턴스를 명시적으로 인자로 받아야 하며, composition-api의 암묵적 컨텍스트에 의존할 수 없습니다. 이는 컴포저블의 설계적 한계일 뿐, 문제는 아닙니다.
 
-To overcome this limitation, Vue does some behind the scenes work when compiling our application code and restores context after each call for `<script setup>`:
+이 한계를 극복하기 위해 Vue는 애플리케이션 코드를 컴파일할 때 내부적으로 작업을 수행하여 `<script setup>`의 각 호출 후 컨텍스트를 복원합니다:
 
 ```js
-const __instance = getCurrentInstance() // Generated by Vue compiler
-getCurrentInstance() // Works!
-await someAsyncOperation() // Vue unsets the context
-__restoreInstance(__instance) // Generated by Vue compiler
-getCurrentInstance() // Still works!
+const __instance = getCurrentInstance() // Vue 컴파일러가 생성
+getCurrentInstance() // 동작함!
+await someAsyncOperation() // Vue가 컨텍스트를 해제함
+__restoreInstance(__instance) // Vue 컴파일러가 생성
+getCurrentInstance() // 여전히 동작함!
 ```
 
-For a better description of what Vue actually does, see [unjs/unctx#2 (comment)](https://github.com/unjs/unctx/issues/2#issuecomment-942193723).
+Vue가 실제로 어떻게 동작하는지 더 잘 설명한 내용은 [unjs/unctx#2 (comment)](https://github.com/unjs/unctx/issues/2#issuecomment-942193723)를 참고하세요.
 
-#### Solution
+#### [해결책](#solution)
 
-This is where `runWithContext` can be used to restore context, similarly to how `<script setup>` works.
+여기서 `<script setup>`이 동작하는 방식과 유사하게 컨텍스트를 복원하기 위해 `runWithContext`를 사용할 수 있습니다.
 
-Nuxt internally uses [unjs/unctx](https://github.com/unjs/unctx) to support composables similar to Vue for plugins and middleware. This enables composables like `navigateTo()` to work without directly passing `nuxtApp` to them - bringing the DX and performance benefits of Composition API to the whole Nuxt framework.
+Nuxt는 내부적으로 [unjs/unctx](https://github.com/unjs/unctx)를 사용하여 플러그인과 미들웨어에서 Vue와 유사한 컴포저블을 지원합니다. 이를 통해 `navigateTo()`와 같은 컴포저블이 `nuxtApp`을 직접 전달하지 않아도 동작할 수 있으며, Composition API의 DX와 성능 이점을 Nuxt 프레임워크 전체에 제공합니다.
 
-Nuxt composables have the same design as the Vue Composition API and therefore need a similar solution to magically do this transform. Check out [unjs/unctx#2](https://github.com/unjs/unctx/issues/2) (proposal), [unjs/unctx#4](https://github.com/unjs/unctx/pull/4) (transform implementation), and [nuxt/framework#3884](https://github.com/nuxt/framework/pull/3884) (Integration to Nuxt).
+Nuxt 컴포저블은 Vue Composition API와 동일한 설계를 가지고 있으므로, 이러한 변환을 마법처럼 수행할 유사한 솔루션이 필요합니다. [unjs/unctx#2](https://github.com/unjs/unctx/issues/2) (제안), [unjs/unctx#4](https://github.com/unjs/unctx/pull/4) (변환 구현), [nuxt/framework#3884](https://github.com/nuxt/framework/pull/3884) (Nuxt 통합)를 참고하세요.
 
-Vue currently only supports async context restoration for `<script setup>` for async/await usage. In Nuxt, the transform support for `defineNuxtPlugin()` and `defineNuxtRouteMiddleware()` was added, which means when you use them Nuxt automatically transforms them with context restoration.
+Vue는 현재 `<script setup>`의 async/await 사용에 대해서만 비동기 컨텍스트 복원을 지원합니다. Nuxt에서는 `defineNuxtPlugin()`과 `defineNuxtRouteMiddleware()`에 대한 변환 지원이 추가되어, 이를 사용할 때 Nuxt가 자동으로 컨텍스트 복원을 적용합니다.
 
-#### Remaining Issues
+#### [남은 이슈](#remaining-issues)
 
-The `unjs/unctx` transformation to automatically restore context seems buggy with `try/catch` statements containing `await` which ultimately needs to be solved in order to remove the requirement of the workaround suggested above.
+`unjs/unctx`의 컨텍스트 자동 복원 변환은 `await`가 포함된 `try/catch` 문에서 버그가 있는 것으로 보이며, 위에서 제안한 우회 방법의 필요성을 제거하려면 궁극적으로 이 문제가 해결되어야 합니다.
 
-#### Native Async Context
+#### [네이티브 비동기 컨텍스트](#native-async-context)
 
-Using a new experimental feature, it is possible to enable native async context support using [Node.js `AsyncLocalStorage`](https://nodejs.org/api/async_context.html#class-asynclocalstorage) and new unctx support to make async context available **natively** to **any nested async composable** without needing a transform or manual passing/calling with context.
+새로운 실험적 기능을 사용하면 [Node.js `AsyncLocalStorage`](https://nodejs.org/api/async_context.html#class-asynclocalstorage)와 새로운 unctx 지원을 통해 **어떤 중첩된 비동기 컴포저블**에서도 변환이나 수동 컨텍스트 전달/호출 없이 **네이티브**로 비동기 컨텍스트를 사용할 수 있습니다.
 
 ::tip
-Native async context support works currently in Bun and Node.
+네이티브 비동기 컨텍스트 지원은 현재 Bun과 Node에서 동작합니다.
 ::
 
 :read-more{to="/docs/guide/going-further/experimental-features#asynccontext"}
 
-## tryUseNuxtApp
+## [tryUseNuxtApp](#tryusenuxtapp)
 
-This function works exactly the same as `useNuxtApp`, but returns `null` if context is unavailable instead of throwing an exception.
+이 함수는 `useNuxtApp`과 동일하게 동작하지만, 컨텍스트를 사용할 수 없는 경우 예외를 발생시키는 대신 `null`을 반환합니다.
 
-You can use it for composables that do not require `nuxtApp`, or to simply check if context is available or not without an exception.
+`nuxtApp`이 필요하지 않은 컴포저블이거나, 예외 없이 컨텍스트의 사용 가능 여부만 확인하고 싶을 때 사용할 수 있습니다.
 
-Example usage:
+사용 예시:
 
 ```ts [composable.ts]
 export function useStandType() {
-  // Always works on the client
+  // 클라이언트에서는 항상 동작합니다
   if (tryUseNuxtApp()) {
     return useRuntimeConfig().public.STAND_TYPE
   } else {
@@ -291,4 +291,4 @@ export function useStandType() {
 
 <!-- ### Params
 
-- `appName`: an optional application name. If you do not provide it, the Nuxt `buildId` option is used. Otherwise, it must match with an existing `buildId`. -->
+- `appName`: 선택적인 애플리케이션 이름입니다. 제공하지 않으면 Nuxt의 `buildId` 옵션이 사용됩니다. 그렇지 않으면 기존의 `buildId`와 일치해야 합니다. -->

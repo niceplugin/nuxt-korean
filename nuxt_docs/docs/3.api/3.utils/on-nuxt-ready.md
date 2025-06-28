@@ -1,6 +1,6 @@
 ---
 title: "onNuxtReady"
-description: The onNuxtReady composable allows running a callback after your app has finished initializing.
+description: onNuxtReady 컴포저블은 앱이 초기화를 마친 후 콜백을 실행할 수 있게 해줍니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,17 +9,17 @@ links:
 ---
 
 ::important
-`onNuxtReady` only runs on the client-side. :br
-It is ideal for running code that should not block the initial rendering of your app.
+`onNuxtReady`는 클라이언트 사이드에서만 실행됩니다. :br
+앱의 초기 렌더링을 방해하지 않아야 하는 코드를 실행하기에 이상적입니다.
 ::
 
 ```ts [plugins/ready.client.ts]
 export default defineNuxtPlugin(() => {
   onNuxtReady(async () => {
     const myAnalyticsLibrary = await import('my-big-analytics-library')
-    // do something with myAnalyticsLibrary
+    // myAnalyticsLibrary로 무언가를 수행합니다
   })
 })
 ```
 
-It is 'safe' to run even after your app has initialized. In this case, then the code will be registered to run in the next idle callback.
+앱이 이미 초기화된 후에도 '안전하게' 실행할 수 있습니다. 이 경우, 코드는 다음 idle 콜백에서 실행되도록 등록됩니다.

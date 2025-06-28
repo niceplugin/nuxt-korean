@@ -1,6 +1,6 @@
 ---
 title: 'reloadNuxtApp'
-description: reloadNuxtApp will perform a hard reload of the page.
+description: reloadNuxtApp은 페이지를 강제로 새로고침합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,16 +9,16 @@ links:
 ---
 
 ::note
-`reloadNuxtApp` will perform a hard reload of your app, re-requesting a page and its dependencies from the server.
+`reloadNuxtApp`은 앱을 강제로 새로고침하여, 페이지와 그 의존성을 서버에서 다시 요청합니다.
 ::
 
-By default, it will also save the current `state` of your app (that is, any state you could access with `useState`).
+기본적으로, 현재 앱의 `state`(즉, `useState`로 접근할 수 있는 모든 상태)를 저장합니다.
 
 ::read-more{to="/docs/guide/going-further/experimental-features#restorestate" icon="i-lucide-star"}
-You can enable experimental restoration of this state by enabling the `experimental.restoreState` option in your `nuxt.config` file.
+`nuxt.config` 파일에서 `experimental.restoreState` 옵션을 활성화하면 이 상태의 실험적 복원을 사용할 수 있습니다.
 ::
 
-## Type
+## [타입](#type)
 
 ```ts
 reloadNuxtApp(options?: ReloadNuxtAppOptions)
@@ -31,44 +31,44 @@ interface ReloadNuxtAppOptions {
 }
 ```
 
-### `options` (optional)
+### [`options` (선택)](#options-optional)
 
-**Type**: `ReloadNuxtAppOptions`
+**타입**: `ReloadNuxtAppOptions`
 
-An object accepting the following properties:
+다음 속성을 받는 객체입니다:
 
-- `path` (optional)
+- `path` (선택)
 
-  **Type**: `string`
+  **타입**: `string`
 
-  **Default**: `window.location.pathname`
+  **기본값**: `window.location.pathname`
 
-  The path to reload (defaulting to the current path). If this is different from the current window location it
-  will trigger a navigation and add an entry in the browser history.
+  새로고침할 경로(기본값은 현재 경로). 이 값이 현재 window 위치와 다르면
+  네비게이션이 발생하고 브라우저 히스토리에 항목이 추가됩니다.
 
-- `ttl` (optional)
+- `ttl` (선택)
 
-  **Type**: `number`
+  **타입**: `number`
 
-  **Default**: `10000`
+  **기본값**: `10000`
 
-  The number of milliseconds in which to ignore future reload requests. If called again within this time period,
-  `reloadNuxtApp` will not reload your app to avoid reload loops.
+  향후 새로고침 요청을 무시할 밀리초 단위의 시간입니다. 이 시간 내에 다시 호출되면,
+  `reloadNuxtApp`은 새로고침 루프를 방지하기 위해 앱을 새로고침하지 않습니다.
 
-- `force` (optional)
+- `force` (선택)
 
-  **Type**: `boolean`
+  **타입**: `boolean`
 
-  **Default**: `false`
+  **기본값**: `false`
 
-  This option allows bypassing reload loop protection entirely, forcing a reload even if one has occurred within
-  the previously specified TTL.
+  이 옵션을 사용하면 새로고침 루프 보호를 완전히 우회하여,
+  이전에 지정한 TTL 내에 새로고침이 발생했더라도 강제로 새로고침할 수 있습니다.
 
-- `persistState` (optional)
+- `persistState` (선택)
 
-  **Type**: `boolean`
+  **타입**: `boolean`
 
-  **Default**: `false`
+  **기본값**: `false`
 
-  Whether to dump the current Nuxt state to sessionStorage (as `nuxt:reload:state`). By default this will have no
-  effect on reload unless `experimental.restoreState` is also set, or unless you handle restoring the state yourself.
+  현재 Nuxt 상태를 sessionStorage(키: `nuxt:reload:state`)에 저장할지 여부입니다.
+  기본적으로는 `experimental.restoreState`가 설정되어 있거나, 직접 상태 복원을 처리하지 않는 한 새로고침에 아무런 영향을 주지 않습니다.
