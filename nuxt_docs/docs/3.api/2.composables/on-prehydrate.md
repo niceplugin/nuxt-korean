@@ -1,6 +1,6 @@
 ---
 title: "onPrehydrate"
-description: "Use onPrehydrate to run a callback on the client immediately before Nuxt hydrates the page."
+description: "onPrehydrate를 사용하여 Nuxt가 페이지를 하이드레이트하기 직전에 클라이언트에서 콜백을 실행할 수 있습니다."
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,55 +9,46 @@ links:
 ---
 
 ::important
-This composable is available in Nuxt v3.12+.
+이 컴포저블은 Nuxt v3.12+에서 사용할 수 있습니다.
 ::
 
-`onPrehydrate` is a composable lifecycle hook that allows you to run a callback on the client immediately before Nuxt hydrates the page.
+`onPrehydrate`는 Nuxt가 페이지를 하이드레이트하기 직전에 클라이언트에서 콜백을 실행할 수 있게 해주는
+컴포저블 라이프사이클 훅입니다.
+
 ::note
-This is an advanced utility and should be used with care. For example, [`nuxt-time`](https://github.com/danielroe/nuxt-time/pull/251) and [`@nuxtjs/color-mode`](https://github.com/nuxt-modules/color-mode/blob/main/src/script.js) manipulate the DOM to avoid hydration mismatches.
+이것은 고급 유틸리티이며 주의해서 사용해야 합니다. 예를 들어, [`nuxt-time`](https://github.com/danielroe/nuxt-time/pull/251) 및 [`@nuxtjs/color-mode`](https://github.com/nuxt-modules/color-mode/blob/main/src/script.js)는 하이드레이션 불일치를 방지하기 위해 DOM을 조작합니다.
 ::
 
-## Usage
+## [사용법](#usage)
 
-Call `onPrehydrate` in the setup function of a Vue component (e.g., in `<script setup>`) or in a plugin. It only has an effect when called on the server and will not be included in your client build.
+`onPrehydrate`는 Vue 컴포넌트의 setup 함수(예: `<script setup>`), 또는 플러그인에서 직접 호출할 수 있습니다.
+서버에서 호출될 때만 효과가 있으며, 클라이언트 빌드에는 포함되지 않습니다.
 
-## Type
+## [파라미터](#parameters)
 
-```ts [Signature]
-export function onPrehydrate(callback: (el: HTMLElement) => void): void
-export function onPrehydrate(callback: string | ((el: HTMLElement) => void), key?: string): undefined | string
-```
+- `callback`: 문자열로 변환되어 HTML에 인라인되는 함수입니다.
+외부 의존성(예: 자동 임포트)이나 콜백 외부에 정의된 변수에 의존해서는 안 됩니다.
+콜백은 Nuxt 런타임이 초기화되기 전에 실행되므로 Nuxt 또는 Vue 컨텍스트에 의존해서는 안 됩니다.
 
-## Parameters
-
-| Parameter | Type | Required | Description |
-| ---- | --- | --- | --- |
-| `callback` | `((el: HTMLElement) => void) \| string` | Yes | A function (or stringified function) to run before Nuxt hydrates. It will be stringified and inlined in the HTML. Should not have external dependencies or reference variables outside the callback. Runs before Nuxt runtime initializes, so it should not rely on Nuxt or Vue context. |
-| `key` | `string` | No | (Advanced) A unique key to identify the prehydrate script, useful for advanced scenarios like multiple root nodes. |
-
-## Return Values
-
-- Returns `undefined` when called with only a callback function.
-- Returns a string (the prehydrate id) when called with a callback and a key, which can be used to set or access the `data-prehydrate-id` attribute for advanced use cases.
-
-## Example
+## [예시](#example)
 
 ```vue twoslash [app.vue]
 <script setup lang="ts">
 declare const window: Window
 // ---cut---
-// Run code before Nuxt hydrates
+// onPrehydrate는 Nuxt가 하이드레이트하기 전에 실행되는 것이 보장됩니다.
 onPrehydrate(() => {
   console.log(window)
 })
 
-// Access the root element
+// 루트 노드가 하나만 있다면, 해당 엘리먼트에 접근할 수 있습니다.
 onPrehydrate((el) => {
   console.log(el.outerHTML)
   // <div data-v-inspector="app.vue:15:3" data-prehydrate-id=":b3qlvSiBeH:"> Hi there </div>
 })
 
-// Advanced: access/set `data-prehydrate-id` yourself
+// _매우_ 고급 사용 사례(예: 단일 루트 노드가 없는 경우)에는
+// 직접 `data-prehydrate-id`에 접근/설정할 수 있습니다.
 const prehydrateId = onPrehydrate((el) => {})
 </script>
 

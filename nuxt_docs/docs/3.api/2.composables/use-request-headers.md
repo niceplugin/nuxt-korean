@@ -1,6 +1,6 @@
 ---
 title: "useRequestHeaders"
-description: "Use useRequestHeaders to access the incoming request headers."
+description: "useRequestHeaders를 사용하여 들어오는 요청 헤더에 접근하세요."
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,25 +8,25 @@ links:
     size: xs
 ---
 
-You can use built-in [`useRequestHeaders`](/docs/api/composables/use-request-headers) composable to access the incoming request headers within your pages, components, and plugins.
+내장 [`useRequestHeaders`](/docs/api/composables/use-request-headers) 컴포저블을 사용하여 페이지, 컴포넌트, 플러그인 내에서 들어오는 요청 헤더에 접근할 수 있습니다.
 
 ```js
-// Get all request headers
+// 모든 요청 헤더 가져오기
 const headers = useRequestHeaders()
 
-// Get only cookie request header
+// cookie 요청 헤더만 가져오기
 const headers = useRequestHeaders(['cookie'])
 ```
 
 ::tip
-In the browser, `useRequestHeaders` will return an empty object.
+브라우저에서는 `useRequestHeaders`가 빈 객체를 반환합니다.
 ::
 
-## Example
+## [예시](#example)
 
-We can use `useRequestHeaders` to access and proxy the initial request's `authorization` header to any future internal requests during SSR.
+`useRequestHeaders`를 사용하여 SSR 중에 초기 요청의 `authorization` 헤더를 이후의 내부 요청에 프록시할 수 있습니다.
 
-The example below adds the `authorization` request header to an isomorphic `$fetch` call.
+아래 예시는 `authorization` 요청 헤더를 이소모픽 `$fetch` 호출에 추가합니다.
 
 ```vue [pages/some-page.vue]
 <script setup lang="ts">

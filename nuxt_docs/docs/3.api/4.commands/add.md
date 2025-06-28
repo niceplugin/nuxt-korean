@@ -1,6 +1,6 @@
 ---
 title: "nuxt add"
-description: "Scaffold an entity into your Nuxt application."
+description: "Nuxt 애플리케이션에 엔티티를 스캐폴딩합니다."
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -14,99 +14,99 @@ npx nuxt add <TEMPLATE> <NAME> [--cwd=<directory>] [--logLevel=<silent|info|verb
 ```
 <!--/add-cmd-->
 
-### Arguments
+### [인자](#arguments)
 
 <!--add-args-->
-Argument | Description
+인자 | 설명
 --- | ---
-`TEMPLATE` | Specify which template to generate (options: <api\|plugin\|component\|composable\|middleware\|layout\|page\|layer>)
-`NAME` | Specify name of the generated file
+`TEMPLATE` | 생성할 템플릿을 지정합니다 (옵션: <api\|plugin\|component\|composable\|middleware\|layout\|page\|layer>)
+`NAME` | 생성될 파일의 이름을 지정합니다
 <!--/add-args-->
 
-### Options
+### [옵션](#options)
 
 <!--add-opts-->
-Option | Default | Description
+옵션 | 기본값 | 설명
 --- | --- | ---
-`--cwd=<directory>` | `.` | Specify the working directory
-`--logLevel=<silent\|info\|verbose>` |  | Specify build-time log level
-`--force` | `false` | Force override file if it already exists
+`--cwd=<directory>` | `.` | 작업 디렉토리를 지정합니다
+`--logLevel=<silent\|info\|verbose>` |  | 빌드 시 로그 레벨을 지정합니다
+`--force` | `false` | 파일이 이미 존재할 경우 강제로 덮어씁니다
 <!--/add-opts-->
 
-**Modifiers:**
+**수정자:**
 
-Some templates support additional modifier flags to add a suffix (like `.client` or `.get`) to their name.
+일부 템플릿은 이름에 접미사(예: `.client` 또는 `.get`)를 추가할 수 있는 추가 수정자 플래그를 지원합니다.
 
 ```bash [Terminal]
-# Generates `/plugins/sockets.client.ts`
+# `/plugins/sockets.client.ts`를 생성합니다
 npx nuxt add plugin sockets --client
 ```
 
-## `nuxt add component`
+## [`nuxt add component`](#nuxt-add-component)
 
-* Modifier flags: `--mode client|server` or `--client` or `--server`
+* 수정자 플래그: `--mode client|server` 또는 `--client` 또는 `--server`
 
 ```bash [Terminal]
-# Generates `components/TheHeader.vue`
+# `components/TheHeader.vue`를 생성합니다
 npx nuxt add component TheHeader
 ```
 
-## `nuxt add composable`
+## [`nuxt add composable`](#nuxt-add-composable)
 
 ```bash [Terminal]
-# Generates `composables/foo.ts`
+# `composables/foo.ts`를 생성합니다
 npx nuxt add composable foo
 ```
 
-## `nuxt add layout`
+## [`nuxt add layout`](#nuxt-add-layout)
 
 ```bash [Terminal]
-# Generates `layouts/custom.vue`
+# `layouts/custom.vue`를 생성합니다
 npx nuxt add layout custom
 ```
 
-## `nuxt add plugin`
+## [`nuxt add plugin`](#nuxt-add-plugin)
 
-* Modifier flags: `--mode client|server` or `--client`or `--server`
+* 수정자 플래그: `--mode client|server` 또는 `--client` 또는 `--server`
 
 ```bash [Terminal]
-# Generates `plugins/analytics.ts`
+# `plugins/analytics.ts`를 생성합니다
 npx nuxt add plugin analytics
 ```
 
-## `nuxt add page`
+## [`nuxt add page`](#nuxt-add-page)
 
 ```bash [Terminal]
-# Generates `pages/about.vue`
+# `pages/about.vue`를 생성합니다
 npx nuxt add page about
 ```
 
 ```bash [Terminal]
-# Generates `pages/category/[id].vue`
+# `pages/category/[id].vue`를 생성합니다
 npx nuxt add page "category/[id]"
 ```
 
-## `nuxt add middleware`
+## [`nuxt add middleware`](#nuxt-add-middleware)
 
-* Modifier flags: `--global`
+* 수정자 플래그: `--global`
 
 ```bash [Terminal]
-# Generates `middleware/auth.ts`
+# `middleware/auth.ts`를 생성합니다
 npx nuxt add middleware auth
 ```
 
-## `nuxt add api`
+## [`nuxt add api`](#nuxt-add-api)
 
-* Modifier flags: `--method` (can accept `connect`, `delete`, `get`, `head`, `options`, `patch`, `post`, `put` or `trace`) or alternatively you can directly use `--get`, `--post`, etc.
+* 수정자 플래그: `--method` ( `connect`, `delete`, `get`, `head`, `options`, `patch`, `post`, `put` 또는 `trace`를 받을 수 있습니다) 또는 직접적으로 `--get`, `--post` 등도 사용할 수 있습니다.
 
 ```bash [Terminal]
-# Generates `server/api/hello.ts`
+# `server/api/hello.ts`를 생성합니다
 npx nuxt add api hello
 ```
 
-## `nuxt add layer`
+## [`nuxt add layer`](#nuxt-add-layer)
 
 ```bash [Terminal]
-# Generates `layers/subscribe/nuxt.config.ts`
+# `layers/subscribe/nuxt.config.ts`를 생성합니다
 npx nuxt add layer subscribe
 ```

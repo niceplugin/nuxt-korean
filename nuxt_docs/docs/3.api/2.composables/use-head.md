@@ -1,24 +1,24 @@
 ---
 title: useHead
-description: useHead customizes the head properties of individual pages of your Nuxt app.
+description: useHead는 Nuxt 앱의 개별 페이지의 head 속성을 사용자 정의합니다.
 links:
-  - label: Source
+  - label: 소스
     icon: i-simple-icons-github
     to: https://github.com/unjs/unhead/blob/main/packages/vue/src/composables.ts
     size: xs
 ---
 
-The [`useHead`](/docs/api/composables/use-head) composable function allows you to manage your head tags in a programmatic and reactive way, powered by [Unhead](https://unhead.unjs.io). If the data comes from a user or other untrusted source, we recommend you check out [`useHeadSafe`](/docs/api/composables/use-head-safe).
+[`useHead`](/docs/api/composables/use-head) 컴포저블 함수는 [Unhead](https://unhead.unjs.io)에 의해 구동되며, head 태그를 프로그래밍적이고 반응적으로 관리할 수 있게 해줍니다. 데이터가 사용자 또는 신뢰할 수 없는 소스에서 오는 경우, [`useHeadSafe`](/docs/api/composables/use-head-safe)를 참고하는 것을 권장합니다.
 
 :read-more{to="/docs/getting-started/seo-meta"}
 
-## Type
+## [타입](#type)
 
 ```ts
 useHead(meta: MaybeComputedRef<MetaObject>): void
 ```
 
-Below are the non-reactive types for [`useHead`](/docs/api/composables/use-head) .
+아래는 [`useHead`](/docs/api/composables/use-head) 의 비반응형 타입입니다.
 
 ```ts
 interface MetaObject {
@@ -35,35 +35,35 @@ interface MetaObject {
 }
 ```
 
-See [@unhead/vue](https://github.com/unjs/unhead/blob/main/packages/vue/src/types/schema.ts) for more detailed types.
+더 자세한 타입은 [@unhead/vue](https://github.com/unjs/unhead/blob/main/packages/vue/src/types/schema.ts)에서 확인할 수 있습니다.
 
 ::note
-The properties of `useHead` can be dynamic, accepting `ref`, `computed` and `reactive` properties. `meta` parameter can also accept a function returning an object to make the entire object reactive.
+`useHead`의 속성들은 동적으로, `ref`, `computed`, `reactive` 속성을 받을 수 있습니다. `meta` 파라미터는 객체를 반환하는 함수를 받아 전체 객체를 반응형으로 만들 수도 있습니다.
 ::
 
-## Params
+## [파라미터](#params)
 
-### `meta`
+### [`meta`](#meta)
 
-**Type**: `MetaObject`
+**타입**: `MetaObject`
 
-An object accepting the following head metadata:
+다음과 같은 head 메타데이터를 받는 객체입니다:
 
-- `meta`: Each element in the array is mapped to a newly-created `<meta>` tag, where object properties are mapped to the corresponding attributes.
-  - **Type**: `Array<Record<string, any>>`
-- `link`: Each element in the array is mapped to a newly-created `<link>` tag, where object properties are mapped to the corresponding attributes.
-  - **Type**: `Array<Record<string, any>>`
-- `style`: Each element in the array is mapped to a newly-created `<style>` tag, where object properties are mapped to the corresponding attributes.
-  - **Type**: `Array<Record<string, any>>`
-- `script`: Each element in the array is mapped to a newly-created `<script>` tag, where object properties are mapped to the corresponding attributes.
-  - **Type**: `Array<Record<string, any>>`
-- `noscript`: Each element in the array is mapped to a newly-created `<noscript>` tag, where object properties are mapped to the corresponding attributes.
-  - **Type**: `Array<Record<string, any>>`
-- `titleTemplate`: Configures dynamic template to customize the page title on an individual page.
-  - **Type**: `string` | `((title: string) => string)`
-- `title`: Sets static page title on an individual page.
-  - **Type**: `string`
-- `bodyAttrs`: Sets attributes of the `<body>` tag. Each object property is mapped to the corresponding attribute.
-  - **Type**: `Record<string, any>`
-- `htmlAttrs`: Sets attributes of the `<html>` tag. Each object property is mapped to the corresponding attribute.
-  - **Type**: `Record<string, any>`
+- `meta`: 배열의 각 요소는 새로 생성된 `<meta>` 태그에 매핑되며, 객체 속성은 해당 속성(attribute)에 매핑됩니다.
+  - **타입**: `Array<Record<string, any>>`
+- `link`: 배열의 각 요소는 새로 생성된 `<link>` 태그에 매핑되며, 객체 속성은 해당 속성(attribute)에 매핑됩니다.
+  - **타입**: `Array<Record<string, any>>`
+- `style`: 배열의 각 요소는 새로 생성된 `<style>` 태그에 매핑되며, 객체 속성은 해당 속성(attribute)에 매핑됩니다.
+  - **타입**: `Array<Record<string, any>>`
+- `script`: 배열의 각 요소는 새로 생성된 `<script>` 태그에 매핑되며, 객체 속성은 해당 속성(attribute)에 매핑됩니다.
+  - **타입**: `Array<Record<string, any>>`
+- `noscript`: 배열의 각 요소는 새로 생성된 `<noscript>` 태그에 매핑되며, 객체 속성은 해당 속성(attribute)에 매핑됩니다.
+  - **타입**: `Array<Record<string, any>>`
+- `titleTemplate`: 개별 페이지의 제목을 동적으로 커스터마이즈할 수 있는 템플릿을 설정합니다.
+  - **타입**: `string` | `((title: string) => string)`
+- `title`: 개별 페이지의 정적 제목을 설정합니다.
+  - **타입**: `string`
+- `bodyAttrs`: `<body>` 태그의 속성을 설정합니다. 각 객체 속성은 해당 속성(attribute)에 매핑됩니다.
+  - **타입**: `Record<string, any>`
+- `htmlAttrs`: `<html>` 태그의 속성을 설정합니다. 각 객체 속성은 해당 속성(attribute)에 매핑됩니다.
+  - **타입**: `Record<string, any>`

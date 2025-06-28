@@ -1,6 +1,6 @@
 ---
 title: 'updateAppConfig'
-description: 'Update the App Config at runtime.'
+description: '런타임에 앱 설정을 업데이트합니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,10 +9,10 @@ links:
 ---
 
 ::note
-Updates the [`app.config`](/docs/guide/directory-structure/app-config) using deep assignment. Existing (nested) properties will be preserved.
+[`app.config`](/docs/guide/directory-structure/app-config)를 딥 할당을 사용하여 업데이트합니다. 기존(중첩된) 속성은 유지됩니다.
 ::
 
-## Usage
+## [사용법](#usage)
 
 ```js
 const appConfig = useAppConfig() // { foo: 'bar' }

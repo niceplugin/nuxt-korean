@@ -10,8 +10,8 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
   useAsyncData('navigation', () => {
     return Promise.all([
       queryCollectionNavigation('docsv3', ['titleTemplate']),
-      queryCollectionNavigation('docsv4', ['titleTemplate']).then(data => data[0]?.children),
-      queryCollectionNavigation('blog')
+      // queryCollectionNavigation('docsv4', ['titleTemplate']).then(data => data[0]?.children),
+      // queryCollectionNavigation('blog')
     ])
   }, {
     transform: data => data.flat(),
@@ -20,8 +20,8 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
   useLazyAsyncData('search', () => {
     return Promise.all([
       queryCollectionSearchSections('docsv3'),
-      queryCollectionSearchSections('docsv4'),
-      queryCollectionSearchSections('blog')
+      // queryCollectionSearchSections('docsv4'),
+      // queryCollectionSearchSections('blog')
     ])
   }, {
     server: false,
@@ -33,7 +33,7 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
 onNuxtReady(() => fetchList())
 
 useHead({
-  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: The Intuitive Web Framework',
+  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: 직관적인 웹 프레임워크',
   meta: [
     { key: 'theme-color', name: 'theme-color', content: color }
   ]

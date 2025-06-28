@@ -1,6 +1,6 @@
 ---
 title: 'addRouteMiddleware'
-description: 'addRouteMiddleware() is a helper function to dynamically add middleware in your application.'
+description: 'addRouteMiddleware()는 애플리케이션에서 동적으로 미들웨어를 추가하는 헬퍼 함수입니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,10 +9,10 @@ links:
 ---
 
 ::note
-Route middleware are navigation guards stored in the [`middleware/`](/docs/guide/directory-structure/middleware) directory of your Nuxt application (unless [set otherwise](/docs/api/nuxt-config#middleware)).
+라우트 미들웨어는 Nuxt 애플리케이션의 [`middleware/`](/docs/guide/directory-structure/middleware) 디렉터리에 저장된 내비게이션 가드입니다(별도로 [설정하지 않은 경우](/docs/api/nuxt-config#middleware)).
 ::
 
-## Type
+## [타입](#type)
 
 ```ts
 function addRouteMiddleware (name: string, middleware: RouteMiddleware, options?: AddRouteMiddlewareOptions): void
@@ -23,64 +23,64 @@ interface AddRouteMiddlewareOptions {
 }
 ```
 
-## Parameters
+## [파라미터](#parameters)
 
-### `name`
+### [`name`](#name)
 
-- **Type:** `string` | `RouteMiddleware`
+- **타입:** `string` | `RouteMiddleware`
 
-Can be either a string or a function of type `RouteMiddleware`. Function takes the next route `to` as the first argument and the current route `from` as the second argument, both of which are Vue route objects.
+문자열 또는 `RouteMiddleware` 타입의 함수가 될 수 있습니다. 함수는 다음 라우트인 `to`를 첫 번째 인자로, 현재 라우트인 `from`을 두 번째 인자로 받으며, 둘 다 Vue 라우트 객체입니다.
 
-Learn more about available properties of [route objects](/docs/api/composables/use-route).
+[라우트 객체](/docs/api/composables/use-route)의 사용 가능한 속성에 대해 더 알아보세요.
 
-### `middleware`
+### [`middleware`](#middleware)
 
-- **Type:** `RouteMiddleware`
+- **타입:** `RouteMiddleware`
 
-The second argument is a function of type `RouteMiddleware`. Same as above, it provides `to` and `from` route objects. It becomes optional if the first argument in `addRouteMiddleware()` is already passed as a function.
+두 번째 인자는 `RouteMiddleware` 타입의 함수입니다. 위와 동일하게 `to`와 `from` 라우트 객체를 제공합니다. `addRouteMiddleware()`의 첫 번째 인자가 이미 함수로 전달된 경우에는 선택 사항이 됩니다.
 
-### `options`
+### [`options`](#options)
 
-- **Type:** `AddRouteMiddlewareOptions`
+- **타입:** `AddRouteMiddlewareOptions`
 
-An optional `options` argument lets you set the value of `global` to `true` to indicate whether the router middleware is global or not (set to `false` by default).
+선택적 `options` 인자를 사용하여 `global` 값을 `true`로 설정할 수 있으며, 라우터 미들웨어가 글로벌인지 여부를 나타냅니다(기본값은 `false`).
 
-## Examples
+## [예시](#examples)
 
-### Named Route Middleware
+### [이름이 지정된 라우트 미들웨어](#named-route-middleware)
 
-Named route middleware is defined by providing a string as the first argument and a function as the second:
+이름이 지정된 라우트 미들웨어는 첫 번째 인자로 문자열을, 두 번째 인자로 함수를 제공하여 정의합니다:
 
 ```ts [plugins/my-plugin.ts]
 export default defineNuxtPlugin(() => {
   addRouteMiddleware('named-middleware', () => {
-    console.log('named middleware added in Nuxt plugin')
+    console.log('Nuxt 플러그인에서 추가된 이름이 지정된 미들웨어')
   })
 })
 ```
 
-When defined in a plugin, it overrides any existing middleware of the same name located in the `middleware/` directory.
+플러그인에서 정의된 경우, `middleware/` 디렉터리에 동일한 이름으로 존재하는 기존 미들웨어를 덮어씁니다.
 
-### Global Route Middleware
+### [글로벌 라우트 미들웨어](#global-route-middleware)
 
-Global route middleware can be defined in two ways:
+글로벌 라우트 미들웨어는 두 가지 방법으로 정의할 수 있습니다:
 
-- Pass a function directly as the first argument without a name. It will automatically be treated as global middleware and applied on every route change.
+- 이름 없이 함수를 첫 번째 인자로 직접 전달합니다. 자동으로 글로벌 미들웨어로 간주되어 모든 라우트 변경 시 적용됩니다.
 
   ```ts [plugins/my-plugin.ts]
   export default defineNuxtPlugin(() => {
     addRouteMiddleware((to, from) => {
-      console.log('anonymous global middleware that runs on every route change')
+      console.log('모든 라우트 변경 시 실행되는 익명 글로벌 미들웨어')
     })
   })
   ```
 
-- Set an optional, third argument `{ global: true }` to indicate whether the route middleware is global.
+- 선택적 세 번째 인자 `{ global: true }`를 설정하여 라우트 미들웨어가 글로벌인지 여부를 나타냅니다.
 
   ```ts [plugins/my-plugin.ts]
   export default defineNuxtPlugin(() => {
     addRouteMiddleware('global-middleware', (to, from) => {
-        console.log('global middleware that runs on every route change')
+        console.log('모든 라우트 변경 시 실행되는 글로벌 미들웨어')
       },
       { global: true }
     )

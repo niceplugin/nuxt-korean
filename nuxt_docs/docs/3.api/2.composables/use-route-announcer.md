@@ -1,6 +1,6 @@
 ---
 title: 'useRouteAnnouncer'
-description: This composable observes the page title changes and updates the announcer message accordingly.
+description: 이 컴포저블은 페이지 제목의 변화를 관찰하고 이에 따라 알림 메시지를 업데이트합니다.
 navigation:
   badge: New
 links:
@@ -11,45 +11,45 @@ links:
 ---
 
 ::important
-This composable is available in Nuxt v3.12+.
+이 컴포저블은 Nuxt v3.12+에서 사용할 수 있습니다.
 ::
 
-## Description
+## [설명](#description)
 
-A composable which observes the page title changes and updates the announcer message accordingly. Used by [`<NuxtRouteAnnouncer>`](/docs/api/components/nuxt-route-announcer) and controllable.
-It hooks into Unhead's [`dom:rendered`](https://unhead.unjs.io/docs/typescript/head/api/hooks/dom-rendered) to read the page's title and set it as the announcer message.
+페이지 제목의 변화를 관찰하고 이에 따라 알림 메시지를 업데이트하는 컴포저블입니다. [`<NuxtRouteAnnouncer>`](/docs/api/components/nuxt-route-announcer)에서 사용되며 제어가 가능합니다.
+Unhead의 [`dom:rendered`](https://unhead.unjs.io/docs/typescript/head/api/hooks/dom-rendered)에 후킹하여 페이지의 제목을 읽고 이를 알림 메시지로 설정합니다.
 
-## Parameters
+## [파라미터](#parameters)
 
-- `politeness`: Sets the urgency for screen reader announcements: `off` (disable the announcement), `polite` (waits for silence), or `assertive` (interrupts immediately).  (default `polite`).
+- `politeness`: 스크린 리더 알림의 긴급도를 설정합니다: `off`(알림 비활성화), `polite`(조용해질 때까지 대기), 또는 `assertive`(즉시 중단). (기본값 `polite`).
 
-## Properties
+## [속성](#properties)
 
-### `message`
-
-- **type**: `Ref<string>`
-- **description**: The message to announce
-
-### `politeness`
+### [`message`](#message)
 
 - **type**: `Ref<string>`
-- **description**: Screen reader announcement urgency level `off`, `polite`, or `assertive`
+- **description**: 알릴 메시지
 
-## Methods
+### [`politeness`](#politeness)
 
-### `set(message, politeness = "polite")`
+- **type**: `Ref<string>`
+- **description**: 스크린 리더 알림의 긴급도 수준 `off`, `polite`, 또는 `assertive`
 
-Sets the message to announce with its urgency level.
+## [메서드](#methods)
 
-### `polite(message)`
+### [`set(message, politeness = "polite")`](#setmessage-politeness-polite)
 
-Sets the message with `politeness = "polite"`
+알릴 메시지와 그 긴급도 수준을 설정합니다.
 
-### `assertive(message)`
+### [`polite(message)`](#politemessage)
 
-Sets the message with `politeness = "assertive"`
+`politeness = "polite"`로 메시지를 설정합니다.
 
-## Example
+### [`assertive(message)`](#assertivemessage)
+
+`politeness = "assertive"`로 메시지를 설정합니다.
+
+## [예시](#example)
 
 ```vue [pages/index.vue]
 <script setup lang="ts">

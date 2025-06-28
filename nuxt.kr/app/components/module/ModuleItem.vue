@@ -24,9 +24,10 @@ function copyInstallCommand(moduleName: string) {
 
 <template>
   <UPageCard
-    :to="`/modules/${module.name}`"
+    :to="`https://nuxt.com/modules/${module.name}`"
     :title="module.npm"
     :description="module.description"
+    target="_blank"
     class="group"
     variant="subtle"
     :ui="{

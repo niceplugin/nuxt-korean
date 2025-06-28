@@ -1,7 +1,7 @@
 ---
 toc: false
-title: 'Pages'
-description: 'This example shows how to use the pages/ directory to create application routes.'
+title: '페이지'
+description: '이 예제는 pages/ 디렉토리를 사용하여 애플리케이션 라우트를 생성하는 방법을 보여줍니다.'
 ---
 
 :read-more{to="/docs/guide/directory-structure/pages"}

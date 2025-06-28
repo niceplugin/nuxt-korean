@@ -1,6 +1,6 @@
 ---
 title: 'setResponseStatus'
-description: setResponseStatus sets the statusCode (and optionally the statusMessage) of the response.
+description: setResponseStatus는 응답의 statusCode(및 선택적으로 statusMessage)를 설정합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,29 +8,29 @@ links:
     size: xs
 ---
 
-Nuxt provides composables and utilities for first-class server-side-rendering support.
+Nuxt는 일류 서버 사이드 렌더링 지원을 위한 컴포저블과 유틸리티를 제공합니다.
 
-`setResponseStatus` sets the statusCode (and optionally the statusMessage) of the response.
+`setResponseStatus`는 응답의 statusCode(및 선택적으로 statusMessage)를 설정합니다.
 
 ::important
-`setResponseStatus` can only be called in the [Nuxt context](/docs/guide/going-further/nuxt-app#the-nuxt-context).
+`setResponseStatus`는 [Nuxt 컨텍스트](/docs/guide/going-further/nuxt-app#the-nuxt-context)에서만 호출할 수 있습니다.
 ::
 
 ```js
 const event = useRequestEvent()
 
-// event will be undefined in the browser
+// event는 브라우저에서는 undefined입니다.
 if (event) {
-  // Set the status code to 404 for a custom 404 page
+  // 커스텀 404 페이지를 위해 상태 코드를 404로 설정합니다.
   setResponseStatus(event, 404)
 
-  // Set the status message as well
+  // 상태 메시지도 함께 설정합니다.
   setResponseStatus(event, 404, 'Page Not Found')
 }
 ```
 
 ::note
-In the browser, `setResponseStatus` will have no effect.
+브라우저에서는 `setResponseStatus`가 아무런 효과가 없습니다.
 ::
 
 :read-more{to="/docs/getting-started/error-handling"}

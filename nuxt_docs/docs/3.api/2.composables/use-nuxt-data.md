@@ -1,6 +1,6 @@
 ---
 title: 'useNuxtData'
-description: 'Access the current cached value of data fetching composables.'
+description: '데이터 패칭 컴포저블의 현재 캐시된 값을 가져옵니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,41 +9,41 @@ links:
 ---
 
 ::note
-`useNuxtData` gives you access to the current cached value of [`useAsyncData`](/docs/api/composables/use-async-data) , [`useLazyAsyncData`](/docs/api/composables/use-lazy-async-data), [`useFetch`](/docs/api/composables/use-fetch) and [`useLazyFetch`](/docs/api/composables/use-lazy-fetch) with explicitly provided key.
+`useNuxtData`를 사용하면 [`useAsyncData`](/docs/api/composables/use-async-data), [`useLazyAsyncData`](/docs/api/composables/use-lazy-async-data), [`useFetch`](/docs/api/composables/use-fetch), [`useLazyFetch`](/docs/api/composables/use-lazy-fetch)에서 명시적으로 제공된 키를 통해 현재 캐시된 값에 접근할 수 있습니다.
 ::
 
-## Usage
+## [사용법](#usage)
 
-The `useNuxtData` composable is used to access the current cached value of data-fetching composables such as `useAsyncData`, `useLazyAsyncData`, `useFetch`, and `useLazyFetch`. By providing the key used during the data fetch, you can retrieve the cached data and use it as needed.
+`useNuxtData` 컴포저블은 `useAsyncData`, `useLazyAsyncData`, `useFetch`, `useLazyFetch`와 같은 데이터 패칭 컴포저블의 현재 캐시된 값에 접근하는 데 사용됩니다. 데이터 패칭 시 사용한 키를 제공하면, 캐시된 데이터를 가져와 필요에 따라 사용할 수 있습니다.
 
-This is particularly useful for optimizing performance by reusing already-fetched data or implementing features like Optimistic Updates or cascading data updates.
+이는 이미 패칭된 데이터를 재사용하거나 Optimistic Updates, 계단식 데이터 업데이트와 같은 기능을 구현하여 성능을 최적화하는 데 특히 유용합니다.
 
-To use `useNuxtData`, ensure that the data-fetching composable (`useFetch`, `useAsyncData`, etc.) has been called with an explicitly provided key.
+`useNuxtData`를 사용하려면, 데이터 패칭 컴포저블(`useFetch`, `useAsyncData` 등)이 명시적으로 키와 함께 호출되었는지 확인해야 합니다.
 
-:video-accordion{title="Watch a video from LearnVue about useNuxtData" videoId="e-_u6swXRWk"}
+:video-accordion{title="LearnVue에서 useNuxtData에 대해 설명하는 영상을 시청하세요" videoId="e-_u6swXRWk"}
 
-## Params
+## [파라미터](#params)
 
-- `key`: The unique key that identifies the cached data. This key should match the one used during the original data fetch.
+- `key`: 캐시된 데이터를 식별하는 고유한 키입니다. 이 키는 원래 데이터 패칭 시 사용한 것과 일치해야 합니다.
 
-## Return Values
+## [반환 값](#return-values)
 
-- `data`: A reactive reference to the cached data associated with the provided key. If no cached data exists, the value will be `null`. This `Ref` automatically updates if the cached data changes, allowing seamless reactivity in your components.
+- `data`: 제공된 키와 연관된 캐시된 데이터에 대한 반응형 참조입니다. 캐시된 데이터가 없으면 값은 `null`이 됩니다. 이 `Ref`는 캐시된 데이터가 변경되면 자동으로 업데이트되어, 컴포넌트에서 원활한 반응성을 제공합니다.
 
-## Example
+## [예시](#example)
 
-The example below shows how you can use cached data as a placeholder while the most recent data is being fetched from the server.
+아래 예시는 서버에서 최신 데이터를 패칭하는 동안 캐시된 데이터를 플레이스홀더로 사용할 수 있는 방법을 보여줍니다.
 
 ```vue [pages/posts.vue]
 <script setup lang="ts">
-// We can access same data later using 'posts' key
+// 'posts' 키를 사용하여 나중에 동일한 데이터에 접근할 수 있습니다.
 const { data } = await useFetch('/api/posts', { key: 'posts' })
 </script>
 ```
 
 ```vue [pages/posts/[id\\].vue]
 <script setup lang="ts">
-// Access to the cached value of useFetch in posts.vue (parent route)
+// posts.vue(상위 라우트)에서 useFetch의 캐시된 값에 접근합니다.
 const { data: posts } = useNuxtData('posts')
 
 const route = useRoute()
@@ -51,22 +51,22 @@ const route = useRoute()
 const { data } = useLazyFetch(`/api/posts/${route.params.id}`, {
   key: `post-${route.params.id}`,
   default() {
-    // Find the individual post from the cache and set it as the default value.
+    // 캐시에서 개별 포스트를 찾아 기본값으로 설정합니다.
     return posts.value.find(post => post.id === route.params.id)
   }
 })
 </script>
 ```
 
-## Optimistic Updates
+## [Optimistic Updates](#optimistic-updates)
 
-The example below shows how implementing Optimistic Updates can be achieved using useNuxtData.
+아래 예시는 useNuxtData를 사용하여 Optimistic Updates를 구현하는 방법을 보여줍니다.
 
-Optimistic Updates is a technique where the user interface is updated immediately, assuming a server operation will succeed. If the operation eventually fails, the UI is rolled back to its previous state.
+Optimistic Updates는 서버 작업이 성공할 것이라고 가정하고 사용자 인터페이스를 즉시 업데이트하는 기법입니다. 작업이 실패하면 UI를 이전 상태로 롤백합니다.
 
 ```vue [pages/todos.vue]
 <script setup lang="ts">
-// We can access same data later using 'todos' key
+// 'todos' 키를 사용하여 나중에 동일한 데이터에 접근할 수 있습니다.
 const { data } = await useAsyncData('todos', () => $fetch('/api/todos'))
 </script>
 ```
@@ -76,7 +76,7 @@ const { data } = await useAsyncData('todos', () => $fetch('/api/todos'))
 const newTodo = ref('')
 let previousTodos = []
 
-// Access to the cached value of useAsyncData in todos.vue
+// todos.vue에서 useAsyncData의 캐시된 값에 접근합니다.
 const { data: todos } = useNuxtData('todos')
 
 async function addTodo () {
@@ -86,18 +86,18 @@ async function addTodo () {
       todo: newTodo.value
     },
     onRequest () {
-      // Store the previously cached value to restore if fetch fails.
+      // 패칭 실패 시 복원할 수 있도록 이전 캐시 값을 저장합니다.
       previousTodos = todos.value
 
-      // Optimistically update the todos.
+      // Optimistic하게 todos를 업데이트합니다.
       todos.value = [...todos.value, newTodo.value]
     },
     onResponseError () {
-      // Rollback the data if the request failed.
+      // 요청이 실패하면 데이터를 롤백합니다.
       todos.value = previousTodos
     },
     async onResponse () {
-      // Invalidate todos in the background if the request succeeded.
+      // 요청이 성공하면 백그라운드에서 todos를 무효화합니다.
       await refreshNuxtData('todos')
     }
   })
@@ -105,7 +105,7 @@ async function addTodo () {
 </script>
 ```
 
-## Type
+## [타입](#type)
 
 ```ts
 useNuxtData<DataT = any> (key: string): { data: Ref<DataT | undefined> }
