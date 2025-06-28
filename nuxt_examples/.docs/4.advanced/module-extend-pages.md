@@ -1,7 +1,7 @@
 ---
 toc: false
-title: 'Module Extend Pages'
-description: 'This example defines a new `test` page using `extendPages` within a module.'
+title: '모듈 페이지 확장'
+description: '이 예제는 모듈 내에서 `extendPages`를 사용하여 새로운 `test` 페이지를 정의합니다.'
 ---
 
 :read-more{to="/docs/guide/going-further/modules"}

@@ -1,7 +1,7 @@
 ---
 toc: false
-title: 'Error Handling'
-description: 'This example shows how to handle errors in different contexts: pages, plugins, components and middleware.'
+title: '에러 처리'
+description: '이 예제는 페이지, 플러그인, 컴포넌트 및 미들웨어 등 다양한 컨텍스트에서 에러를 처리하는 방법을 보여줍니다.'
 ---
 
 :read-more{to="/docs/getting-started/error-handling"}
