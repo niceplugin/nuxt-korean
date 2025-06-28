@@ -11,7 +11,7 @@ links:
 ---
 
 ::important
-이 유틸리티는 [Nuxt v3.10](/blog/v3-10)부터 사용할 수 있습니다.
+이 유틸리티는 [Nuxt v3.10](https://nuxt.com/blog/v3-10)부터 사용할 수 있습니다.
 ::
 
 ## [목적](#purpose)

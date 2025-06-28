@@ -8,7 +8,7 @@ links:
     size: xs
 ---
 
-Nuxt는 [Nuxt 모듈](/modules)을 원활하게 다룰 수 있는 몇 가지 유틸리티를 제공합니다.
+Nuxt는 [Nuxt 모듈](https://nuxt.com/modules)을 원활하게 다룰 수 있는 몇 가지 유틸리티를 제공합니다.
 
 ## [nuxt module add](#nuxt-module-add)
 
@@ -34,7 +34,7 @@ npx nuxt module add <MODULENAME> [--cwd=<directory>] [--logLevel=<silent|info|ve
 `--dev` |  | 모듈을 개발 의존성으로 설치
 <!--/module-add-opts-->
 
-이 명령어를 사용하면 [Nuxt 모듈](/modules)을 수동 작업 없이 애플리케이션에 설치할 수 있습니다.
+이 명령어를 사용하면 [Nuxt 모듈](https://nuxt.com/modules)을 수동 작업 없이 애플리케이션에 설치할 수 있습니다.
 
 명령어를 실행하면 다음 작업이 수행됩니다:
 
@@ -44,7 +44,7 @@ npx nuxt module add <MODULENAME> [--cwd=<directory>] [--logLevel=<silent|info|ve
 
 **예시:**
 
-[`Pinia`](/modules/pinia) 모듈 설치
+[`Pinia`](https://nuxt.com/modules/pinia) 모듈 설치
 
 ```bash [Terminal]
 npx nuxt module add pinia
