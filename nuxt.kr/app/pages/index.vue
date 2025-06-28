@@ -25,7 +25,7 @@ const stats = useStats()
 const videoModalOpen = ref(false)
 
 const site = useSiteConfig()
-const title = 'Nuxt: The Progressive Web Framework'
+const title = 'Nuxt: 진보적인 웹 프레임워크'
 useSeoMeta({
   title,
   titleTemplate: '%s'
