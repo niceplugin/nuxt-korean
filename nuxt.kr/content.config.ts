@@ -1,8 +1,9 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
-
+// pnpm --prefix ./nuxt.kr generate
 const docsV3Source = {
-  cwd: process.env.NUXT_PATH ?? undefined,
-  repository: !process.env.NUXT_PATH ? 'https://github.com/nuxt/nuxt/tree/3.x' : undefined,
+  cwd: process.cwd().replace('nuxt.kr', 'nuxt_docs'),
+  // cwd: process.env.NUXT_PATH ?? undefined,
+  // repository: !process.env.NUXT_PATH ? 'https://github.com/nuxt/nuxt/tree/3.x' : undefined,
   include: 'docs/**/*',
   exclude: ['docs/**/*.json']
 }
@@ -16,8 +17,9 @@ const docsV3Source = {
 // }
 
 const examplesV3Source = {
-  cwd: process.env.NUXT_EXAMPLES_PATH ?? undefined,
-  repository: !process.env.NUXT_EXAMPLES_PATH ? 'https://github.com/nuxt/examples' : undefined,
+  cwd: process.cwd().replace('nuxt.kr', 'nuxt_examples'),
+  // cwd: process.env.NUXT_EXAMPLES_PATH ?? undefined,
+  // repository: !process.env.NUXT_EXAMPLES_PATH ? 'https://github.com/nuxt/examples' : undefined,
   include: '.docs/**/*',
   prefix: '/docs/4.examples'
 }
