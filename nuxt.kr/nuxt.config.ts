@@ -20,8 +20,13 @@ export default defineNuxtConfig({
     'nuxt-llms',
     // '@nuxthub/core',
     'nuxt-charts',
-    'nuxt-auth-utils'
+    'nuxt-auth-utils',
+    '@nuxtjs/sitemap'
   ],
+  site: {
+    url: 'https://nuxt.kr',
+    name: 'Nuxt 진보적인 웹 프레임워크'
+  },
   $development: {
     site: {
       url: 'http://localhost:3000'
