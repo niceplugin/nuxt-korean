@@ -10,7 +10,6 @@ export default defineNuxtConfig({
     'nuxt-content-twoslash',
     '@nuxt/content',
     '@nuxt/image',
-    '@nuxtjs/plausible',
     '@nuxt/eslint',
     '@nuxt/scripts',
     '@nuxtjs/turnstile',
@@ -18,9 +17,6 @@ export default defineNuxtConfig({
     'nuxt-og-image',
     'motion-v/nuxt',
     'nuxt-llms',
-    // '@nuxthub/core',
-    'nuxt-charts',
-    'nuxt-auth-utils',
     '@nuxtjs/sitemap'
   ],
   site: {
@@ -128,7 +124,7 @@ export default defineNuxtConfig({
     // '/docs/4.x/guide/recipes': { redirect: '/docs/4.x/guide/recipes/custom-routing', prerender: false },
     '/docs/guide/best-practices': { redirect: '/docs/guide/best-practices/performance', prerender: false },
     // '/docs/4.x/guide/best-practices': { redirect: '/docs/4.x/guide/best-practices/performance', prerender: false },
-    '/docs/guide/going-further/custom-routing': { redirect: '/docs/guide/recipes/custom-routing', prerender: false },
+    '/docs/guide/going-further/custom-routing': { redirect: '/docs/guide/recipes/custom-routing', prerender: false }
     // '/docs/4.x/guide/going-further/custom-routing': { redirect: '/docs/4.x/guide/recipes/custom-routing', prerender: false },
     // new directory structure
     // '/docs/4.x/guide/directory-structure/assets': { redirect: '/docs/4.x/guide/directory-structure/app/assets', prerender: false },
@@ -170,18 +166,10 @@ export default defineNuxtConfig({
       }
     }
   },
-  hub: {
-    cache: true
-  },
   typescript: {
     strict: false
   },
   hooks: {
-    'content:file:beforeParse': async ({ file }) => {
-      if (file.id.startsWith('docsv4/')) {
-        file.body = file.body.replaceAll('(/docs/', '(/docs/4.x/')
-      }
-    },
     'content:file:afterParse': async ({ file, content }) => {
       if (file.id === 'index/index.yml') {
         // @ts-expect-error -- TODO: fix this
