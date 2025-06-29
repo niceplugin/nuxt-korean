@@ -6,7 +6,7 @@ definePageMeta({
   heroBackground: '-z-10'
 })
 
-const [{ data: page }, { data: officialModules }, { data: showcase }, { getFilteredSponsors }] = await Promise.all([
+const [{ data: page }, { data: officialModules }, { data: showcase }] = await Promise.all([
   useAsyncData('index', () => queryCollection('index').first()),
   useFetch('https://api.nuxt.com/modules', {
     key: 'official-modules',
@@ -14,11 +14,8 @@ const [{ data: page }, { data: officialModules }, { data: showcase }, { getFilte
       .filter(module => module.type === 'official')
       .sort((a, b) => b.stats.stars - a.stats.stars)
   }),
-  useAsyncData('showcase', () => queryCollection('showcase').first()),
-  useSponsors()
+  useAsyncData('showcase', () => queryCollection('showcase').first())
 ])
-
-const sponsorGroups = getFilteredSponsors(['diamond', 'platinum', 'gold'])
 
 const stats = useStats()
 
@@ -590,73 +587,6 @@ onMounted(() => {
         </UCarousel>
       </UPageSection>
 
-      <UPageSection
-        :title="page.sponsors.title"
-        :description="page.sponsors.description"
-        :links="page.sponsors.links"
-        class="relative"
-        :ui="{
-          root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-default',
-          container: 'py-12 sm:py-16 lg:py-20'
-        }"
-      >
-        <div class="flex flex-col items-center">
-          <template v-for="({ tier, sponsors }) of sponsorGroups" :key="tier">
-            <div class="w-full mb-24">
-              <UBadge color="neutral" variant="subtle" class="capitalize mb-2">
-                {{ tier }} sponsors
-              </UBadge>
-
-              <div class="w-full border border-default rounded-lg">
-                <table class="w-full">
-                  <tbody>
-                    <template v-for="(_, rowIndex) in Math.ceil(sponsors.length / 3)" :key="rowIndex">
-                      <tr>
-                        <template v-for="colIndex in 3" :key="colIndex">
-                          <td
-                            v-if="(rowIndex * 3) + colIndex - 1 < sponsors.length"
-                            class="border-b border-r border-default p-0 w-1/3 h-[120px]"
-                            :class="{
-                              'border-r-0': colIndex === 3,
-                              'border-b-0': rowIndex === Math.ceil(sponsors.length / 3) - 1
-                            }"
-                          >
-                            <NuxtLink
-                              :to="sponsors[(rowIndex * 3) + colIndex - 1].sponsorUrl"
-                              target="_blank"
-                              class="flex items-center gap-2 justify-center h-full hover:bg-muted/50 transition-colors"
-                            >
-                              <NuxtImg
-                                :src="sponsors[(rowIndex * 3) + colIndex - 1].sponsorLogo"
-                                :alt="`${sponsors[(rowIndex * 3) + colIndex - 1].sponsorName} logo`"
-                                loading="lazy"
-                                class="h-10 max-w-[140px] object-contain rounded-lg"
-                                height="40"
-                                width="40"
-                              />
-                              <span class="text-base hidden sm:block font-semibold">{{ sponsors[(rowIndex * 3) + colIndex - 1].sponsorName }}</span>
-                            </NuxtLink>
-                          </td>
-                          <td
-                            v-else
-                            class="border-b border-r border-default p-0 w-1/3 h-[120px]"
-                            :class="{
-                              'border-r-0': colIndex === 3,
-                              'border-b-0': rowIndex === Math.ceil(sponsors.length / 3) - 1
-                            }"
-                          >
-                            <div class="h-full" />
-                          </td>
-                        </template>
-                      </tr>
-                    </template>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </template>
-        </div>
-      </UPageSection>
     </client-only>
   </div>
 </template>
