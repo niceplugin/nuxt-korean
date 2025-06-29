@@ -191,9 +191,6 @@ export default defineContentConfig({
         }),
         support: PageSection.extend({
           companies: z.array(Image.pick({ src: true, alt: true }))
-        }),
-        sponsors: PageSection.extend({
-          cta: Button
         })
       })
     }),
@@ -211,18 +208,6 @@ export default defineContentConfig({
     //   schema: z.object({
     //     titleTemplate: z.string().optional(),
     //     links: z.array(Button)
-    //   })
-    // }),
-    // blog: defineCollection({
-    //   type: 'page',
-    //   source: 'blog/*',
-    //   schema: z.object({
-    //     image: z.string().editor({ input: 'media' }),
-    //     authors: z.array(Author),
-    //     date: z.string().date(),
-    //     draft: z.boolean().optional(),
-    //     category: z.enum(['Release', 'Tutorial', 'Announcement', 'Article']),
-    //     tags: z.array(z.string())
     //   })
     // }),
     landing: defineCollection({
@@ -245,18 +230,6 @@ export default defineContentConfig({
     //     category: z.string(),
     //     nitroPreset: z.string(),
     //     website: z.string().url()
-    //   })
-    // }),
-    // manualSponsors: defineCollection({
-    //   type: 'data',
-    //   source: 'enterprise/manual-sponsors.yml',
-    //   schema: z.object({
-    //     sponsors: z.array(z.object({
-    //       sponsorName: z.string(),
-    //       sponsorLogo: z.string(),
-    //       sponsorUrl: z.string(),
-    //       tier: z.enum(['diamond', 'platinum', 'gold', 'silver', 'bronze', 'backers'])
-    //     })).optional()
     //   })
     // }),
     // support: defineCollection({

@@ -9,8 +9,10 @@ if (!useNuxtApp().isHydrating) {
 
 <template>
   <div class="space-y-3">
-    <AdsUIPro v-if="uiPro" />
-<!--    <AdsFallback v-else-if="$ads.adBlocked.value" />-->
-<!--    <LazyAdsCarbon v-else :key="route.path" />-->
+    <client-only>
+      <AdsUIPro v-if="uiPro" />
+    </client-only>
+  <!--  <AdsFallback v-else-if="$ads.adBlocked.value" />  -->
+  <!--  <LazyAdsCarbon v-else :key="route.path" />  -->
   </div>
 </template>

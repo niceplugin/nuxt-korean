@@ -136,12 +136,7 @@ function _useHeaderLinks() {
         icon: 'i-lucide-hand-heart',
         target: '_blank'
       }]
-    }, {
-      label: '블로그',
-      icon: 'i-lucide-newspaper',
-      to: 'https://nuxt.com/blog',
-      target: '_blank'
-    }]
+}]
   })
 
   return { headerLinks }
@@ -270,13 +265,8 @@ const _useNavigation = () => {
       items: []
     }
 
-    const hostingGroup: SearchGroup = {
-      id: 'hosting-search',
-      label: 'Hosting',
-      items: []
-    }
 
-    const groups = [aiGroup, modulesGroup, hostingGroup]
+    const groups = [aiGroup, modulesGroup]
 
     if (!searchTerm.value) {
       return groups
@@ -314,35 +304,9 @@ const _useNavigation = () => {
         }))
     }
 
-    const loadHosting = async () => {
-      const { providers, fetchList } = useHostingProviders()
-      if (!providers.value.length) {
-        await fetchList()
-      }
-
-      hostingGroup.items = providers.value
-        .filter(hosting => ['title'].map(field => hosting[field as keyof typeof hosting]).filter(Boolean).some(value => typeof value === 'string' && value.search(searchTextRegExp(searchTerm.value)) !== -1))
-        .map(hosting => ({
-          id: `hosting-${hosting.path}`,
-          label: hosting.title,
-          suffix: hosting.description,
-          icon: hosting.logoIcon,
-          avatar: hosting.logoSrc
-            ? {
-                src: hosting.logoSrc,
-                ui: {
-                  root: 'rounded-none bg-transparent'
-                }
-              }
-            : undefined,
-          to: hosting.path
-        }))
-    }
-
     onMounted(() => {
       Promise.all([
-        loadModules(),
-        loadHosting()
+        loadModules()
       ]).catch(error => console.error('Error loading search results:', error))
     })
 
