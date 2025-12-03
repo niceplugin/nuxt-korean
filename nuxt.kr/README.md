@@ -1,4 +1,4 @@
-<a href="https://nuxt.com"><img width="1200" alt="Nuxt Website" src="https://github.com/nuxt/nuxt.com/assets/904724/22772d8b-4fff-4cf9-a592-85c5ff5d6d58"></a>
+<a href="https://nuxt.com"><img width="1200" alt="Nuxt Website" src="./public/website.jpg"></a>
 
 # nuxt.com
 
@@ -33,7 +33,7 @@ If you are on Windows, you can use the following command instead:
 echo %cd%
 ```
 
-Copy the output of the command above and paste it in the `NUXT_PATH` variable in the `.env` file.
+Copy the output of the command above and paste it in the `NUXT_PATH` and `NUXT_V4_PATH` variables in the `.env` file.
 
 ## Development
 
@@ -64,6 +64,34 @@ Build the application for production:
 ```bash
 pnpm generate
 ```
+
+### Running Evals for the MCP Server
+
+To run the evals for the MCP server, follow these steps:
+
+1. **Ensure your development server is running**  
+   Start the local Nuxt development server:
+   ```bash
+   pnpm dev
+   ```
+
+2. **Create an AI Gateway API key**  
+   Go to https://vercel.com/ai-gateway and create an API key.
+   Add the following variable to your `.env` file (replace `sk-...` with your actual key):
+   ```
+   AI_GATEWAY_API_KEY=<you-api-key>
+   ```
+
+3. **Run the evals**  
+   You can execute the evals from the command line:
+   ```bash
+   pnpm eval
+   ```
+
+   Or launch the interactive UI to run them via a web interface:
+   ```bash
+   pnpm eval:ui
+   ```
 
 ## License
 

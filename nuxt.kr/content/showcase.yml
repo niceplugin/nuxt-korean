@@ -23,6 +23,10 @@ websites:
     url: https://developer.microsoft.com/en-us/microsoft-edge
     screenshotOptions:
       cookies: ['MSCC=cid=psmupjn1uooack94vj8ishtx-c1=2-c2=2-c3=2;']
+  - name: Comet by Perplexity AI
+    url: https://comet.perplexity.ai
+    screenshotOptions:
+      delay: 8
   - name: Tiktok Ads
     url: https://tiktok.com/business/en
     screenshotOptions:
@@ -116,5 +120,41 @@ websites:
     url: https://pushsecurity.com/
     screenshotOptions:
       delay: 5
-
-
+  - name: Toolstation
+    url: https://www.toolstation.nl/
+    screenshotOptions:
+      cookies: ['OptanonAlertBoxClosed=2025-05-02T22:04:35.770Z']
+  - name: Vans
+    url: https://www.vans.com
+    delay: 5
+    screenshotOptions:
+      cookies: ['OptanonAlertBoxClosed=2025-05-02T22:04:35.770Z']
+  - name: The North Face
+    url: https://www.thenorthface.com
+    delay: 5
+    hideElements: ['.cms-promo-bar-1']
+    screenshotOptions:
+      cookies: ['OptanonAlertBoxClosed=2025-05-02T22:04:35.770Z']
+  - name: Timberland
+    url: https://www.timberland.com
+    delay: 5
+    screenshotOptions:
+      cookies: ['OptanonAlertBoxClosed=2025-05-02T22:04:35.770Z']
+  - name: On Running
+    url: https://www.on.com/
+    delay: 5
+    screenshotOptions:
+      cookies: ['OptanonAlertBoxClosed=2025-05-02T22:04:35.770Z']
+  - name: Promod
+    url: https://www.promod.com/en/
+    screenshotOptions:
+      cookies: ['TC_PRIVACY=0%23006%7C3%7C485%231%2C2%2C3%234%231760984617135%2C1760984617135%2C1794680617135%23']
+  - name: Departamento
+    url: https://www.dpto.la/
+  - name: Hai
+    url: https://www.homeofhai.com/
+    delay: 5
+  - name: Shaina Mote
+    url: https://www.shainamote.com/
+    screenshotOptions:
+      hideElements: ['.cookie-policy', '.announcement-bar']
