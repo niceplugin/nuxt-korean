@@ -23,7 +23,7 @@ const versions: Version[] = [
     shortTag: 'v3',
     branch: '3.x',
     tagColor: 'neutral',
-    path: '/docs/3.x',
+    path: 'https://nuxt.com/docs/3.x',
     collection: 'docsv3'
   },
   {
