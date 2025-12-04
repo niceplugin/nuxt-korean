@@ -25,14 +25,14 @@ const stats = useStats()
 const videoModalOpen = ref(false)
 
 const site = useSiteConfig()
-const title = 'Nuxt: The Progressive Web Framework'
+const title = 'Nuxt: 프로그레시브 웹 프레임워크'
 useSeoMeta({
   title,
   titleTemplate: '%s'
 })
 
 if (import.meta.server) {
-  const description = 'Create high-quality web applications with Nuxt, the open source framework that makes full-stack development with Vue.js intuitive.'
+  const description = 'Nuxt는 Vue.js를 사용한 풀스택 개발을 직관적으로 만들어 주는 오픈 소스 프레임워크로, 고품질 웹 애플리케이션을 손쉽게 구축할 수 있게 해줍니다.'
   useSeoMeta({
     ogTitle: title,
     description: description,
@@ -120,7 +120,7 @@ onMounted(() => {
       </template>
 
       <template #title>
-        The Progressive<br><span class="text-primary">Web Framework</span>
+        프로그레시브<br><span class="text-primary">웹 프레임워크</span>
       </template>
 
       <template #description>
@@ -131,7 +131,7 @@ onMounted(() => {
         <div class="flex flex-col gap-4">
           <div class="flex items-center flex-wrap gap-2">
             <UButton to="/docs/getting-started/installation" size="xl">
-              Get started
+              시작하기
             </UButton>
             <UButton size="xl" color="neutral" variant="subtle" trailing-icon="i-lucide-play-circle" @click="videoModalOpen = true">
               Nuxt in 100 seconds
@@ -500,6 +500,7 @@ onMounted(() => {
     </UPageSection>
 
     <UPageSection
+      v-if="false"
       id="showcase"
       headline="Showcase"
       title="Real-world Web Applications built with Nuxt"

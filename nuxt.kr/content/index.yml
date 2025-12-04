@@ -1,6 +1,6 @@
 hero:
-  title: 'The Progressive Web Framework'
-  description: Create high-quality web applications with Nuxt, the open source framework that makes full-stack development with Vue.js intuitive.
+  title: '프로그레시브 웹 프레임워크'
+  description: 고품질 웹 애플리케이션을 만들 수 있는 Nuxt는 Vue.js 기반 풀스택 개발을 직관적으로 만들어주는 오픈 소스 프레임워크입니다.
   cta:
     label: Nuxt MCP Server is out
     to: /docs/4.x/guide/ai/mcp
@@ -238,7 +238,7 @@ hero:
         ```
         ::
 logos:
-  title: Chosen by leading companies worldwide
+  title: 세계 유수 기업들이 선택한 기술
   companies:
     - light: /assets/brands/light/louis-vuitton.svg
       dark: /assets/brands/dark/louis-vuitton.svg
@@ -281,54 +281,54 @@ logos:
       height: 40
       width: 51
 features:
-  title: Enable features as you grow
-  description: Nuxt grows and adapts with your needs while providing an exceptional developer experience. Build anything from simple landing pages to complex web applications that scale for teams of hundreds of developers. We've designed Nuxt to be approachable for developers of all skill levels.
+  title: 성장 단계에 맞춰 기능 확장
+  description: Nuxt는 뛰어난 개발자 경험과 함께 필요에 맞게 확장되도록 설계되었습니다. 간단한 랜딩 페이지부터 개발자 수백 명 규모의 복잡한 웹 애플리케이션까지 구축할 수 있습니다.
   features:
     - icon: i-lucide-sparkles
-      title: Zero Configuration
-      description: Start coding with Vue or Typescript immediately — Nuxt handles all the setup for you.
+      title: 제로 구성
+      description: Vue 또는 TypeScript로 즉시 코딩을 시작하십시오 — Nuxt가 모든 설정을 처리합니다.
     - icon: i-lucide-file-code-2
-      title: Rendering Modes
-      description: Server-side rendering, client-side rendering, static-site generation, you decide, up to the page level.
+      title: 렌더링 모드
+      description: 서버 사이드 렌더링, 클라이언트 사이드 렌더링, 정적 사이트 생성까지 페이지 단위로 원하는 방식을 선택할 수 있습니다.
     - icon: i-lucide-milestone
-      title: Routing & Layouts
-      description: Use our file-based routing system to build complex url-based views while reusing components for performance.
+      title: 라우팅 & 레이아웃
+      description: 파일 기반 라우팅 시스템을 활용해 복잡한 URL 기반 뷰를 구축하고 구성 요소를 재사용하여 성능을 최적화하십시오.
     - icon: i-lucide-unplug
-      title: Data Fetching
-      description: Make your Vue component async and await your data. Nuxt provides powerful composables for universal data fetching.
+      title: 데이터 패칭
+      description: Vue 컴포넌트를 async로 만들고 데이터를 기다리십시오. Nuxt는 범용 데이터 패칭을 위한 강력한 composable을 제공합니다.
     - icon: i-lucide-bug
-      title: Error Handling
-      description: Catch errors in your application with our built-in handlers and custom error pages.
+      title: 오류 처리
+      description: 내장 핸들러와 사용자 정의 오류 페이지로 애플리케이션 오류를 추적하고 처리하십시오.
     - icon: i-lucide-flip-horizontal
-      title: Transitions
-      description: Implement smooth transitions between layouts, pages, and components.
+      title: 전환 효과
+      description: 레이아웃, 페이지, 컴포넌트 간 부드러운 전환을 구현하십시오.
     - icon: i-lucide-image
-      title: Assets & Style
-      description: Benefit from automatic image, font, and script optimizations with built-in support.
+      title: 에셋 & 스타일
+      description: 자동 이미지, 폰트, 스크립트 최적화를 통해 더욱 효율적으로 작업하십시오.
     - icon: i-lucide-file-search
-      title: SEO & Meta Tags
-      description: Create production-ready applications that are fully indexable by search engines.
+      title: SEO & 메타 태그
+      description: 검색 엔진에서 완전히 색인될 수 있는 프로덕션 준비 완료 애플리케이션을 생성하십시오.
     - icon: i-lucide-puzzle
-      title: Modular
-      description: Extend Nuxt features with 200+ modules to ship your application faster.
+      title: 모듈형 구조
+      description: 200개 이상의 모듈로 Nuxt 기능을 확장하여 개발 속도를 높이십시오.
     - icon: i-lucide-shield-check
-      title: Middleware
-      description: Protect or add custom logic (localization, A/B testing) before rendering pages.
+      title: 미들웨어
+      description: 페이지 렌더링 전에 보호 규칙 또는 사용자 정의 로직(현지화, A/B 테스트 등)을 추가하십시오.
     - icon: i-simple-icons-typescript
-      title: Type-safe with TypeScript
-      description: Write type-safe code with automatically generated types and tsconfig.json.
+      title: TypeScript 기반 타입 안정성
+      description: 자동 생성되는 타입과 tsconfig.json으로 타입 안전한 코드를 작성하십시오.
   cta:
-    title: 'Deep dive into Nuxt now'
-    label: Start reading docs
+    title: '지금 바로 Nuxt 깊이 알아보기'
+    label: 문서 읽기 시작
     to: /docs
     icon: i-lucide-arrow-right
 foundation:
-  title: Built on a solid foundation
-  description: Nuxt is built on top of bulletproof open source technologies, with versatility to choose between different build tools.
+  title: 견고한 기반 위에 구축됨
+  description: Nuxt는 뛰어난 품질의 오픈 소스 기술 위에 구축되었으며, 다양한 빌드 도구 중에서 선택할 수 있는 유연성을 제공합니다.
   items:
     - id: vue
-      title: Frontend with Vue.js
-      description: Nuxt is built on top of Vue.js, leveraging its reactive, component-based architecture to create powerful, scalable, and seamless web applications.
+      title: Vue.js 기반 프론트엔드
+      description: Nuxt는 Vue.js 위에 구축되어 반응형 컴포넌트 아키텍처를 활용해 강력하고 확장 가능한 웹 애플리케이션을 제공합니다.
       logo: i-custom-vue
       color: '#42B883'
       gradient: 'bg-gradient-to-br from-[#42B883]/10 from-5% via-transparent via-50% to-transparent'
@@ -336,8 +336,8 @@ foundation:
         label: vuejs.org
         to: https://vuejs.org
     - id: bundler
-      title: Bundler with Vite
-      description: Nuxt leverages Vite's frontend build capabilities, powering rapid development of web applications with instant HMR for the best developer experience.
+      title: Vite 기반 번들러
+      description: Nuxt는 Vite의 프론트엔드 빌드 기능을 활용하여 즉각적인 HMR과 빠른 개발 경험을 제공합니다.
       logo: i-custom-vite
       color: '#A156FE'
       gradient: 'bg-gradient-to-br from-[#A156FE]/10 from-5% via-transparent via-50% to-transparent'
@@ -345,8 +345,8 @@ foundation:
         label: vite.dev
         to: https://vite.dev
     - id: bundler
-      title: Bundler with Webpack
-      description: Nuxt harnesses Webpack's robust bundling and optimization capabilities, ensuring a stable and scalable development experience.
+      title: Webpack 기반 번들러
+      description: Nuxt는 Webpack의 강력한 번들링 및 최적화 기능을 활용하여 안정적이고 확장 가능한 개발 경험을 제공합니다.
       logo: i-custom-webpack
       color: '#8ED6FB'
       gradient: 'bg-gradient-to-br from-[#8ED6FB]/10 from-5% via-transparent via-50% to-transparent'
@@ -354,8 +354,8 @@ foundation:
         label: webpack.js.org
         to: https://webpack.js.org
     - id: bundler
-      title: Bundler with Rspack
-      description: Nuxt integrates Rspack's high-performance bundling, accelerating builds and HMR for a seamless developer experience at scale.
+      title: Rspack 기반 번들러
+      description: Nuxt는 Rspack의 고성능 번들링을 통합하여 대규모 개발 환경에서 빌드 및 HMR을 가속화합니다.
       logo: i-custom-rspack
       color: '#F93920'
       gradient: 'bg-gradient-to-br from-[#F93920]/10 from-5% via-transparent via-50% to-transparent'
@@ -363,8 +363,8 @@ foundation:
         label: rspack.dev
         to: https://rspack.dev
     - id: nitro
-      title: Server with Nitro
-      description: Nuxt uses Nitro as server engine to build versatile full-stack web applications, ready for deployment on any platform.
+      title: Nitro 서버 엔진
+      description: Nuxt는 Nitro를 서버 엔진으로 사용하여 모든 플랫폼에서 배포 가능한 범용 풀스택 웹 애플리케이션을 구축합니다.
       logo: i-custom-nitro
       color: '#FB848E'
       gradient: 'bg-gradient-to-br from-[#FB848E]/10 from-5% via-transparent via-50% to-transparent'
@@ -372,69 +372,69 @@ foundation:
         label: nitro.build
         to: https://nitro.build
 modules:
-  title: Extend Nuxt with plug & play modules
-  description: Nuxt has a rich module ecosystem, with both official and community-driven modules. This accelerates development by providing ready-to-use solutions for common needs.
+  title: 플러그 앤 플레이 모듈로 Nuxt 확장
+  description: Nuxt는 공식 및 커뮤니티 기반 모듈 생태계를 갖추고 있어 공통 기능을 빠르게 구현할 수 있도록 도와줍니다.
   links:
-    - label: Explore all modules
+    - label: 모든 모듈 살펴보기
       to: https://nuxt.com/modules
       target: _blank
       icon: i-lucide-arrow-right
       color: neutral
       trailing: true
 testimonial:
-  quote: "Nuxt offers a compelling solution and a great ecosystem to help you ship fullstack Vue apps that are performant and SEO friendly. The flexibility to choose between SSR and SSG is icing on the cake."
+  quote: "Nuxt는 SEO 친화적이고 성능 좋은 풀스택 Vue 앱을 구축할 수 있는 훌륭한 솔루션과 생태계를 제공합니다. SSR과 SSG를 선택할 수 있는 유연성은 말 그대로 케이크 위의 아이싱입니다."
   author:
     name: 'Evan You'
-    description: 'Creator of Vue.js and Vite'
+    description: 'Vue.js 및 Vite 창시자'
     to: 'https://x.com/youyuxi'
     avatar:
       src: 'https://ipx.nuxt.com/f_auto,s_40x40/gh_avatar/yyx990803'
       srcset: 'https://ipx.nuxt.com/f_auto,s_80x80/gh_avatar/yyx990803 2x'
       provider: 'ipx'
 deploy:
-  title: Deploy your app anywhere
-  description: One-command deployments and zero-configuration options make it easy to get your Nuxt app live. Choose your platform, and let Nuxt handle the rest, allowing you to focus on building great applications rather than managing complex deployments.
+  title: 어디서든 앱 배포
+  description: 한 줄 명령과 제로 구성 옵션을 통해 Nuxt 앱을 쉽게 라이브로 배포할 수 있습니다. 플랫폼을 선택하기만 하면 Nuxt가 나머지를 처리합니다.
   links:
-    - label: Learn how to deploy now
+    - label: 지금 배포 방법 알아보기
       to: https://nuxt.com/deploy
       target: _blank
       icon: i-lucide-arrow-right
       color: neutral
       trailing: true
 stats:
-  title: The developer's choice for simple and powerful web apps
+  title: 단순하고 강력한 웹 앱을 위한 개발자들의 선택
   description: |
-    Nuxt was born from developers' need to boost productivity and platform performance.
-    What began as a Vue-based solution for automating tasks and server-side rendering is now trusted by startups and enterprises all around the world.
+    Nuxt는 생산성 및 플랫폼 성능을 향상하기 위해 개발자의 필요에서 탄생했습니다.
+    Vue 기반 자동화 및 서버 사이드 렌더링 솔루션으로 시작된 Nuxt는 이제 전 세계 스타트업과 엔터프라이즈에서 신뢰받고 있습니다.
   community:
-    title: Open source
-    description: Nuxt is 100% powered by our passionate open source community. Every line of Nuxt is written by passionate developers like you.
+    title: 오픈 소스
+    description: Nuxt는 100% 열정적인 오픈 소스 커뮤니티에 의해 만들어졌습니다. Nuxt의 모든 코드는 여러분 같은 개발자들이 작성합니다.
   x: 102k
   discord: 32k
   cta:
-    label: Start contributing
+    label: 기여 시작하기
     to: 'https://github.com/nuxt/nuxt'
     color: neutral
     variant: outline
     icon: i-simple-icons-github
     trailing: true
 contributors:
-  title: 'Built by developers around the world.'
-  description: 'The development of Nuxt and its ecosystem is led by an international team. From contributors to developer advocates, the community is made up of members with different horizons and skills. We are happy to see new members every day and encourage anyone to join us and help in many ways: answering questions, giving a talk, creating modules and contributing to the core.'
+  title: '전 세계 개발자들이 함께 구축합니다.'
+  description: 'Nuxt 및 생태계 개발은 국제 팀이 주도합니다. 다양한 배경과 기술을 가진 기여자와 개발자 옹호자들이 커뮤니티를 구성합니다. 질문 답변, 발표, 모듈 작성, 코어 기여 등 다양한 방식으로 누구나 참여할 수 있습니다.'
   links:
     - label: Nuxters
       to: https://nuxters.nuxt.com
       target: _blank
       icon: i-simple-icons-nuxtdotjs
       color: neutral
-      title: See your own profile on Nuxters
+      title: Nuxters에서 내 프로필 보기
     - icon: i-simple-icons-discord
       to: https://go.nuxt.com/discord
       target: _blank
       color: neutral
       variant: ghost
       size: xl
-      title: Join Nuxt on Discord
+      title: Nuxt Discord 참여
     - icon: i-simple-icons-x
       to: https://go.nuxt.com/x
       target: _blank
@@ -450,18 +450,18 @@ contributors:
       size: lg
       title: Nuxt on Bluesky
 support:
-  title: Nuxt Enterprise Support
+  title: Nuxt 엔터프라이즈 지원
   description: |
-    To ensure your Nuxt projects reach their full potential, our Nuxt Experts team, featuring :icon{name=i-custom-vue .align-middle} Vue, :icon{name=i-custom-nuxt .align-middle} Nuxt and :icon{name=i-custom-vite .align-middle} Vite, core contributors — offers a complete suite of services.
+    Nuxt 프로젝트가 최대 잠재력을 발휘할 수 있도록 Vue, Nuxt, Vite 핵심 기여자로 구성된 Nuxt 전문가 팀이 완전한 지원 서비스를 제공합니다.
   features:
-    - title: Performance optimization
-      description: Boost Nuxt performance and reliability with our expert optimizations.
+    - title: 성능 최적화
+      description: 전문가 최적화를 통해 Nuxt 성능과 안정성을 향상하십시오.
       icon: i-lucide-rocket
-    - title: Migration to Nuxt
-      description: Ensure successful, painless migrations from start to deployment.
+    - title: Nuxt로 마이그레이션
+      description: 처음부터 배포까지 성공적이고 원활한 마이그레이션을 보장합니다.
       icon: i-lucide-circle-arrow-up
-    - title: Nuxt Workshop
-      description: Develop expert teams through training and support.
+    - title: Nuxt 워크숍
+      description: 교육과 지원을 통해 전문 팀을 육성하십시오.
       icon: i-lucide-school
   companies:
     - src: /assets/enterprise/support/malt.svg
@@ -475,22 +475,22 @@ support:
     - src: /assets/enterprise/support/cora.svg
       alt: Cora
   links:
-    - label: Talk to a Nuxt Expert
+    - label: Nuxt 전문가와 상담하기
       to: https://nuxt.com/enterprise/support
       target: _blank
       icon: i-lucide-arrow-right
       color: neutral
       trailing: true
 sponsors:
-  title: Sponsors
-  description: Nuxt is and will always remain free and open source under the MIT License, thanks to our contributors and sponsors.
+  title: 스폰서
+  description: Nuxt는 기여자와 스폰서 덕분에 지금도, 앞으로도 MIT 라이선스 하에 자유롭고 오픈 소스로 유지됩니다.
   links:
-    - label: Become a sponsor
+    - label: 스폰서 되기
       to: 'https://opencollective.com/nuxtjs'
       color: neutral
       trailingIcon: i-lucide-heart
       trailing: true
-    - label: View all sponsors
+    - label: 모든 스폰서 보기
       to: https://nuxt.com/enterprise/sponsors
       target: _blank
       color: neutral
