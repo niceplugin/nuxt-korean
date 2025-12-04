@@ -9,7 +9,7 @@ links:
 ---
 
 ::important
-이 유틸리티는 [Nuxt v3.9](/blog/v3-9)부터 사용할 수 있습니다.
+이 유틸리티는 [Nuxt v3.9](https://nuxt.com/blog/v3-9)부터 사용할 수 있습니다.
 ::
 
 ## Purpose %{purpose}%
@@ -49,11 +49,11 @@ await callOnce(async () => {
 ```
 
 ::important
-`navigation` 모드는 [Nuxt v3.15](/blog/v3-15)부터 사용할 수 있습니다.
+`navigation` 모드는 [Nuxt v3.15](https://nuxt.com/blog/v3-15)부터 사용할 수 있습니다.
 ::
 
 ::tip{to="/docs/4.x/getting-started/state-management#usage-with-pinia"}
-`callOnce`는 스토어 액션을 호출하기 위해 [Pinia 모듈](/modules/pinia)과 함께 사용할 때 유용합니다.
+`callOnce`는 스토어 액션을 호출하기 위해 [Pinia 모듈](https://nuxt.com/modules/pinia)과 함께 사용할 때 유용합니다.
 ::
 
 :read-more{to="/docs/4.x/getting-started/state-management"}
