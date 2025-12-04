@@ -1,6 +1,6 @@
 ---
 title: 'useLazyFetch'
-description: This wrapper around useFetch triggers navigation immediately.
+description: 이 useFetch 래퍼는 즉시 내비게이션을 트리거합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,11 +8,11 @@ links:
     size: xs
 ---
 
-`useLazyFetch` provides a wrapper around [`useFetch`](/docs/4.x/api/composables/use-fetch) that triggers navigation before the handler is resolved by setting the `lazy` option to `true`.
+`useLazyFetch`는 [`useFetch`](/docs/4.x/api/composables/use-fetch)를 감싸는 래퍼로, `lazy` 옵션을 `true`로 설정하여 핸들러가 resolve되기 전에 내비게이션을 트리거합니다.
 
-## Usage
+## Usage %{usage}%
 
-By default, [`useFetch`](/docs/4.x/api/composables/use-fetch) blocks navigation until its async handler is resolved. `useLazyFetch` allows navigation to proceed immediately, with data being fetched in the background.
+기본적으로 [`useFetch`](/docs/4.x/api/composables/use-fetch)는 비동기 핸들러가 resolve될 때까지 내비게이션을 차단합니다. `useLazyFetch`는 내비게이션이 즉시 진행되도록 허용하며, 데이터는 백그라운드에서 가져옵니다.
 
 ```vue [app/pages/index.vue]
 <script setup lang="ts">
@@ -25,25 +25,25 @@ const { status, data: posts } = await useLazyFetch('/api/posts')
   </div>
   <div v-else>
     <div v-for="post in posts">
-      <!-- do something -->
+      <!-- 무언가를 수행 -->
     </div>
   </div>
 </template>
 ```
 
 ::note
-`useLazyFetch` has the same signature as [`useFetch`](/docs/4.x/api/composables/use-fetch).
+`useLazyFetch`는 [`useFetch`](/docs/4.x/api/composables/use-fetch)와 동일한 시그니처를 가집니다.
 ::
 
 ::warning
-Awaiting `useLazyFetch` only ensures the call is initialized. On client-side navigation, data may not be immediately available, and you must handle the `pending` state in your component's template.
+`useLazyFetch`를 `await`하는 것은 호출이 초기화되었음을 보장할 뿐입니다. 클라이언트 측 내비게이션에서는 데이터가 즉시 사용 가능하지 않을 수 있으며, 컴포넌트 템플릿에서 `pending` 상태를 처리해야 합니다.
 ::
 
 ::warning
-`useLazyFetch` is a reserved function name transformed by the compiler, so you should not name your own function `useLazyFetch`.
+`useLazyFetch`는 컴파일러에 의해 변환되는 예약된 함수 이름이므로, 직접 정의하는 함수 이름으로 `useLazyFetch`를 사용해서는 안 됩니다.
 ::
 
-## Type
+## Type %{type}%
 
 ```ts [Signature]
 export function useLazyFetch<DataT, ErrorT> (
@@ -53,46 +53,46 @@ export function useLazyFetch<DataT, ErrorT> (
 ```
 
 ::note
-`useLazyFetch` is equivalent to `useFetch` with `lazy: true` option set. See [`useFetch`](/docs/4.x/api/composables/use-fetch) for full type definitions.
+`useLazyFetch`는 `lazy: true` 옵션이 설정된 `useFetch`와 동일합니다. 전체 타입 정의는 [`useFetch`](/docs/4.x/api/composables/use-fetch)를 참고하세요.
 ::
 
-## Parameters
+## Parameters %{parameters}%
 
-`useLazyFetch` accepts the same parameters as [`useFetch`](/docs/4.x/api/composables/use-fetch):
+`useLazyFetch`는 [`useFetch`](/docs/4.x/api/composables/use-fetch)와 동일한 매개변수를 받습니다:
 
-- `URL` (`string | Request | Ref<string | Request> | () => string | Request`): The URL or request to fetch.
-- `options` (object): Same as [`useFetch` options](/docs/4.x/api/composables/use-fetch#parameters), with `lazy` automatically set to `true`.
+- `URL` (`string | Request | Ref<string | Request> | () => string | Request`): 가져올 URL 또는 요청.
+- `options` (object): [`useFetch` 옵션](/docs/4.x/api/composables/use-fetch#parameters)과 동일하며, `lazy`는 자동으로 `true`로 설정됩니다.
 
 :read-more{to="/docs/4.x/api/composables/use-fetch#parameters"}
 
-## Return Values
+## Return Values %{return-values}%
 
-Returns the same `AsyncData` object as [`useFetch`](/docs/4.x/api/composables/use-fetch):
+[`useFetch`](/docs/4.x/api/composables/use-fetch)와 동일한 `AsyncData` 객체를 반환합니다:
 
 | Name | Type | Description |
 | --- | --- |--- |
-| `data` | `Ref<DataT \| undefined>` | The result of the asynchronous fetch. |
-| `refresh` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | Function to manually refresh the data. |
-| `execute` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | Alias for `refresh`. |
-| `error` | `Ref<ErrorT \| undefined>` | Error object if the data fetching failed. |
-| `status` | `Ref<'idle' \| 'pending' \| 'success' \| 'error'>` | Status of the data request. |
-| `clear` | `() => void` | Resets `data` to `undefined`, `error` to `undefined`, sets `status` to `idle`, and cancels any pending requests. |
+| `data` | `Ref<DataT \| undefined>` | 비동기 fetch의 결과입니다. |
+| `refresh` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | 데이터를 수동으로 새로고침하는 함수입니다. |
+| `execute` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | `refresh`의 별칭입니다. |
+| `error` | `Ref<ErrorT \| undefined>` | 데이터 가져오기에 실패했을 때의 에러 객체입니다. |
+| `status` | `Ref<'idle' \| 'pending' \| 'success' \| 'error'>` | 데이터 요청의 상태입니다. |
+| `clear` | `() => void` | `data`를 `undefined`로, `error`를 `undefined`로 리셋하고, `status`를 `idle`로 설정하며, 보류 중인 요청을 모두 취소합니다. |
 
 :read-more{to="/docs/4.x/api/composables/use-fetch#return-values"}
 
-## Examples
+## Examples %{examples}%
 
-### Handling Pending State
+### Handling Pending State %{handling-pending-state}%
 
 ```vue [app/pages/index.vue]
 <script setup lang="ts">
-/* Navigation will occur before fetching is complete.
- * Handle 'pending' and 'error' states directly within your component's template
+/* 내비게이션은 fetch가 완료되기 전에 발생합니다.
+ * 컴포넌트 템플릿 내에서 'pending' 및 'error' 상태를 직접 처리하세요.
  */
 const { status, data: posts } = await useLazyFetch('/api/posts')
 watch(posts, (newPosts) => {
-  // Because posts might start out null, you won't have access
-  // to its contents immediately, but you can watch it.
+  // posts가 처음에는 null일 수 있으므로
+  // 즉시 그 내용에 접근할 수는 없지만, watch는 가능합니다.
 })
 </script>
 
@@ -102,7 +102,7 @@ watch(posts, (newPosts) => {
   </div>
   <div v-else>
     <div v-for="post in posts">
-      <!-- do something -->
+      <!-- 무언가를 수행 -->
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 ---
 title: 'nuxt prepare'
-description: The prepare command creates a .nuxt directory in your application and generates types.
+description: prepare 명령은 애플리케이션에 .nuxt 디렉터리를 생성하고 타입을 생성합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -14,28 +14,28 @@ npx nuxt prepare [ROOTDIR] [--dotenv] [--cwd=<directory>] [--logLevel=<silent|in
 ```
 <!--/prepare-cmd-->
 
-The `prepare` command creates a [`.nuxt`](/docs/4.x/directory-structure/nuxt) directory in your application and generates types. This can be useful in a CI environment or as a `postinstall` command in your [`package.json`](/docs/4.x/directory-structure/package).
+`prepare` 명령은 애플리케이션에 [`.nuxt`](/docs/4.x/directory-structure/nuxt) 디렉터리를 생성하고 타입을 생성합니다. 이는 CI 환경이나 [`package.json`](/docs/4.x/directory-structure/package)의 `postinstall` 명령으로 사용할 때 유용할 수 있습니다.
 
-## Arguments
+## Arguments %{arguments}%
 
 <!--prepare-args-->
 Argument | Description
 --- | ---
-`ROOTDIR="."` | Specifies the working directory (default: `.`)
+`ROOTDIR="."` | 작업 디렉터리를 지정합니다 (기본값: `.`)
 <!--/prepare-args-->
 
-## Options
+## Options %{options}%
 
 <!--prepare-opts-->
 Option | Default | Description
 --- | --- | ---
-`--dotenv` |  | Path to `.env` file to load, relative to the root directory
-`--cwd=<directory>` |  | Specify the working directory, this takes precedence over ROOTDIR (default: `.`)
-`--logLevel=<silent\|info\|verbose>` |  | Specify build-time log level
-`--envName` |  | The environment to use when resolving configuration overrides (default is `production` when building, and `development` when running the dev server)
-`-e, --extends=<layer-name>` |  | Extend from a Nuxt layer
+`--dotenv` |  | 루트 디렉터리를 기준으로 로드할 `.env` 파일의 경로
+`--cwd=<directory>` |  | 작업 디렉터리를 지정합니다. 이 값은 ROOTDIR보다 우선합니다 (기본값: `.`)
+`--logLevel=<silent\|info\|verbose>` |  | 빌드 시 로그 레벨을 지정합니다
+`--envName` |  | 설정 오버라이드를 해결할 때 사용할 환경을 지정합니다 (빌드 시 기본값은 `production`, 개발 서버 실행 시 기본값은 `development`)
+`-e, --extends=<layer-name>` |  | Nuxt 레이어로부터 확장합니다
 <!--/prepare-opts-->
 
 ::note
-This command sets `process.env.NODE_ENV` to `production`.
+이 명령은 `process.env.NODE_ENV`를 `production`으로 설정합니다.
 ::

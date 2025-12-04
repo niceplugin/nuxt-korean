@@ -1,6 +1,6 @@
 ---
 title: 'showError'
-description: Nuxt provides a quick and simple way to show a full screen error page if needed.
+description: 필요할 경우 Nuxt는 전체 화면 오류 페이지를 빠르고 간단하게 표시하는 방법을 제공합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,24 +8,24 @@ links:
     size: xs
 ---
 
-Within the [Nuxt context](/docs/4.x/guide/going-further/nuxt-app#the-nuxt-context) you can use `showError` to show an error.
+[Nuxt 컨텍스트](/docs/4.x/guide/going-further/nuxt-app#the-nuxt-context) 내에서 `showError`를 사용해 오류를 표시할 수 있습니다.
 
-**Parameters:**
+**매개변수:**
 
 - `error`: `string | Error | Partial<{ cause, data, message, name, stack, statusCode, statusMessage }>`
 
 ```ts
-showError('😱 Oh no, an error has been thrown.')
+showError('😱 이런, 오류가 발생했습니다.')
 showError({
   statusCode: 404,
   statusMessage: 'Page Not Found',
 })
 ```
 
-The error is set in the state using [`useError()`](/docs/4.x/api/composables/use-error) to create a reactive and SSR-friendly shared error state across components.
+오류는 [`useError()`](/docs/4.x/api/composables/use-error)를 사용해 상태에 설정되며, 이를 통해 컴포넌트 전반에서 반응형이고 SSR 친화적인 공유 오류 상태를 생성합니다.
 
 ::tip
-`showError` calls the `app:error` hook.
+`showError`는 `app:error` 훅을 호출합니다.
 ::
 
 :read-more{to="/docs/4.x/getting-started/error-handling"}

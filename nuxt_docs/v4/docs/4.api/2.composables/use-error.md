@@ -1,6 +1,6 @@
 ---
 title: "useError"
-description: useError composable returns the global Nuxt error that is being handled.
+description: useError 컴포저블은 현재 처리 중인 전역 Nuxt 에러를 반환합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,17 +8,17 @@ links:
     size: xs
 ---
 
-## Usage
+## Usage %{usage}%
 
-The `useError` composable returns the global Nuxt error that is being handled and is available on both client and server. It provides a reactive, SSR-friendly error state across your app.
+`useError` 컴포저블은 현재 처리 중인 전역 Nuxt 에러를 반환하며, 클라이언트와 서버 모두에서 사용할 수 있습니다. 이 컴포저블은 앱 전반에서 반응형이고 SSR 친화적인 에러 상태를 제공합니다.
 
 ```ts
 const error = useError()
 ```
 
-You can use this composable in your components, pages, or plugins to access or react to the current Nuxt error.
+이 컴포저블은 컴포넌트, 페이지 또는 플러그인에서 사용하여 현재 Nuxt 에러에 접근하거나 이에 반응할 수 있습니다.
 
-## Type
+## Type %{type}%
 
 ```ts
 interface NuxtError<DataT = unknown> {
@@ -32,15 +32,15 @@ interface NuxtError<DataT = unknown> {
 export const useError: () => Ref<NuxtError | undefined>
 ```
 
-## Parameters
+## Parameters %{parameters}%
 
-This composable does not take any parameters.
+이 컴포저블은 어떤 매개변수도 받지 않습니다.
 
-## Return Values
+## Return Values %{return-values}%
 
-Returns a `Ref` containing the current Nuxt error (or `undefined` if there is no error). The error object is reactive and will update automatically when the error state changes.
+현재 Nuxt 에러(또는 에러가 없으면 `undefined`)를 포함하는 `Ref`를 반환합니다. 에러 객체는 반응형이며, 에러 상태가 변경될 때 자동으로 업데이트됩니다.
 
-## Example
+## Example %{example}%
 
 ```vue
 <script setup lang="ts">

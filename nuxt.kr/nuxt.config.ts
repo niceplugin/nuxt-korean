@@ -1,5 +1,6 @@
 import { createResolver } from 'nuxt/kit'
 import { parseMdc } from './helpers/mdc-parser.mjs'
+import {applyCustomHeadingAnchors} from "./helpers/headingAnchor";
 
 const { resolve } = createResolver(import.meta.url)
 
@@ -276,6 +277,9 @@ export default defineNuxtConfig({
         }
         // @ts-expect-error -- TODO: fix this
         delete content.meta.body
+      }
+      if (typeof file.id === 'string' && file.id.endsWith('.md')) {
+        applyCustomHeadingAnchors(content.body)
       }
     }
   },

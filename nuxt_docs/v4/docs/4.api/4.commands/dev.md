@@ -1,6 +1,6 @@
 ---
 title: 'nuxt dev'
-description: The dev command starts a development server with hot module replacement at http://localhost:3000
+description: dev 명령은 http://localhost:3000 에서 핫 모듈 교체가 활성화된 개발 서버를 시작합니다
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -14,47 +14,47 @@ npx nuxt dev [ROOTDIR] [--cwd=<directory>] [--logLevel=<silent|info|verbose>] [-
 ```
 <!--/dev-cmd-->
 
-The `dev` command starts a development server with hot module replacement at [http://localhost:3000](https://localhost:3000)
+`dev` 명령은 [http://localhost:3000](https://localhost:3000) 에서 핫 모듈 교체가 활성화된 개발 서버를 시작합니다
 
-## Arguments
+## Arguments %{arguments}%
 
 <!--dev-args-->
 Argument | Description
 --- | ---
-`ROOTDIR="."` | Specifies the working directory (default: `.`)
+`ROOTDIR="."` | 작업 디렉터리를 지정합니다 (기본값: `.`)
 <!--/dev-args-->
 
-## Options
+## Options %{options}%
 
 <!--dev-opts-->
 Option | Default | Description
 --- | --- | ---
-`--cwd=<directory>` |  | Specify the working directory, this takes precedence over ROOTDIR (default: `.`)
-`--logLevel=<silent\|info\|verbose>` |  | Specify build-time log level
-`--dotenv` |  | Path to `.env` file to load, relative to the root directory
-`--envName` |  | The environment to use when resolving configuration overrides (default is `production` when building, and `development` when running the dev server)
-`-e, --extends=<layer-name>` |  | Extend from a Nuxt layer
-`--clear` | `false` | Clear console on restart
-`--no-f, --no-fork` |  | Disable forked mode
-`-p, --port` |  | Port to listen on (default: `NUXT_PORT \|\| NITRO_PORT \|\| PORT \|\| nuxtOptions.devServer.port`)
-`-h, --host` |  | Host to listen on (default: `NUXT_HOST \|\| NITRO_HOST \|\| HOST \|\| nuxtOptions.devServer?.host`)
-`--clipboard` | `false` | Copy the URL to the clipboard
-`-o, --open` | `false` | Open the URL in the browser
-`--https` |  | Enable HTTPS
-`--publicURL` |  | Displayed public URL (used for QR code)
-`--qr` |  | Display The QR code of public URL when available
-`--public` |  | Listen to all network interfaces
-`--tunnel` |  | Open a tunnel using https://github.com/unjs/untun
-`--sslCert` |  | (DEPRECATED) Use `--https.cert` instead.
-`--sslKey` |  | (DEPRECATED) Use `--https.key` instead.
+`--cwd=<directory>` |  | 작업 디렉터리를 지정합니다. 이 값은 ROOTDIR 보다 우선합니다 (기본값: `.`)
+`--logLevel=<silent\|info\|verbose>` |  | 빌드 시 로그 레벨을 지정합니다
+`--dotenv` |  | 루트 디렉터리를 기준으로 로드할 `.env` 파일의 경로
+`--envName` |  | 설정 오버라이드를 해결할 때 사용할 환경입니다 (빌드 시 기본값은 `production`, dev 서버 실행 시 기본값은 `development`)
+`-e, --extends=<layer-name>` |  | Nuxt 레이어를 확장합니다
+`--clear` | `false` | 재시작 시 콘솔을 지웁니다
+`--no-f, --no-fork` |  | 포크 모드를 비활성화합니다
+`-p, --port` |  | 수신할 포트 (기본값: `NUXT_PORT \|\| NITRO_PORT \|\| PORT \|\| nuxtOptions.devServer.port`)
+`-h, --host` |  | 수신할 호스트 (기본값: `NUXT_HOST \|\| NITRO_HOST \|\| HOST \|\| nuxtOptions.devServer?.host`)
+`--clipboard` | `false` | URL을 클립보드에 복사합니다
+`-o, --open` | `false` | 브라우저에서 URL을 엽니다
+`--https` |  | HTTPS를 활성화합니다
+`--publicURL` |  | 표시할 공개 URL (QR 코드에 사용됨)
+`--qr` |  | 사용 가능한 경우 공개 URL의 QR 코드를 표시합니다
+`--public` |  | 모든 네트워크 인터페이스에서 수신합니다
+`--tunnel` |  | https://github.com/unjs/untun 을 사용해 터널을 엽니다
+`--sslCert` |  | (사용 중단됨) 대신 `--https.cert` 를 사용하세요.
+`--sslKey` |  | (사용 중단됨) 대신 `--https.key` 를 사용하세요.
 <!--/dev-opts-->
 
-The port and host can also be set via NUXT_PORT, PORT, NUXT_HOST or HOST environment variables.
+포트와 호스트는 NUXT_PORT, PORT, NUXT_HOST 또는 HOST 환경 변수로도 설정할 수 있습니다.
 
-Additionally to the above options, `@nuxt/cli` can pass options through to `listhen`, e.g. `--no-qr` to turn off the dev server QR code. You can find the list of `listhen` options in the [unjs/listhen](https://github.com/unjs/listhen) docs.
+위 옵션들에 더해, `@nuxt/cli` 는 옵션을 `listhen` 으로 전달할 수 있습니다. 예를 들어 dev 서버 QR 코드를 끄기 위한 `--no-qr` 등이 있습니다. `listhen` 옵션 목록은 [unjs/listhen](https://github.com/unjs/listhen) 문서에서 확인할 수 있습니다.
 
-This command sets `process.env.NODE_ENV` to `development`.
+이 명령은 `process.env.NODE_ENV` 를 `development` 로 설정합니다.
 
 ::note
-If you are using a self-signed certificate in development, you will need to set `NODE_TLS_REJECT_UNAUTHORIZED=0` in your environment.
+개발 환경에서 자체 서명 인증서를 사용하는 경우, 환경 변수에 `NODE_TLS_REJECT_UNAUTHORIZED=0` 을 설정해야 합니다.
 ::

@@ -1,6 +1,6 @@
 ---
 title: useLazyAsyncData
-description: This wrapper around useAsyncData triggers navigation immediately.
+description: 이 useAsyncData 래퍼는 내비게이션을 즉시 트리거합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,13 +8,13 @@ links:
     size: xs
 ---
 
-`useLazyAsyncData` provides a wrapper around [`useAsyncData`](/docs/4.x/api/composables/use-async-data) that triggers navigation before the handler is resolved by setting the `lazy` option to `true`.
+`useLazyAsyncData`는 [`useAsyncData`](/docs/4.x/api/composables/use-async-data)를 감싸는 래퍼로, `lazy` 옵션을 `true`로 설정하여 핸들러가 resolve되기 전에 내비게이션을 트리거합니다.
 
 ::note
-By default, [`useAsyncData`](/docs/4.x/api/composables/use-async-data) blocks navigation until its async handler is resolved. `useLazyAsyncData` allows navigation to occur immediately while data fetching continues in the background.
+기본적으로 [`useAsyncData`](/docs/4.x/api/composables/use-async-data)는 비동기 핸들러가 resolve될 때까지 내비게이션을 차단합니다. `useLazyAsyncData`는 데이터 가져오기가 백그라운드에서 계속되는 동안 내비게이션이 즉시 발생하도록 허용합니다.
 ::
 
-## Usage
+## Usage %{usage}%
 
 ```vue [app/pages/index.vue]
 <script setup lang="ts">
@@ -36,13 +36,13 @@ const { status, data: posts } = await useLazyAsyncData('posts', () => $fetch('/a
 </template>
 ```
 
-When using `useLazyAsyncData`, navigation will occur before fetching is complete. This means you must handle `pending` and `error` states directly within your component's template.
+`useLazyAsyncData`를 사용할 때는, 가져오기가 완료되기 전에 내비게이션이 발생합니다. 이는 컴포넌트 템플릿 안에서 `pending` 및 `error` 상태를 직접 처리해야 함을 의미합니다.
 
 ::warning
-`useLazyAsyncData` is a reserved function name transformed by the compiler, so you should not name your own function `useLazyAsyncData`.
+`useLazyAsyncData`는 컴파일러에 의해 변환되는 예약된 함수 이름이므로, 직접 만든 함수의 이름을 `useLazyAsyncData`로 지정해서는 안 됩니다.
 ::
 
-## Type
+## Type %{type}%
 
 ```ts [Signature]
 export function useLazyAsyncData<DataT, ErrorT> (
@@ -57,32 +57,32 @@ export function useLazyAsyncData<DataT, ErrorT> (
 ): AsyncData<DataT, ErrorT>
 ```
 
-`useLazyAsyncData` has the same signature as [`useAsyncData`](/docs/4.x/api/composables/use-async-data).
+`useLazyAsyncData`는 [`useAsyncData`](/docs/4.x/api/composables/use-async-data)와 동일한 시그니처를 가집니다.
 
-## Parameters
+## Parameters %{parameters}%
 
-`useLazyAsyncData` accepts the same parameters as [`useAsyncData`](/docs/4.x/api/composables/use-async-data), with the `lazy` option automatically set to `true`.
+`useLazyAsyncData`는 [`useAsyncData`](/docs/4.x/api/composables/use-async-data)와 동일한 매개변수를 받으며, `lazy` 옵션은 자동으로 `true`로 설정됩니다.
 
 :read-more{to="/docs/4.x/api/composables/use-async-data#parameters"}
 
-## Return Values
+## Return Values %{return-values}%
 
-`useLazyAsyncData` returns the same values as [`useAsyncData`](/docs/4.x/api/composables/use-async-data).
+`useLazyAsyncData`는 [`useAsyncData`](/docs/4.x/api/composables/use-async-data)와 동일한 값을 반환합니다.
 
 :read-more{to="/docs/4.x/api/composables/use-async-data#return-values"}
 
-## Example
+## Example %{example}%
 
 ```vue [app/pages/index.vue]
 <script setup lang="ts">
-/* Navigation will occur before fetching is complete.
-  Handle 'pending' and 'error' states directly within your component's template
+/* 가져오기가 완료되기 전에 내비게이션이 발생합니다.
+  컴포넌트 템플릿 안에서 'pending' 및 'error' 상태를 직접 처리하세요.
 */
 const { status, data: count } = await useLazyAsyncData('count', () => $fetch('/api/count'))
 
 watch(count, (newCount) => {
-  // Because count might start out null, you won't have access
-  // to its contents immediately, but you can watch it.
+  // count는 처음에 null일 수 있으므로, 즉시 그 내용에 접근할 수는 없지만
+  // watch를 통해 변화를 감지할 수 있습니다.
 })
 </script>
 

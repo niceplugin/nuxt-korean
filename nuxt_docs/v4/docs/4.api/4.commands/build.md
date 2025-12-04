@@ -1,6 +1,6 @@
 ---
 title: "nuxt build"
-description: "Build your Nuxt application."
+description: "Nuxt 애플리케이션을 빌드합니다."
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -14,34 +14,34 @@ npx nuxt build [ROOTDIR] [--cwd=<directory>] [--logLevel=<silent|info|verbose>] 
 ```
 <!--/build-cmd-->
 
-The `build` command creates a `.output` directory with all your application, server and dependencies ready for production.
+`build` 명령은 프로덕션 준비가 완료된 애플리케이션, 서버 및 모든 의존성이 포함된 `.output` 디렉터리를 생성합니다.
 
-## Arguments
+## Arguments %{arguments}%
 
 <!--build-args-->
 Argument | Description
 --- | ---
-`ROOTDIR="."` | Specifies the working directory (default: `.`)
+`ROOTDIR="."` | 작업 디렉터리를 지정합니다 (기본값: `.`)
 <!--/build-args-->
 
-## Options
+## Options %{options}%
 
 <!--build-opts-->
 Option | Default | Description
 --- | --- | ---
-`--cwd=<directory>` |  | Specify the working directory, this takes precedence over ROOTDIR (default: `.`)
-`--logLevel=<silent\|info\|verbose>` |  | Specify build-time log level
-`--prerender` |  | Build Nuxt and prerender static routes
-`--preset` |  | Nitro server preset
-`--dotenv` |  | Path to `.env` file to load, relative to the root directory
-`--envName` |  | The environment to use when resolving configuration overrides (default is `production` when building, and `development` when running the dev server)
-`-e, --extends=<layer-name>` |  | Extend from a Nuxt layer
+`--cwd=<directory>` |  | 작업 디렉터리를 지정합니다. 이 값은 ROOTDIR 보다 우선합니다 (기본값: `.`)
+`--logLevel=<silent\|info\|verbose>` |  | 빌드 시 로그 레벨을 지정합니다
+`--prerender` |  | Nuxt를 빌드하고 정적 라우트를 프리렌더링합니다
+`--preset` |  | Nitro 서버 프리셋
+`--dotenv` |  | 루트 디렉터리를 기준으로 로드할 `.env` 파일의 경로
+`--envName` |  | 설정 오버라이드를 해결할 때 사용할 환경 이름 (`build` 시 기본값은 `production`, 개발 서버 실행 시 기본값은 `development`)
+`-e, --extends=<layer-name>` |  | Nuxt 레이어를 확장합니다
 <!--/build-opts-->
 
 ::note
-This command sets `process.env.NODE_ENV` to `production`.
+이 명령은 `process.env.NODE_ENV`를 `production`으로 설정합니다.
 ::
 
 ::note
-`--prerender` will always set the `preset` to `static`
+`--prerender`는 항상 `preset`을 `static`으로 설정합니다.
 ::

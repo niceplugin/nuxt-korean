@@ -1,6 +1,6 @@
 ---
 title: useHead
-description: useHead customizes the head properties of individual pages of your Nuxt app.
+description: useHead는 Nuxt 앱의 개별 페이지에 대한 head 속성을 사용자 정의합니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,9 +8,9 @@ links:
     size: xs
 ---
 
-## Usage
+## Usage %{usage}%
 
-The `useHead` composable allows you to manage your head tags in a programmatic and reactive way, powered by [Unhead](https://unhead.unjs.io). It lets you customize the meta tags, links, scripts, and other elements in the `<head>` section of your HTML document.
+`useHead` 컴포저블은 [Unhead](https://unhead.unjs.io)에 의해 구동되며, head 태그를 프로그래밍적이고 반응형으로 관리할 수 있게 해줍니다. 이를 통해 HTML 문서의 `<head>` 섹션에 있는 메타 태그, 링크, 스크립트 및 기타 요소를 사용자 정의할 수 있습니다.
 
 ```vue [app/app.vue]
 <script setup lang="ts">
@@ -28,14 +28,14 @@ useHead({
 ```
 
 ::warning
-If the data comes from a user or other untrusted source, we recommend you check out [`useHeadSafe`](/docs/4.x/api/composables/use-head-safe).
+데이터가 사용자 또는 신뢰할 수 없는 다른 소스로부터 오는 경우, [`useHeadSafe`](/docs/4.x/api/composables/use-head-safe)를 사용하는 것을 권장합니다.
 ::
 
 ::note
-The properties of `useHead` can be dynamic, accepting `ref`, `computed` and `reactive` properties. The `meta` parameter can also accept a function returning an object to make the entire object reactive.
+`useHead`의 속성은 `ref`, `computed`, `reactive` 속성을 허용하는 동적 속성이 될 수 있습니다. `meta` 매개변수는 전체 객체를 반응형으로 만들기 위해 객체를 반환하는 함수도 허용합니다.
 ::
 
-## Type
+## Type %{type}%
 
 ```ts [Signature]
 export function useHead (meta: MaybeComputedRef<MetaObject>): void
@@ -54,32 +54,32 @@ interface MetaObject {
 }
 ```
 
-See [@unhead/schema](https://github.com/unjs/unhead/blob/main/packages/vue/src/types/schema.ts) for more detailed types.
+더 자세한 타입은 [@unhead/schema](https://github.com/unjs/unhead/blob/main/packages/vue/src/types/schema.ts)를 참고하세요.
 
-## Parameters
+## Parameters %{parameters}%
 
-`meta`: An object accepting head metadata properties to customize the page's `<head>` section. All properties support reactive values (`ref`, `computed`, `reactive`) or can be a function returning the metadata object.
+`meta`: 페이지의 `<head>` 섹션을 사용자 정의하기 위한 head 메타데이터 속성을 받는 객체입니다. 모든 속성은 반응형 값(`ref`, `computed`, `reactive`)을 지원하거나 메타데이터 객체를 반환하는 함수가 될 수 있습니다.
 
 | Property | Type | Description |
 | --- | --- | --- |
-| `title` | `string` | Sets the page title. |
-| `titleTemplate` | `string \| ((title?: string) => string)` | Configures a dynamic template to customize the page title. Can be a string with `%s` placeholder or a function. |
-| `base` | `Base` | Sets the `<base>` tag for the document. |
-| `link` | `Link[]` | Array of link objects. Each element is mapped to a `<link>` tag, where object properties correspond to HTML attributes. |
-| `meta` | `Meta[]` | Array of meta objects. Each element is mapped to a `<meta>` tag, where object properties correspond to HTML attributes. |
-| `style` | `Style[]` | Array of style objects. Each element is mapped to a `<style>` tag, where object properties correspond to HTML attributes. |
-| `script` | `Script[]` | Array of script objects. Each element is mapped to a `<script>` tag, where object properties correspond to HTML attributes. |
-| `noscript` | `Noscript[]` | Array of noscript objects. Each element is mapped to a `<noscript>` tag, where object properties correspond to HTML attributes. |
-| `htmlAttrs` | `HtmlAttributes` | Sets attributes of the `<html>` tag. Each object property is mapped to the corresponding attribute. |
-| `bodyAttrs` | `BodyAttributes` | Sets attributes of the `<body>` tag. Each object property is mapped to the corresponding attribute. |
+| `title` | `string` | 페이지 제목을 설정합니다. |
+| `titleTemplate` | `string \| ((title?: string) => string)` | 페이지 제목을 사용자 정의하기 위한 동적 템플릿을 구성합니다. `%s` 플레이스홀더가 있는 문자열이거나 함수가 될 수 있습니다. |
+| `base` | `Base` | 문서의 `<base>` 태그를 설정합니다. |
+| `link` | `Link[]` | 링크 객체의 배열입니다. 각 요소는 `<link>` 태그에 매핑되며, 객체 속성은 HTML 속성에 대응합니다. |
+| `meta` | `Meta[]` | 메타 객체의 배열입니다. 각 요소는 `<meta>` 태그에 매핑되며, 객체 속성은 HTML 속성에 대응합니다. |
+| `style` | `Style[]` | 스타일 객체의 배열입니다. 각 요소는 `<style>` 태그에 매핑되며, 객체 속성은 HTML 속성에 대응합니다. |
+| `script` | `Script[]` | 스크립트 객체의 배열입니다. 각 요소는 `<script>` 태그에 매핑되며, 객체 속성은 HTML 속성에 대응합니다. |
+| `noscript` | `Noscript[]` | noscript 객체의 배열입니다. 각 요소는 `<noscript>` 태그에 매핑되며, 객체 속성은 HTML 속성에 대응합니다. |
+| `htmlAttrs` | `HtmlAttributes` | `<html>` 태그의 속성을 설정합니다. 각 객체 속성은 해당 속성에 매핑됩니다. |
+| `bodyAttrs` | `BodyAttributes` | `<body>` 태그의 속성을 설정합니다. 각 객체 속성은 해당 속성에 매핑됩니다. |
 
-## Return Values
+## Return Values %{return-values}%
 
-This composable does not return any value. It registers the head metadata with Unhead, which manages the actual DOM updates.
+이 컴포저블은 아무 값도 반환하지 않습니다. 대신 Unhead에 head 메타데이터를 등록하며, Unhead가 실제 DOM 업데이트를 관리합니다.
 
-## Examples
+## Examples %{examples}%
 
-### Basic Meta Tags
+### Basic Meta Tags %{basic-meta-tags}%
 
 ```vue [app/pages/about.vue]
 <script setup lang="ts">
@@ -94,7 +94,7 @@ useHead({
 </script>
 ```
 
-### Reactive Meta Tags
+### Reactive Meta Tags %{reactive-meta-tags}%
 
 ```vue [app/pages/profile.vue]
 <script setup lang="ts">
@@ -112,7 +112,7 @@ useHead({
 </script>
 ```
 
-### Using a Function for Full Reactivity
+### Using a Function for Full Reactivity %{using-a-function-for-full-reactivity}%
 
 ```vue [app/pages/dynamic.vue]
 <script setup lang="ts">
@@ -127,7 +127,7 @@ useHead(() => ({
 </script>
 ```
 
-### Adding External Scripts and Styles
+### Adding External Scripts and Styles %{adding-external-scripts-and-styles}%
 
 ```vue [app/pages/external.vue]
 <script setup lang="ts">
@@ -148,7 +148,7 @@ useHead({
 </script>
 ```
 
-### Body and HTML Attributes
+### Body and HTML Attributes %{body-and-html-attributes}%
 
 ```vue [app/pages/themed.vue]
 <script setup lang="ts">

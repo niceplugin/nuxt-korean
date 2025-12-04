@@ -1,6 +1,6 @@
 ---
 title: 'useServerSeoMeta'
-description: The useServerSeoMeta composable lets you define your site's SEO meta tags as a flat object with full TypeScript support.
+description: useServerSeoMeta 컴포저블을 사용하면 전체 TypeScript 지원과 함께 사이트의 SEO 메타 태그를 평면 객체 형태로 정의할 수 있습니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,11 +8,11 @@ links:
     size: xs
 ---
 
-Just like [`useSeoMeta`](/docs/4.x/api/composables/use-seo-meta), `useServerSeoMeta` composable lets you define your site's SEO meta tags as a flat object with full TypeScript support.
+[`useSeoMeta`](/docs/4.x/api/composables/use-seo-meta)와 마찬가지로, `useServerSeoMeta` 컴포저블을 사용하면 전체 TypeScript 지원과 함께 사이트의 SEO 메타 태그를 평면 객체 형태로 정의할 수 있습니다.
 
 :read-more{to="/docs/4.x/api/composables/use-seo-meta"}
 
-In most instances, the meta doesn't need to be reactive as robots will only scan the initial load. So we recommend using [`useServerSeoMeta`](/docs/4.x/api/composables/use-server-seo-meta) as a performance-focused utility that will not do anything (or return a `head` object) on the client.
+대부분의 경우, 로봇은 초기 로드만 스캔하므로 메타가 반응형일 필요는 없습니다. 따라서 클라이언트에서 아무 작업도 수행하지 않거나(`head` 객체를 반환하지 않음) 성능에 초점을 맞춘 유틸리티로서 [`useServerSeoMeta`](/docs/4.x/api/composables/use-server-seo-meta)를 사용할 것을 권장합니다.
 
 ```vue [app/app.vue]
 <script setup lang="ts">
@@ -22,6 +22,6 @@ useServerSeoMeta({
 </script>
 ```
 
-Parameters are exactly the same as with [`useSeoMeta`](/docs/4.x/api/composables/use-seo-meta)
+매개변수는 [`useSeoMeta`](/docs/4.x/api/composables/use-seo-meta)와 완전히 동일합니다.
 
 :read-more{to="/docs/4.x/getting-started/seo-meta"}

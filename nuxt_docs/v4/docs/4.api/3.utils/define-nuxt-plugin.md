@@ -1,6 +1,6 @@
 ---
 title: "defineNuxtPlugin"
-description: defineNuxtPlugin() is a helper function for creating Nuxt plugins.
+description: defineNuxtPlugin()은 Nuxt 플러그인을 생성하기 위한 도우미 함수입니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,17 +8,17 @@ links:
     size: xs
 ---
 
-`defineNuxtPlugin` is a helper function for creating Nuxt plugins with enhanced functionality and type safety. This utility normalizes different plugin formats into a consistent structure that works seamlessly within Nuxt's plugin system.
+`defineNuxtPlugin`은 향상된 기능과 타입 안정성을 갖춘 Nuxt 플러그인을 생성하기 위한 도우미 함수입니다. 이 유틸리티는 서로 다른 플러그인 형식을 Nuxt의 플러그인 시스템 내에서 원활하게 동작하는 일관된 구조로 정규화합니다.
 
 ```ts twoslash [plugins/hello.ts]
 export default defineNuxtPlugin((nuxtApp) => {
-  // Doing something with nuxtApp
+  // nuxtApp으로 무언가를 수행
 })
 ```
 
 :read-more{to="/docs/4.x/directory-structure/app/plugins#creating-plugins"}
 
-## Type
+## Type %{type}%
 
 ```ts [Signature]
 export function defineNuxtPlugin<T extends Record<string, unknown>> (plugin: Plugin<T> | ObjectPlugin<T>): Plugin<T> & ObjectPlugin<T>
@@ -39,34 +39,34 @@ interface ObjectPlugin<T> {
 }
 ```
 
-## Parameters
+## Parameters %{parameters}%
 
-**plugin**: A plugin can be defined in two ways:
-1. **Function Plugin**: A function that receives the [`NuxtApp`](/docs/4.x/guide/going-further/internals#the-nuxtapp-interface) instance and can return a promise with a potential object with a [`provide`](/docs/4.x/directory-structure/app/plugins#providing-helpers) property if you want to provide a helper on [`NuxtApp`](/docs/4.x/guide/going-further/internals#the-nuxtapp-interface) instance.
-2. **Object Plugin**: An object that can include various properties to configure the plugin's behavior, such as `name`, `enforce`, `dependsOn`, `order`, `parallel`, `setup`, `hooks`, and `env`.
+**plugin**: 플러그인은 두 가지 방식으로 정의할 수 있습니다:
+1. **함수 플러그인(Function Plugin)**: [`NuxtApp`](/docs/4.x/guide/going-further/internals#the-nuxtapp-interface) 인스턴스를 인자로 받는 함수로, [`NuxtApp`](/docs/4.x/guide/going-further/internals#the-nuxtapp-interface) 인스턴스에 헬퍼를 제공하고 싶다면 [`provide`](/docs/4.x/directory-structure/app/plugins#providing-helpers) 속성을 가진 객체를 포함할 수 있는 프로미스를 반환할 수 있습니다.
+2. **객체 플러그인(Object Plugin)**: `name`, `enforce`, `dependsOn`, `order`, `parallel`, `setup`, `hooks`, `env` 등 플러그인의 동작을 구성하기 위한 다양한 속성을 포함할 수 있는 객체입니다.
 
 | Property           | Type                                                                 | Required | Description                                                                                                     |
 | ------------------ | -------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| `name` | `string` | `false` | Optional name for the plugin, useful for debugging and dependency management. |
-| `enforce` | `'pre'` \| `'default'` \| `'post'` | `false` | Controls when the plugin runs relative to other plugins. |
-| `dependsOn` | `string[]` | `false` | Array of plugin names this plugin depends on. Ensures proper execution order. |
-| `order` | `number` | `false` | This allows more granular control over plugin order and should only be used by advanced users. **It overrides the value of `enforce` and is used to sort plugins.** |
-| `parallel` | `boolean` | `false` | Whether to execute the plugin in parallel with other parallel plugins. |
-| `setup` | `Plugin<T>`{lang="ts"}  | `false` | The main plugin function, equivalent to a function plugin. |
-| `hooks` | `Partial<RuntimeNuxtHooks>`{lang="ts"}  | `false` | Nuxt app runtime hooks to register directly. |
-| `env` | `{ islands?: boolean }`{lang="ts"}  | `false` | Set this value to `false` if you don't want the plugin to run when rendering server-only or island components. |
+| `name` | `string` | `false` | 디버깅 및 의존성 관리를 위해 유용한 선택적 플러그인 이름입니다. |
+| `enforce` | `'pre'` \| `'default'` \| `'post'` | `false` | 다른 플러그인과 비교하여 이 플러그인이 언제 실행될지를 제어합니다. |
+| `dependsOn` | `string[]` | `false` | 이 플러그인이 의존하는 플러그인 이름의 배열입니다. 올바른 실행 순서를 보장합니다. |
+| `order` | `number` | `false` | 플러그인 순서를 더 세밀하게 제어할 수 있으며, 고급 사용자만 사용하는 것이 좋습니다. **`enforce` 값보다 우선하며 플러그인 정렬에 사용됩니다.** |
+| `parallel` | `boolean` | `false` | 다른 병렬 플러그인과 함께 이 플러그인을 병렬로 실행할지 여부입니다. |
+| `setup` | `Plugin<T>`{lang="ts"}  | `false` | 함수 플러그인과 동일한, 주요 플러그인 함수입니다. |
+| `hooks` | `Partial<RuntimeNuxtHooks>`{lang="ts"}  | `false` | Nuxt 앱 런타임 훅을 직접 등록합니다. |
+| `env` | `{ islands?: boolean }`{lang="ts"}  | `false` | 서버 전용 또는 아일랜드 컴포넌트를 렌더링할 때 플러그인을 실행하지 않으려면 이 값을 `false`로 설정하세요. |
 
-:video-accordion{title="Watch a video from Alexander Lichter about the Object Syntax for Nuxt plugins" videoId="2aXZyXB1QGQ"}
+:video-accordion{title="Nuxt 플러그인을 위한 Object Syntax에 대해 Alexander Lichter가 설명하는 영상 보기" videoId="2aXZyXB1QGQ"}
 
-## Examples
+## Examples %{examples}%
 
-### Basic Usage
+### Basic Usage %{basic-usage}%
 
-The example below demonstrates a simple plugin that adds global functionality:
+아래 예시는 전역 기능을 추가하는 간단한 플러그인을 보여줍니다:
 
 ```ts twoslash [plugins/hello.ts]
 export default defineNuxtPlugin((nuxtApp) => {
-  // Add a global method
+  // 전역 메서드 추가
   return {
     provide: {
       hello: (name: string) => `Hello ${name}!`,
@@ -75,16 +75,16 @@ export default defineNuxtPlugin((nuxtApp) => {
 })
 ```
 
-### Object Syntax Plugin
+### Object Syntax Plugin %{object-syntax-plugin}%
 
-The example below shows the object syntax with advanced configuration:
+아래 예시는 고급 구성을 포함한 객체 문법을 보여줍니다:
 
 ```ts twoslash [plugins/advanced.ts]
 export default defineNuxtPlugin({
   name: 'my-plugin',
   enforce: 'pre',
   async setup (nuxtApp) {
-    // Plugin setup logic
+    // 플러그인 설정 로직
     const data = await $fetch('/api/config')
 
     return {

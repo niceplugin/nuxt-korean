@@ -1,6 +1,6 @@
 ---
 title: 'abortNavigation'
-description: 'abortNavigation is a helper function that prevents navigation from taking place and throws an error if one is set as a parameter.'
+description: 'abortNavigation은 탐색이 수행되지 않도록 막고, 매개변수로 설정된 오류가 있다면 그 오류를 던지는 헬퍼 함수입니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,26 +9,26 @@ links:
 ---
 
 ::warning
-`abortNavigation` is only usable inside a [route middleware handler](/docs/4.x/directory-structure/app/middleware).
+`abortNavigation`은 [라우트 미들웨어 핸들러](/docs/4.x/directory-structure/app/middleware) 내부에서만 사용할 수 있습니다.
 ::
 
-## Type
+## Type %{type}%
 
 ```ts [Signature]
 export function abortNavigation (err?: Error | string): false
 ```
 
-## Parameters
+## Parameters %{parameters}%
 
-### `err`
+### `err` %{err}%
 
 - **Type**: [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) | `string`
 
-  Optional error to be thrown by `abortNavigation`.
+  `abortNavigation`에 의해 던져질 선택적 오류입니다.
 
-## Examples
+## Examples %{examples}%
 
-The example below shows how you can use `abortNavigation` in a route middleware to prevent unauthorized route access:
+아래 예시는 라우트 미들웨어에서 `abortNavigation`을 사용하여 권한이 없는 라우트 접근을 막는 방법을 보여줍니다:
 
 ```ts [app/middleware/auth.ts]
 export default defineNuxtRouteMiddleware((to, from) => {
@@ -44,9 +44,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
 })
 ```
 
-### `err` as a String
+### 문자열로서의 `err` %{err-as-a-string}%
 
-You can pass the error as a string:
+오류를 문자열로 전달할 수 있습니다:
 
 ```ts [app/middleware/auth.ts]
 export default defineNuxtRouteMiddleware((to, from) => {
@@ -58,14 +58,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
 })
 ```
 
-### `err` as an Error Object
+### Error 객체로서의 `err` %{err-as-an-error-object}%
 
-You can pass the error as an [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object, e.g. caught by the `catch`-block:
+[`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) 객체(예: `catch` 블록에서 포착된 것)를 오류로 전달할 수 있습니다:
 
 ```ts [app/middleware/auth.ts]
 export default defineNuxtRouteMiddleware((to, from) => {
   try {
-    /* code that might throw an error */
+    /* 오류를 던질 수 있는 코드 */
   } catch (err) {
     return abortNavigation(err)
   }

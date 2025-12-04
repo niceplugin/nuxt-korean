@@ -1,20 +1,20 @@
 ---
-navigation.title: 'Nuxt Plugins'
+navigation.title: 'Nuxt 플러그인'
 title: Nuxt Plugins
-description: Best practices when using Nuxt plugins.
+description: Nuxt 플러그인을 사용할 때의 모범 사례.
 ---
 
-Plugins in Nuxt allow you to extend your application with additional functionality. However, improper use can lead to performance bottlenecks. This guide outlines best practices to optimize your Nuxt plugins.
+Nuxt의 플러그인은 애플리케이션에 추가 기능을 확장할 수 있게 해줍니다. 그러나 잘못 사용하면 성능 병목 현상이 발생할 수 있습니다. 이 가이드는 Nuxt 플러그인을 최적화하기 위한 모범 사례를 설명합니다.
 
-## Avoid costly plugin setup
+## 비용이 많이 드는 플러그인 설정 피하기 %{avoid-costly-plugin-setup}%
 
-A large number of plugins can cause performance issues, especially if they require expensive computations or take too long to initialize. Since plugins run during the hydration phase, inefficient setups can block rendering and degrade the user experience.
+플러그인이 많으면, 특히 비용이 많이 드는 연산이 필요하거나 초기화에 시간이 오래 걸리는 경우 성능 문제가 발생할 수 있습니다. 플러그인은 하이드레이션 단계에서 실행되므로, 비효율적인 설정은 렌더링을 막고 사용자 경험을 저하시킬 수 있습니다.
 
-## Use Composition whenever possible
+## 가능한 경우 Composition 사용하기 %{use-composition-whenever-possible}%
 
-Whenever possible, favor composition over plugins. Just like in Vue, many utilities and composables can be used directly without the need for a plugin. This keeps your project lightweight and improves maintainability.
+가능한 한 플러그인보다 컴포지션을 우선하세요. Vue에서와 마찬가지로, 많은 유틸리티와 컴포저블은 플러그인 없이도 직접 사용할 수 있습니다. 이렇게 하면 프로젝트가 가벼워지고 유지 보수성이 향상됩니다.
 
-## If `async`, enable `parallel`
+## `async`라면 `parallel` 활성화하기 %{if-async-enable-parallel}%
 
-By default, all plugins loads synchronously.
-When defining asynchronous plugins, setting `parallel: true` allows multiple plugins to load concurrently, improving performance by preventing blocking operations.
+기본적으로 모든 플러그인은 동기적으로 로드됩니다.
+비동기 플러그인을 정의할 때 `parallel: true`를 설정하면 여러 플러그인을 동시에 로드할 수 있어, 차단 연산을 방지하여 성능을 향상시킵니다.

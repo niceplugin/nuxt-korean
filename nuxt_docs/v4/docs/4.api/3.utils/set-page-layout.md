@@ -1,6 +1,6 @@
 ---
 title: 'setPageLayout'
-description: setPageLayout allows you to dynamically change the layout of a page.
+description: setPageLayout을 사용하면 페이지의 레이아웃을 동적으로 변경할 수 있습니다.
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,16 +9,16 @@ links:
 ---
 
 ::important
-`setPageLayout` allows you to dynamically change the layout of a page. It relies on access to the Nuxt context and therefore can only be called within the [Nuxt context](/docs/4.x/guide/going-further/nuxt-app#the-nuxt-context).
+`setPageLayout`을 사용하면 페이지의 레이아웃을 동적으로 변경할 수 있습니다. 이는 Nuxt 컨텍스트에 대한 접근에 의존하므로 [Nuxt 컨텍스트](/docs/4.x/guide/going-further/nuxt-app#the-nuxt-context) 내에서만 호출할 수 있습니다.
 ::
 
 ```ts [app/middleware/custom-layout.ts]
 export default defineNuxtRouteMiddleware((to) => {
-  // Set the layout on the route you are navigating _to_
+  // 이동하려는 라우트에 레이아웃을 설정합니다
   setPageLayout('other')
 })
 ```
 
 ::note
-If you choose to set the layout dynamically on the server side, you _must_ do so before the layout is rendered by Vue (that is, within a plugin or route middleware) to avoid a hydration mismatch.
+서버 측에서 레이아웃을 동적으로 설정하기로 선택한 경우, Vue에 의해 레이아웃이 렌더링되기 전에(즉, 플러그인 또는 라우트 미들웨어 내에서) 반드시 설정해야 하며, 그렇지 않으면 하이드레이션 불일치가 발생할 수 있습니다.
 ::

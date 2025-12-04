@@ -1,6 +1,6 @@
 ---
 title: "usePreviewMode"
-description: "Use usePreviewMode to check and control preview mode in Nuxt"
+description: "Nuxt에서 미리보기 모드를 확인하고 제어하려면 usePreviewMode를 사용하세요"
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -10,19 +10,19 @@ links:
 
 # `usePreviewMode`
 
-Preview mode allows you to see how your changes would be displayed on a live site without revealing them to users.
+미리보기 모드를 사용하면 실제 사이트에서 사용자에게 변경 사항을 공개하지 않고도 변경 사항이 어떻게 표시될지 확인할 수 있습니다.
 
-You can use the built-in `usePreviewMode` composable to access and control preview state in Nuxt. If the composable detects preview mode it will automatically force any updates necessary for [`useAsyncData`](/docs/4.x/api/composables/use-async-data) and [`useFetch`](/docs/4.x/api/composables/use-fetch) to rerender preview content.
+내장된 `usePreviewMode` 컴포저블을 사용하여 Nuxt에서 미리보기 상태에 접근하고 이를 제어할 수 있습니다. 컴포저블이 미리보기 모드를 감지하면 [`useAsyncData`](/docs/4.x/api/composables/use-async-data) 및 [`useFetch`](/docs/4.x/api/composables/use-fetch)가 미리보기 콘텐츠를 다시 렌더링하도록 필요한 모든 업데이트를 자동으로 강제합니다.
 
 ```ts
 const { enabled, state } = usePreviewMode()
 ```
 
-## Options
+## Options %{options}%
 
-### Custom `enable` check
+### Custom `enable` check %{custom-enable-check}%
 
-You can specify a custom way to enable preview mode. By default the `usePreviewMode` composable will enable preview mode if there is a `preview` param in url that is equal to `true` (for example, `http://localhost:3000?preview=true`). You can wrap the `usePreviewMode` into custom composable, to keep options consistent across usages and prevent any errors.
+미리보기 모드를 활성화하는 사용자 정의 방식을 지정할 수 있습니다. 기본적으로 `usePreviewMode` 컴포저블은 URL에 `preview` 파라미터가 있고 그 값이 `true`인 경우(예: `http://localhost:3000?preview=true`) 미리보기 모드를 활성화합니다. `usePreviewMode`를 사용자 정의 컴포저블로 감싸서, 사용 전반에 걸쳐 옵션을 일관되게 유지하고 오류를 방지할 수 있습니다.
 
 ```ts
 export function useMyPreviewMode () {
@@ -35,9 +35,9 @@ export function useMyPreviewMode () {
 }
 ```
 
-### Modify default state
+### Modify default state %{modify-default-state}%
 
-`usePreviewMode` will try to store the value of a `token` param from url in state. You can modify this state and it will be available for all [`usePreviewMode`](/docs/4.x/api/composables/use-preview-mode) calls.
+`usePreviewMode`는 URL에서 `token` 파라미터의 값을 state에 저장하려고 시도합니다. 이 state를 수정할 수 있으며, 수정된 state는 모든 [`usePreviewMode`](/docs/4.x/api/composables/use-preview-mode) 호출에서 사용할 수 있습니다.
 
 ```ts
 const data1 = ref('data1')
@@ -50,16 +50,16 @@ const { enabled, state } = usePreviewMode({
 ```
 
 ::note
-The `getState` function will append returned values to current state, so be careful not to accidentally overwrite important state.
+`getState` 함수는 반환된 값을 현재 state에 추가하므로, 중요한 state를 실수로 덮어쓰지 않도록 주의해야 합니다.
 ::
 
-### Customize the `onEnable` and `onDisable` callbacks
+### Customize the `onEnable` and `onDisable` callbacks %{customize-the-onenable-and-ondisable-callbacks}%
 
-By default, when `usePreviewMode` is enabled, it will call `refreshNuxtData()` to re-fetch all data from the server.
+기본적으로 `usePreviewMode`가 활성화되면, 서버에서 모든 데이터를 다시 가져오기 위해 `refreshNuxtData()`를 호출합니다.
 
-When preview mode is disabled, the composable will attach a callback to call `refreshNuxtData()` to run after a subsequent router navigation.
+미리보기 모드가 비활성화되면, 컴포저블은 이후 라우터 내비게이션 후에 실행될 `refreshNuxtData()` 호출 콜백을 연결합니다.
 
-You can specify custom callbacks to be triggered by providing your own functions for the `onEnable` and `onDisable` options.
+`onEnable` 및 `onDisable` 옵션에 대해 직접 함수를 제공하여 트리거될 사용자 정의 콜백을 지정할 수 있습니다.
 
 ```ts
 const { enabled, state } = usePreviewMode({
@@ -72,9 +72,9 @@ const { enabled, state } = usePreviewMode({
 })
 ```
 
-## Example
+## Example %{example}%
 
-The example below creates a page where part of a content is rendered only in preview mode.
+아래 예시는 콘텐츠의 일부가 미리보기 모드에서만 렌더링되는 페이지를 생성합니다.
 
 ```vue [app/pages/some-page.vue]
 <script setup>
@@ -101,15 +101,15 @@ const { data } = await useFetch('/api/preview', {
 </template>
 ```
 
-Now you can generate your site and serve it:
+이제 사이트를 생성하고 서빙할 수 있습니다:
 
 ```bash [Terminal]
 npx nuxt generate
 npx nuxt preview
 ```
 
-Then you can see your preview page by adding the query param `preview` to the end of the page you want to see once, for example `http://localhost:3000/?preview=true`.
+그런 다음, 한 번 보고 싶은 페이지 끝에 `preview` 쿼리 파라미터를 추가하여 미리보기 페이지를 볼 수 있습니다. 예: `http://localhost:3000/?preview=true`.
 
 ::note
-`usePreviewMode` should be tested locally with `nuxt generate` and then `nuxt preview` rather than `nuxt dev`. (The [preview command](/docs/4.x/api/commands/preview) is not related to preview mode.)
+`usePreviewMode`는 `nuxt dev`가 아니라 `nuxt generate` 후 `nuxt preview`로 로컬에서 테스트해야 합니다. ([preview 명령](/docs/4.x/api/commands/preview)은 미리보기 모드와 관련이 없습니다.)
 ::

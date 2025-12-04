@@ -1,6 +1,6 @@
 ---
 title: 'defineRouteRules'
-description: 'Define route rules for hybrid rendering at the page level.'
+description: '페이지 수준에서 하이브리드 렌더링을 위한 라우트 규칙을 정의합니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -9,10 +9,10 @@ links:
 ---
 
 ::read-more{to="/docs/4.x/guide/going-further/experimental-features#inlinerouterules" icon="i-lucide-star"}
-This feature is experimental and in order to use it you must enable the `experimental.inlineRouteRules` option in your `nuxt.config`.
+이 기능은 실험적이며, 사용하려면 `nuxt.config`에서 `experimental.inlineRouteRules` 옵션을 활성화해야 합니다.
 ::
 
-## Usage
+## Usage %{usage}%
 
 ```vue [app/pages/index.vue]
 <script setup lang="ts">
@@ -26,7 +26,7 @@ defineRouteRules({
 </template>
 ```
 
-Will be translated to:
+다음과 같이 변환됩니다:
 
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
@@ -37,16 +37,16 @@ export default defineNuxtConfig({
 ```
 
 ::note
-When running [`nuxt build`](/docs/4.x/api/commands/build), the home page will be pre-rendered in `.output/public/index.html` and statically served.
+[`nuxt build`](/docs/4.x/api/commands/build)를 실행하면, 홈 페이지는 `.output/public/index.html`로 미리 렌더링되며 정적으로 제공됩니다.
 ::
 
-## Notes
+## Notes %{notes}%
 
-- A rule defined in `~/pages/foo/bar.vue` will be applied to `/foo/bar` requests.
-- A rule in `~/pages/foo/[id].vue` will be applied to `/foo/**` requests.
+- `~/pages/foo/bar.vue`에 정의된 규칙은 `/foo/bar` 요청에 적용됩니다.
+- `~/pages/foo/[id].vue`의 규칙은 `/foo/**` 요청에 적용됩니다.
 
-For more control, such as if you are using a custom `path` or `alias` set in the page's [`definePageMeta`](/docs/4.x/api/utils/define-page-meta), you should set `routeRules` directly within your `nuxt.config`.
+페이지의 [`definePageMeta`](/docs/4.x/api/utils/define-page-meta)에 설정된 사용자 정의 `path` 또는 `alias`를 사용하는 등 더 세밀한 제어가 필요하다면, `nuxt.config` 내에서 직접 `routeRules`를 설정해야 합니다.
 
 ::read-more{to="/docs/4.x/guide/concepts/rendering#hybrid-rendering" icon="i-lucide-medal"}
-Read more about the `routeRules`.
+`routeRules`에 대해 더 읽어보세요.
 ::
