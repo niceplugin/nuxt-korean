@@ -88,14 +88,14 @@ export default defineNuxtConfig({
     // Pre-render
     '/': { prerender: true },
     // '/blog/rss.xml': { prerender: true },
-    '/sitemap.xml': { prerender: true },
+    // '/sitemap.xml': { prerender: true },
     '/404.html': { prerender: true },
     // '/docs/3.x/getting-started/introduction': { prerender: true },
     '/docs/4.x/getting-started/introduction': { prerender: true },
-    '/modules': { isr: 60 * 60 },
-    '/modules/**': { isr: 60 * 60 },
+    // '/modules': { isr: 60 * 60 },
+    // '/modules/**': { isr: 60 * 60 },
     // API
-    '/api/teams': { isr: 60 * 60 },
+    // '/api/teams': { isr: 60 * 60 },
     // Admin
     // '/admin': { ssr: false },
     // '/admin/**': { ssr: false },
@@ -228,9 +228,9 @@ export default defineNuxtConfig({
     '/docs/4.x/guide/directory-structure/package': { redirect: '/docs/4.x/directory-structure/package', prerender: false },
     '/docs/4.x/guide/directory-structure/tsconfig': { redirect: '/docs/4.x/directory-structure/tsconfig', prerender: false },
     // '/docs/guide/directory-structure/nuxt.config': { redirect: '/docs/guide/directory-structure/nuxt-config', prerender: false },
-    '/enterprise': { redirect: '/enterprise/support', prerender: false },
-    '/support/us': { redirect: '/enterprise/sponsors', prerender: false },
-    '/docs/4.x/guide/ai': { redirect: '/docs/4.x/guide/ai/mcp', prerender: false }
+    // '/enterprise': { redirect: '/enterprise/support', prerender: false },
+    // '/support/us': { redirect: '/enterprise/sponsors', prerender: false },
+    // '/docs/4.x/guide/ai': { redirect: '/docs/4.x/guide/ai/mcp', prerender: false }
   },
   sourcemap: true,
   experimental: {
@@ -252,7 +252,8 @@ export default defineNuxtConfig({
         route => route.startsWith('/modules'),
         route => route.startsWith('/admin')
       ],
-      autoSubfolderIndex: false
+      autoSubfolderIndex: false,
+      failOnError: false
     }
   },
   hub: {
