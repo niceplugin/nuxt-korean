@@ -2,16 +2,17 @@
 const colorMode = useColorMode()
 const { version } = useDocsVersion()
 const { searchGroups, searchLinks, searchTerm } = useNavigation()
-const { fetchList } = useModules()
+const { fetchList: fetchModules } = useModules()
+const { fetchList: fetchHosting } = useHostingProviders()
 
 const color = computed(() => colorMode.value === 'dark' ? '#020420' : 'white')
 
 const [{ data: navigation }, { data: files }] = await Promise.all([
   useAsyncData('navigation', () => {
     return Promise.all([
-      queryCollectionNavigation('docsv3', ['titleTemplate']),
-      // queryCollectionNavigation('docsv4', ['titleTemplate']).then(data => data[0]?.children),
-      // queryCollectionNavigation('blog')
+      queryCollectionNavigation('docsv3', ['titleTemplate']).then(data => data[0]?.children),
+      queryCollectionNavigation('docsv4', ['titleTemplate']).then(data => data[0]?.children),
+      queryCollectionNavigation('blog')
     ])
   }, {
     transform: data => data.flat(),
@@ -19,9 +20,9 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
   }),
   useLazyAsyncData('search', () => {
     return Promise.all([
-      queryCollectionSearchSections('docsv3'),
-      // queryCollectionSearchSections('docsv4'),
-      // queryCollectionSearchSections('blog')
+      queryCollectionSearchSections('docsv3', { ignoredTags: ['style'] }),
+      queryCollectionSearchSections('docsv4', { ignoredTags: ['style'] }),
+      queryCollectionSearchSections('blog')
     ])
   }, {
     server: false,
@@ -30,10 +31,13 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
   })
 ])
 
-onNuxtReady(() => fetchList())
+onNuxtReady(() => {
+  fetchModules()
+  fetchHosting()
+})
 
 useHead({
-  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: 직관적인 웹 프레임워크',
+  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: The Intuitive Web Framework',
   meta: [
     { key: 'theme-color', name: 'theme-color', content: color }
   ]
@@ -94,8 +98,21 @@ onMounted(() => {
         :navigation="versionNavigation"
         :groups="searchGroups"
         :links="searchLinks"
-        :fuse="{ resultLimit: 42 }"
+        :fuse="{
+          resultLimit: 42,
+          fuseOptions: {
+            threshold: 0
+          }
+        }"
       />
     </ClientOnly>
   </UApp>
 </template>
+
+<style>
+@media (min-width: 1024px) {
+  .root {
+    --ui-header-height: 112px;
+  }
+}
+</style>

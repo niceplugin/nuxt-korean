@@ -16,26 +16,26 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div :class="[(route.path.startsWith('/docs/') || route.path.startsWith('/deploy')) && 'root']">
     <UBanner
-      v-if="false"
-      id="nuxt-tips-michael"
-      title="Learn Nuxt with a Collection of 100+ Tips!"
-      icon="i-lucide-wand"
-      to="https://michaelnthiessen.com/nuxt-tips-collection?aff=J0Emk"
+      id="mn-nuxt-b"
+      title="Black Friday: Get 40% OFF the complete Mastering Nuxt course"
+      icon="i-lucide-ticket-percent"
+      to="https://masteringnuxt.com/?utm_source=nuxt.com&utm_medium=banner&utm_campaign=nuxt.com"
+      target="_blank"
       close
       :actions="[
         {
-          label: 'View Tips',
+          label: 'Claim offer',
           color: 'neutral',
           variant: 'outline',
           trailingIcon: 'i-lucide-arrow-right',
-          to: 'https://michaelnthiessen.com/nuxt-tips-collection?aff=J0Emk'
+          to: 'https://masteringnuxt.com/?utm_source=nuxt.com&utm_medium=banner&utm_campaign=nuxt.com'
         }
       ]"
     />
 
-    <AppHeader />
+    <Header />
 
     <UMain class="relative">
       <HeroBackground
