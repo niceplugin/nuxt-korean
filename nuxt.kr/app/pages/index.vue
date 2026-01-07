@@ -130,7 +130,7 @@ onMounted(() => {
       <template #links>
         <div class="flex flex-col gap-4">
           <div class="flex items-center flex-wrap gap-2">
-            <UButton to="/docs/getting-started/installation" size="xl">
+            <UButton to="/docs/4.x/getting-started/installation" size="xl">
               시작하기
             </UButton>
             <UButton size="xl" color="neutral" variant="subtle" trailing-icon="i-lucide-play-circle" @click="videoModalOpen = true">
