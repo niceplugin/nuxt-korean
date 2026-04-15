@@ -4,8 +4,8 @@ navigation: false
 
 # Nuxt Docs
 
-This repository contains the documentation of Nuxt, hosted on <https://nuxt.com/docs/4.x/getting-started/introduction>
+이 저장소에는 <https://nuxt.com/docs/4.x/getting-started/introduction> 에 게시되는 Nuxt 문서가 포함되어 있습니다.
 
-## Contributing
+## Contributing %{#contributing}%
 
-Have a look at <https://github.com/nuxt/nuxt.com> to run the website locally.
+웹사이트를 로컬에서 실행하려면 <https://github.com/nuxt/nuxt.com> 을 확인하세요.

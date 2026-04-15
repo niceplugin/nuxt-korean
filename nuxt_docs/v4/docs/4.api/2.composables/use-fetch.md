@@ -1,6 +1,6 @@
 ---
 title: 'useFetch'
-description: 'SSR에 친화적인 컴포저블로 API 엔드포인트에서 데이터를 가져옵니다.'
+description: 'SSR 친화적인 컴포저블로 API 엔드포인트에서 데이터를 가져옵니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,14 +8,14 @@ links:
     size: xs
 ---
 
-이 컴포저블은 [`useAsyncData`](/docs/4.x/api/composables/use-async-data)와 [`$fetch`](/docs/4.x/api/utils/dollarfetch)를 편리하게 감싸는 래퍼를 제공합니다.
-URL과 fetch 옵션을 기반으로 자동으로 키를 생성하고, 서버 라우트를 기반으로 요청 URL에 대한 타입 힌트를 제공하며, API 응답 타입을 추론합니다.
+이 컴포저블은 [`useAsyncData`](/docs/4.x/api/composables/use-async-data)와 [`$fetch`](/docs/4.x/api/utils/dollarfetch)를 편리하게 감싼 래퍼를 제공합니다.
+URL과 fetch 옵션을 기반으로 자동으로 키를 생성하고, 서버 라우트를 기준으로 요청 URL에 대한 타입 힌트를 제공하며, API 응답 타입을 추론합니다.
 
 ::note
-`useFetch`는 setup 함수, 플러그인 또는 라우트 미들웨어에서 직접 호출하도록 설계된 컴포저블입니다. 반응형 컴포저블을 반환하며, 응답을 Nuxt 페이로드에 추가하여 페이지가 하이드레이션될 때 클라이언트 측에서 데이터를 다시 가져오지 않고도 서버에서 클라이언트로 전달될 수 있도록 처리합니다.
+`useFetch`는 setup 함수, 플러그인, 또는 route middleware 안에서 직접 호출하도록 설계된 컴포저블입니다. 반응형 컴포저블을 반환하며, 응답을 Nuxt payload에 추가하는 처리를 담당하여 페이지가 하이드레이션될 때 클라이언트 측에서 데이터를 다시 가져오지 않고도 서버에서 클라이언트로 전달할 수 있게 해줍니다.
 ::
 
-## Usage %{usage}%
+## 사용법 %{#usage}%
 
 ```vue [app/pages/modules.vue]
 <script setup lang="ts">
@@ -25,15 +25,15 @@ const { data, status, error, refresh, clear } = await useFetch('/api/modules', {
 </script>
 ```
 
-::warning
-커스텀 useFetch 래퍼를 사용하는 경우, 해당 컴포저블 내부에서 이를 `await` 하지 마세요. 예기치 않은 동작을 유발할 수 있습니다. 커스텀 비동기 데이터 패처를 만드는 방법에 대한 자세한 내용은 [이 레시피](/docs/4.x/guide/recipes/custom-usefetch#custom-usefetchuseasyncdata)를 참고하세요.
+::tip{to="/docs/4.x/guide/recipes/custom-usefetch#custom-usefetch-with-createusefetch"}
+미리 정의된 기본값(`baseURL`이나 인증 헤더 등)이 있는 커스텀 `useFetch`가 필요하신가요? `createUseFetch`를 사용해 완전히 타입이 지정된 커스텀 컴포저블을 만드세요.
 ::
 
 ::note
-`data`, `status`, `error`는 Vue ref이며, `<script setup>` 내에서 사용할 때는 `.value`로 접근해야 합니다. 반면 `refresh`/`execute`와 `clear`는 일반 함수입니다.
+`data`, `status`, `error`는 Vue ref이므로 `<script setup>` 안에서 사용할 때는 `.value`로 접근해야 하며, `refresh`/`execute`와 `clear`는 일반 함수입니다.
 ::
 
-`query` 옵션을 사용하면 쿼리에 검색 파라미터를 추가할 수 있습니다. 이 옵션은 [unjs/ofetch](https://github.com/unjs/ofetch)에서 확장되었으며, URL 생성을 위해 [unjs/ufo](https://github.com/unjs/ufo)를 사용합니다. 객체는 자동으로 문자열화됩니다.
+`query` 옵션을 사용하면 쿼리에 검색 매개변수를 추가할 수 있습니다. 이 옵션은 [unjs/ofetch](https://github.com/unjs/ofetch)에서 확장된 것이며, URL 생성에는 [unjs/ufo](https://github.com/unjs/ufo)를 사용합니다. 객체는 자동으로 문자열화됩니다.
 
 ```ts
 const param1 = ref('value1')
@@ -42,76 +42,76 @@ const { data, status, error, refresh } = await useFetch('/api/modules', {
 })
 ```
 
-위 예시는 `https://api.nuxt.com/modules?param1=value1&param2=value2`를 결과로 생성합니다.
+위 예제의 결과 URL은 `https://api.nuxt.com/modules?param1=value1&param2=value2`입니다.
 
-또한 [인터셉터](https://github.com/unjs/ofetch#%EF%B8%8F-interceptors)를 사용할 수도 있습니다:
+[interceptors](https://github.com/unjs/ofetch#%EF%B8%8F-interceptors)도 사용할 수 있습니다:
 
 ```ts
 const { data, status, error, refresh, clear } = await useFetch('/api/auth/login', {
   onRequest ({ request, options }) {
-    // 요청 헤더 설정
-    // ofetch >= 1.4.0에 의존한다는 점에 유의하세요 - lockfile을 새로 고쳐야 할 수 있습니다
+    // 요청 헤더를 설정합니다
+    // 이는 ofetch >= 1.4.0에 의존하므로 lockfile을 새로고침해야 할 수 있습니다
     options.headers.set('Authorization', '...')
   },
   onRequestError ({ request, options, error }) {
-    // 요청 에러 처리
+    // 요청 오류를 처리합니다
   },
   onResponse ({ request, response, options }) {
-    // 응답 데이터 처리
+    // 응답 데이터를 처리합니다
     localStorage.setItem('token', response._data.token)
   },
   onResponseError ({ request, response, options }) {
-    // 응답 에러 처리
+    // 응답 오류를 처리합니다
   },
 })
 ```
 
-### Reactive Keys and Shared State %{reactive-keys-and-shared-state}%
+### 반응형 키와 공유 상태 %{#reactive-keys-and-shared-state}%
 
-URL로 계산된 ref 또는 일반 ref를 사용할 수 있어, URL이 변경될 때 자동으로 업데이트되는 동적 데이터 패칭이 가능합니다:
+computed ref나 일반 ref를 URL로 사용할 수 있으므로, URL이 변경되면 자동으로 업데이트되는 동적 데이터 패칭이 가능합니다:
 
 ```vue [app/pages/[id\\].vue]
 <script setup lang="ts">
 const route = useRoute()
 const id = computed(() => route.params.id)
 
-// 라우트가 변경되어 id가 업데이트되면, 데이터가 자동으로 다시 fetch됩니다
+// route가 변경되어 id가 갱신되면 데이터가 자동으로 다시 패칭됩니다
 const { data: post } = await useFetch(() => `/api/posts/${id.value}`)
 </script>
 ```
 
-여러 컴포넌트에서 동일한 URL과 옵션으로 `useFetch`를 사용하는 경우, 동일한 `data`, `error`, `status` ref를 공유합니다. 이는 컴포넌트 간의 일관성을 보장합니다.
+여러 컴포넌트에서 같은 URL과 옵션으로 `useFetch`를 사용하면 동일한 `data`, `error`, `status` ref를 공유합니다. 이는 컴포넌트 전반의 일관성을 보장합니다.
 
 ::tip
-`useFetch`로 생성된 키 기반 상태는 Nuxt 애플리케이션 전반에서 [`useNuxtData`](/docs/4.x/api/composables/use-nuxt-data)를 사용해 가져올 수 있습니다.
+`useFetch`로 생성한 keyed state는 Nuxt 애플리케이션 전체에서 [`useNuxtData`](/docs/4.x/api/composables/use-nuxt-data)를 사용해 가져올 수 있습니다.
 ::
 
 ::warning
-`useFetch`는 컴파일러에 의해 변환되는 예약된 함수 이름이므로, 직접 만든 함수의 이름을 `useFetch`로 지정해서는 안 됩니다.
+`useFetch`는 컴파일러가 변환하는 예약 함수 이름이므로, 여러분의 함수를 `useFetch`라고 이름 붙이면 안 됩니다. 미리 정의된 옵션을 가진 커스텀 변형을 만들려면 대신 [`createUseFetch`](/docs/4.x/guide/recipes/custom-usefetch#custom-usefetch-with-createusefetch)를 사용하세요.
 ::
 
 ::warning
-`useFetch`에서 구조 분해 할당한 `data` 변수가 JSON으로 파싱된 객체가 아니라 문자열을 반환하는 경우, 컴포넌트에 `import { useFetch } from '@vueuse/core`와 같은 import 문이 포함되어 있지 않은지 확인하세요.
+`useFetch`에서 구조 분해한 `data` 변수가 JSON으로 파싱된 객체가 아니라 문자열을 반환한다면, 컴포넌트에 `import { useFetch } from '@vueuse/core` 같은 import 문이 포함되어 있지 않은지 확인하세요.
 ::
 
-:video-accordion{title="useFetch를 잘못 사용하는 것을 피하기 위한 Alexander Lichter의 영상을 시청하세요" videoId="njsGVmcWviY"}
+:video-accordion{title="Alexander Lichter의 useFetch 오용 방지 영상 보기" videoId="njsGVmcWviY"}
 
 :read-more{to="/docs/4.x/getting-started/data-fetching"}
 
-### Reactive Fetch Options %{reactive-fetch-options}%
+### 반응형 Fetch 옵션 %{#reactive-fetch-options}%
 
-Fetch 옵션은 `computed`, `ref` 및 [computed getter](https://vuejs.org/guide/essentials/computed)를 지원하는 반응형으로 제공할 수 있습니다. 반응형 fetch 옵션이 업데이트되면, 업데이트된 반응형 값으로 다시 fetch가 트리거됩니다.
+Fetch 옵션은 반응형으로 제공할 수 있으며, `computed`, `ref`, [computed getter](https://vuejs.org/guide/essentials/computed)를 지원합니다. 반응형 fetch 옵션이 업데이트되면, 해석된 최신 반응형 값을 사용해 자동으로 다시 패칭됩니다.
 
 ```ts
 const searchQuery = ref('initial')
 const { data } = await useFetch('/api/search', {
   query: { q: searchQuery },
 })
-// 다시 fetch를 트리거함: /api/search?q=new%20search
+// 다시 패칭됩니다: /api/search?q=new%20search
 searchQuery.value = 'new search'
 ```
 
-필요하다면, `watch: false`를 사용해 이 동작을 비활성화할 수 있습니다:
+필요하다면 `watch: false`를 사용해 이 동작을 끌 수 있습니다:
 
 ```ts
 const searchQuery = ref('initial')
@@ -119,11 +119,11 @@ const { data } = await useFetch('/api/search', {
   query: { q: searchQuery },
   watch: false,
 })
-// 다시 fetch를 트리거하지 않음
+// 다시 패칭되지 않습니다
 searchQuery.value = 'new search'
 ```
 
-## Type %{type}%
+## 타입 %{#type}%
 
 ```ts [Signature]
 export function useFetch<DataT, ErrorT> (
@@ -139,6 +139,7 @@ type UseFetchOptions<DataT> = {
   body?: MaybeRefOrGetter<RequestInit['body'] | Record<string, any>>
   headers?: MaybeRefOrGetter<Record<string, string> | [key: string, value: string][] | Headers>
   baseURL?: MaybeRefOrGetter<string>
+  cache?: false | 'default' | 'force-cache' | 'no-cache' | 'no-store' | 'only-if-cached' | 'reload'
   server?: boolean
   lazy?: boolean
   immediate?: boolean
@@ -151,7 +152,6 @@ type UseFetchOptions<DataT> = {
   pick?: string[]
   $fetch?: typeof globalThis.$fetch
   watch?: MultiWatchSources | false
-  timeout?: MaybeRefOrGetter<number>
 }
 
 type AsyncDataRequestContext = {
@@ -161,6 +161,7 @@ type AsyncDataRequestContext = {
 
 type AsyncData<DataT, ErrorT> = {
   data: Ref<DataT | undefined>
+  pending: Ref<boolean>
   refresh: (opts?: AsyncDataExecuteOptions) => Promise<void>
   execute: (opts?: AsyncDataExecuteOptions) => Promise<void>
   clear: () => void
@@ -177,38 +178,37 @@ interface AsyncDataExecuteOptions {
 type AsyncDataRequestStatus = 'idle' | 'pending' | 'success' | 'error'
 ```
 
-## Parameters %{parameters}%
+## 매개변수 %{#parameters}%
 
 - `URL` (`string | Request | Ref<string | Request> | () => string | Request`): 가져올 URL 또는 요청입니다. 문자열, Request 객체, Vue ref, 또는 문자열/Request를 반환하는 함수가 될 수 있습니다. 동적 엔드포인트를 위한 반응성을 지원합니다.
 
 - `options` (object): fetch 요청에 대한 설정입니다. [unjs/ofetch](https://github.com/unjs/ofetch) 옵션과 [`AsyncDataOptions`](/docs/4.x/api/composables/use-async-data#params)를 확장합니다. 모든 옵션은 정적 값, `ref`, 또는 computed 값이 될 수 있습니다.
 
-| Option | Type | Default | Description |
-| ---| --- | --- | --- |
-| `key` | `MaybeRefOrGetter<string>` | auto-gen | 중복 제거를 위한 고유 키입니다. 제공되지 않으면 URL과 옵션에서 생성됩니다. |
-| `method` | `MaybeRefOrGetter<string>` | `'GET'` | HTTP 요청 메서드입니다. |
-| `query` | `MaybeRefOrGetter<SearchParams>` | - | URL에 추가할 쿼리/검색 파라미터입니다. 별칭: `params`. |
-| `params` | `MaybeRefOrGetter<SearchParams>` | - | `query`의 별칭입니다. |
-| `body` | `MaybeRefOrGetter<RequestInit['body'] \| Record<string, any>>` | - | 요청 본문입니다. 객체는 자동으로 문자열화됩니다. |
-| `headers` | `MaybeRefOrGetter<Record<string, string> \| [key, value][] \| Headers>` | - | 요청 헤더입니다. |
-| `baseURL` | `MaybeRefOrGetter<string>` | - | 요청의 기본 URL입니다. |
-| `timeout` | `MaybeRefOrGetter<number>` | - | 요청을 중단하기 위한 밀리초 단위의 타임아웃입니다. |
-| `cache` | `boolean \| string` | - | 캐시 제어입니다. boolean은 캐시를 비활성화하고, 또는 Fetch API 값(`default`, `no-store` 등)을 사용할 수 있습니다. |
-| `server` | `boolean` | `true` | 서버에서 fetch할지 여부입니다. |
-| `lazy` | `boolean` | `false` | true이면, 라우트 로드 후에 resolve되며(네비게이션을 차단하지 않음). |
-| `immediate` | `boolean` | `true` | false이면, 요청이 즉시 실행되는 것을 방지합니다. |
-| `default` | `() => DataT` | - | 비동기 처리가 완료되기 전 `data`의 기본값을 위한 팩토리입니다. |
-| `timeout` | `number` | - | 요청이 타임아웃되기 전까지 대기할 밀리초 수입니다(기본값은 `undefined`로, 타임아웃이 없음을 의미). |
-| `transform` | `(input: DataT) => DataT \| Promise<DataT>` | - | resolve 후 결과를 변환하는 함수입니다. |
-| `getCachedData`| `(key, nuxtApp, ctx) => DataT \| undefined` | - | 캐시된 데이터를 반환하는 함수입니다. 기본값은 아래를 참고하세요. |
-| `pick` | `string[]` | - | 결과에서 지정된 키만 선택합니다. |
-| `watch` | `MultiWatchSources \| false` | - | 감시하고 자동으로 새로고침할 반응형 소스 배열입니다. `false`는 감시를 비활성화합니다. |
-| `deep` | `boolean` | `false` | 데이터를 deep ref 객체로 반환합니다. |
-| `dedupe` | `'cancel' \| 'defer'` | `'cancel'` | 동일한 키를 한 번에 여러 번 fetch하는 것을 방지합니다. |
-| `$fetch` | `typeof globalThis.$fetch` | - | 커스텀 $fetch 구현입니다. [Nuxt에서 커스텀 useFetch](/docs/4.x/guide/recipes/custom-usefetch)를 참고하세요. |
+| Option          | Type                                                                    | Default    | Description                                                                                                      |
+|-----------------|-------------------------------------------------------------------------|------------|------------------------------------------------------------------------------------------------------------------|
+| `key`           | `MaybeRefOrGetter<string>`                                              | auto-gen   | 중복 제거를 위한 고유 키입니다. 제공하지 않으면 URL과 옵션으로부터 생성됩니다.                                   |
+| `method`        | `MaybeRefOrGetter<string>`                                              | `'GET'`    | HTTP 요청 메서드입니다.                                                                                          |
+| `query`         | `MaybeRefOrGetter<SearchParams>`                                        | -          | URL에 추가할 쿼리/검색 매개변수입니다. 별칭: `params`.                                                            |
+| `params`        | `MaybeRefOrGetter<SearchParams>`                                        | -          | `query`의 별칭입니다.                                                                                            |
+| `body`          | `MaybeRefOrGetter<RequestInit['body'] \| Record<string, any>>`          | -          | 요청 본문입니다. 객체는 자동으로 문자열화됩니다.                                                                  |
+| `headers`       | `MaybeRefOrGetter<Record<string, string> \| [key, value][] \| Headers>` | -          | 요청 헤더입니다.                                                                                                 |
+| `baseURL`       | `MaybeRefOrGetter<string>`                                              | -          | 요청의 기본 URL입니다.                                                                                           |
+| `cache`         | `false \| string`                                                       | -          | 캐시 제어입니다. boolean은 캐시를 비활성화하고, 또는 `default`, `no-store` 등 Fetch API 값을 사용할 수 있습니다. |
+| `server`        | `boolean`                                                               | `true`     | 서버에서 가져올지 여부입니다.                                                                                     |
+| `lazy`          | `boolean`                                                               | `false`    | true이면 라우트 로드 후 해석됩니다(내비게이션을 막지 않음).                                                       |
+| `immediate`     | `boolean`                                                               | `true`     | false이면 요청이 즉시 실행되지 않도록 막습니다.                                                                   |
+| `default`       | `() => DataT`                                                           | -          | 비동기 해석 전 `data`의 기본값을 위한 팩토리입니다.                                                               |
+| `timeout`       | `number`                                                                | -          | 요청 타임아웃 전까지 기다릴 밀리초 단위 숫자입니다(기본값은 `undefined`, 즉 타임아웃 없음).                      |
+| `transform`     | `(input: DataT) => DataT \| Promise<DataT>`                             | -          | 해석 후 결과를 변환하는 함수입니다.                                                                               |
+| `getCachedData` | `(key, nuxtApp, ctx) => DataT \| undefined`                             | -          | 캐시된 데이터를 반환하는 함수입니다. 기본값은 아래를 참고하세요.                                                  |
+| `pick`          | `string[]`                                                              | -          | 결과에서 지정한 키만 선택합니다.                                                                                 |
+| `watch`         | `MultiWatchSources \| false`                                            | -          | 감시하고 자동 새로고침할 반응형 소스 배열입니다. `false`는 감시를 비활성화합니다.                                 |
+| `deep`          | `boolean`                                                               | `false`    | 데이터를 깊은 ref 객체로 반환합니다.                                                                              |
+| `dedupe`        | `'cancel' \| 'defer'`                                                   | `'cancel'` | 같은 키를 동시에 두 번 이상 가져오지 않도록 방지합니다.                                                           |
+| `$fetch`        | `typeof globalThis.$fetch`                                              | -          | 커스텀 $fetch 구현입니다. [Nuxt에서 Custom useFetch](/docs/4.x/guide/recipes/custom-usefetch)를 참고하세요.      |
 
 ::note
-모든 fetch 옵션은 `computed` 또는 `ref` 값으로 제공할 수 있습니다. 이 값들은 감시되며, 업데이트될 경우 새로운 값으로 자동으로 새 요청이 이루어집니다.
+모든 fetch 옵션은 `computed`나 `ref` 값으로 제공할 수 있습니다. 이 값들은 감시되며, 업데이트되면 새로운 값으로 자동으로 새 요청이 만들어집니다.
 ::
 
 **getCachedData 기본값:**
@@ -220,29 +220,30 @@ const getDefaultCachedData = (key, nuxtApp, ctx) => nuxtApp.isHydrating
 ```
 이는 `nuxt.config`에서 `experimental.payloadExtraction`이 활성화된 경우에만 데이터를 캐시합니다.
 
-## Return Values %{return-values}%
+## 반환값 %{#return-values}%
 
-| Name | Type | Description |
-| --- | --- |--- |
-| `data` | `Ref<DataT \| undefined>` | 비동기 fetch의 결과입니다. |
-| `refresh` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | 데이터를 수동으로 새로고침하는 함수입니다. 기본적으로 Nuxt는 `refresh`가 완료될 때까지 기다린 후에야 다시 실행할 수 있습니다. |
-| `execute` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | `refresh`의 별칭입니다. |
-| `error` | `Ref<ErrorT \| undefined>` | 데이터 가져오기에 실패했을 때의 에러 객체입니다. |
-| `status` | `Ref<'idle' \| 'pending' \| 'success' \| 'error'>` | 데이터 요청의 상태입니다. 가능한 값은 아래를 참고하세요. |
-| `clear` | `() => void` | `data`를 `undefined`(또는 제공된 경우 `options.default()`의 값)로 재설정하고, `error`를 `undefined`로 설정하며, `status`를 `idle`로 설정하고, 보류 중인 요청을 모두 취소합니다. |
+| Name      | Type                                                | Description                                                                                                                                                       |
+|-----------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `data`    | `Ref<DataT \| undefined>`                           | 비동기 fetch의 결과입니다.                                                                                                                                        |
+| `refresh` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | 데이터를 수동으로 새로고침하는 함수입니다. 기본적으로 Nuxt는 `refresh`가 완료될 때까지 다시 실행되지 않도록 기다립니다.                                           |
+| `execute` | `(opts?: AsyncDataExecuteOptions) => Promise<void>` | `refresh`의 별칭입니다.                                                                                                                                           |
+| `error`   | `Ref<ErrorT \| undefined>`                          | 데이터 패칭이 실패했을 때의 오류 객체입니다.                                                                                                                      |
+| `status`  | `Ref<'idle' \| 'pending' \| 'success' \| 'error'>`  | 데이터 요청의 상태입니다. 가능한 값은 아래를 참고하세요.                                                                                                          |
+| `pending` | `Ref<boolean>`                                      | 현재 요청이 진행 중인지 나타내는 boolean 플래그입니다.                                                                                                            |
+| `clear`   | `() => void`                                        | `data`를 `undefined`(또는 제공된 경우 `options.default()`의 값)로, `error`를 `undefined`로, `status`를 `idle`로 재설정하고 대기 중인 모든 요청을 취소합니다.     |
 
-### Status values %{status-values}%
+### 상태 값 %{#status-values}%
 
-- `idle`: 요청이 시작되지 않음(예: `{ immediate: false }` 또는 서버 렌더링 시 `{ server: false }`)
-- `pending`: 요청이 진행 중
-- `success`: 요청이 성공적으로 완료됨
-- `error`: 요청이 실패함
+- `idle`: 요청이 시작되지 않았습니다(예: `{ immediate: false }` 또는 서버 렌더 시 `{ server: false }`)
+- `pending`: 요청이 진행 중입니다
+- `success`: 요청이 성공적으로 완료되었습니다
+- `error`: 요청이 실패했습니다
 
 ::note
-서버에서 데이터를 fetch하지 않은 경우(예: `server: false`를 사용한 경우), 하이드레이션이 완료될 때까지 데이터는 _가져오지지 않습니다_. 이는 클라이언트 측에서 `useFetch`를 `await`하더라도, `<script setup>` 내에서 `data`는 null 상태로 남아 있음을 의미합니다.
+서버에서 데이터를 가져오지 않았다면(예: `server: false`), 하이드레이션이 완료될 때까지 데이터가 _패칭되지 않습니다_. 즉, 클라이언트 측에서 `useFetch`를 await하더라도 `<script setup>` 안에서 `data`는 계속 null로 남습니다.
 ::
 
-### Examples %{examples}%
+### 예제 %{#examples}%
 
 :link-example{to="/docs/4.x/examples/advanced/use-custom-fetch-composable"}
 

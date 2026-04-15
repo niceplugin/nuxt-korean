@@ -1,6 +1,6 @@
 ---
 title: 'useAppConfig'
-description: '프로젝트에 정의된 반응형 앱 설정에 접근합니다.'
+description: '프로젝트에 정의된 반응형 app config에 접근합니다.'
 links:
   - label: Source
     icon: i-simple-icons-github
@@ -8,7 +8,7 @@ links:
     size: xs
 ---
 
-## 사용법 %{usage}%
+## 사용법 %{#usage}%
 
 ```ts
 const appConfig = useAppConfig()

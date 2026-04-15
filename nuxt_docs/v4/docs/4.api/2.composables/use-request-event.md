@@ -8,10 +8,10 @@ links:
     size: xs
 ---
 
-[Nuxt 컨텍스트](/docs/4.x/guide/going-further/nuxt-app#the-nuxt-context) 내에서 `useRequestEvent`를 사용해 들어오는 요청에 접근할 수 있습니다.
+[Nuxt context](/docs/4.x/guide/going-further/nuxt-app#the-nuxt-context) 내에서 `useRequestEvent`를 사용해 들어오는 요청에 접근할 수 있습니다.
 
 ```ts
-// 기본 요청 이벤트 가져오기
+// 내부 요청 이벤트 가져오기
 const event = useRequestEvent()
 
 // URL 가져오기
@@ -19,5 +19,5 @@ const url = event?.path
 ```
 
 ::tip
-브라우저에서는 `useRequestEvent`가 `undefined`를 반환합니다.
+브라우저에서 `useRequestEvent`는 `undefined`를 반환합니다.
 ::
