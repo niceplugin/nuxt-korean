@@ -1,98 +1,110 @@
-<a href="https://nuxt.com"><img width="1200" alt="Nuxt Website" src="./public/website.jpg"></a>
-
 # nuxt.com
 
-Welcome to the Nuxt website repository available on [nuxt.com](https://nuxt.com).
+[nuxt.com](https://nuxt.com)에서 제공되는 Nuxt 웹사이트 저장소에 오신 것을 환영합니다.
 
-[![Nuxt UI Pro](https://img.shields.io/badge/Made%20with-Nuxt%20UI%20Pro-00DC82?logo=nuxt.js&labelColor=020420)](https://ui.nuxt.com/pro)
+## 설정 (Setup)
 
-## Setup
-
-Make sure to enable corepack and install the dependencies:
+Corepack을 활성화하고 의존성을 설치하세요:
 
 ```bash
 corepack enable
 pnpm install
 ```
 
-Copy the `.env.example` file to `.env`:
+`.env.example` 파일을 `.env`로 복사합니다:
 
 ```bash
 cp .env.example .env
 ```
 
-Clone/Fork [nuxt/nuxt](https://github.com/nuxt/nuxt) repo where you want (but not in the Nuxt.com project) and inside the root of the repo, run:
+[nuxt/nuxt](https://github.com/nuxt/nuxt) 저장소를 원하는 위치에 클론 또는 포크합니다
+(단, Nuxt.com 프로젝트 내부에는 두지 마세요)
+
+그 후 저장소 루트에서 아래 명령어 실행:
 
 ```bash
 pwd
 ```
 
-If you are on Windows, you can use the following command instead:
+Windows에서는 다음 명령어 사용:
 
 ```bash
 echo %cd%
 ```
 
-Copy the output of the command above and paste it in the `NUXT_PATH` and `NUXT_V4_PATH` variables in the `.env` file.
+출력된 경로를 `.env` 파일의 `NUXT_PATH`와 `NUXT_V4_PATH` 변수에 붙여넣습니다.
 
-## Development
+---
 
-Start the development server:
+## 개발 (Development)
+
+개발 서버 실행:
 
 ```bash
 pnpm dev
 ```
 
-### Add a Nuxt Template
+Nuxt 생태계(모듈, API 등) 전체 fetch 포함 실행:
 
-To list a Nuxt template, add a file in the [./content/templates](./content/templates) directory.
+```bash
+pnpm dev:full
+```
 
-Make sure to start the development server in order to generate the screenshot for the template and go to http://localhost:3000/templates to see the result.
+### Nuxt 템플릿 추가
 
-If you want to update the url where we take the automated screenshot, use the `screenshotUrl` property.
+`./content/templates` 디렉토리에 파일을 추가하면 템플릿을 등록할 수 있습니다.
 
-To regenerate the image, delete the generated one in `public/assets/templates`.
+개발 서버를 실행하면 템플릿 스크린샷이 자동 생성됩니다.
+결과 확인: [http://localhost:3000/templates](http://localhost:3000/templates)
 
-## Production
+스크린샷 URL을 변경하려면 `screenshotUrl` 속성을 수정하세요.
 
-In order to build the application for production, you need to have a [Nuxt UI Pro](https://ui.nuxt.com/pro) license and set the `NUXT_UI_PRO_LICENSE` variable in the `.env` file.
+이미지를 다시 생성하려면 `public/assets/templates` 폴더의 생성된 파일을 삭제하면 됩니다.
 
-Note that this is not required to run in development and contribute to the Nuxt website or documentation.
+---
 
-Build the application for production:
+## 프로덕션 (Production)
+
+프로덕션 빌드:
 
 ```bash
 pnpm generate
 ```
 
-### Running Evals for the MCP Server
+---
 
-To run the evals for the MCP server, follow these steps:
+## MCP 서버 평가 실행
 
-1. **Ensure your development server is running**  
-   Start the local Nuxt development server:
-   ```bash
-   pnpm dev
-   ```
+1. **개발 서버 실행**
 
-2. **Create an AI Gateway API key**  
-   Go to https://vercel.com/ai-gateway and create an API key.
-   Add the following variable to your `.env` file (replace `sk-...` with your actual key):
-   ```
-   AI_GATEWAY_API_KEY=<you-api-key>
-   ```
+```bash
+pnpm dev
+```
 
-3. **Run the evals**  
-   You can execute the evals from the command line:
-   ```bash
-   pnpm eval
-   ```
+2. **AI Gateway API 키 생성**
 
-   Or launch the interactive UI to run them via a web interface:
-   ```bash
-   pnpm eval:ui
-   ```
+[https://vercel.com/ai-gateway](https://vercel.com/ai-gateway) 에서 API 키 생성 후 `.env`에 추가:
 
-## License
+```
+AI_GATEWAY_API_KEY=<your-api-key>
+```
 
-[MIT License](./LICENSE)
+3. **평가 실행**
+
+CLI 실행:
+
+```bash
+pnpm eval
+```
+
+웹 UI 실행:
+
+```bash
+pnpm eval:ui
+```
+
+---
+
+## 라이선스
+
+MIT License

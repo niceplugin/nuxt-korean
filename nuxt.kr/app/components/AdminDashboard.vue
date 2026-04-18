@@ -43,7 +43,7 @@ const items = computed<DropdownMenuItem[][]>(() => [
   ]
 ])
 
-const { data: rawFeedback, refresh: refreshFeedback } = await useFetch<FeedbackItem[]>('/api/feedback')
+const { data: rawFeedback, refresh: refreshFeedback } = await useFetch('/api/feedback')
 const { deleteFeedback } = useFeedbackDelete()
 const { exportFeedbackData, exportPageAnalytics } = useFeedbackExport()
 
@@ -498,7 +498,7 @@ watch(currentPage, () => {
                   size="sm"
                   variant="ghost"
                   color="neutral"
-                  :to="`https://github.com/nuxt/nuxt/edit/main/${selectedPage.lastFeedback.stem.replace(/docs\/\d\.x/, 'docs')}.md`"
+                  :to="`https://github.com/nuxt/nuxt/edit/4.x/${selectedPage.lastFeedback.stem.replace(/docs\/\d\.x/, 'docs')}.md`"
                   target="_blank"
                   icon="i-simple-icons-github"
                 />

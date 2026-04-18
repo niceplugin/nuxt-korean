@@ -15,27 +15,8 @@ const { fetchList: fetchModules } = useModules()
 const { fetchList: fetchHosting } = useHostingProviders()
 
 const [{ data: navigation }, { data: files }] = await Promise.all([
-  useAsyncData('navigation', () => {
-    return Promise.all([
-      queryCollectionNavigation('docsv3', ['titleTemplate']),
-      queryCollectionNavigation('docsv4', ['titleTemplate']).then(data => data[0]?.children),
-      queryCollectionNavigation('blog')
-    ])
-  }, {
-    transform: data => data.flat(),
-    watch: [version]
-  }),
-  useLazyAsyncData('search', () => {
-    return Promise.all([
-      queryCollectionSearchSections('docsv3', { ignoredTags: ['style'] }),
-      queryCollectionSearchSections('docsv4', { ignoredTags: ['style'] }),
-      queryCollectionSearchSections('blog')
-    ])
-  }, {
-    server: false,
-    transform: data => data.flat(),
-    watch: [version]
-  })
+  useFetch('/api/navigation.json'),
+  useFetch('/api/search.json', { server: false })
 ])
 
 onNuxtReady(() => {
@@ -45,7 +26,7 @@ onNuxtReady(() => {
 
 const versionNavigation = computed(() => navigation.value?.filter(item => item.path === version.value.path || item.path === '/blog') ?? [])
 const versionFiles = computed(() => files.value?.filter((file) => {
-  return (version.value.path === '/docs/4.x' ? file.id.startsWith('/docs/4.x/') : !file.id.startsWith('/docs/4.x')) || file.id.startsWith('/blog/')
+  return file.id.startsWith(version.value.path + '/') || file.id.startsWith('/blog/')
 }) ?? [])
 
 provide('navigation', versionNavigation)

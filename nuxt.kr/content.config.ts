@@ -10,10 +10,18 @@ const docsV3Source = {
 
 const docsV4Source = {
   cwd: process.env.NUXT_V4_PATH ?? undefined,
-  repository: !process.env.NUXT_V4_PATH ? 'https://github.com/nuxt/nuxt/tree/main' : undefined,
+  repository: !process.env.NUXT_V4_PATH ? 'https://github.com/nuxt/nuxt/tree/4.x' : undefined,
   include: 'docs/**/*',
   exclude: ['docs/**/*.json'],
   prefix: '/docs/4.x'
+}
+
+const docsV5Source = {
+  cwd: process.env.NUXT_V5_PATH ?? undefined,
+  repository: !process.env.NUXT_V5_PATH ? 'https://github.com/nuxt/nuxt/tree/main' : undefined,
+  include: 'docs/**/*',
+  exclude: ['docs/**/*.json'],
+  prefix: '/docs/5.x'
 }
 
 const examplesV3Source = {
@@ -28,6 +36,13 @@ const examplesV4Source = {
   repository: !process.env.NUXT_EXAMPLES_PATH ? 'https://github.com/nuxt/examples' : undefined,
   include: '.docs/**/*',
   prefix: '/docs/4.x/4.examples'
+}
+
+const examplesV5Source = {
+  cwd: process.env.NUXT_EXAMPLES_PATH ?? undefined,
+  repository: !process.env.NUXT_EXAMPLES_PATH ? 'https://github.com/nuxt/examples' : undefined,
+  include: '.docs/**/*',
+  prefix: '/docs/5.x/4.examples'
 }
 
 const Image = z.object({
@@ -196,6 +211,14 @@ export default defineContentConfig({
         })
       })
     }),
+    docsv5: defineCollection({
+      type: 'page',
+      source: [docsV5Source, examplesV5Source],
+      schema: z.object({
+        titleTemplate: z.string().optional(),
+        links: z.array(Button)
+      })
+    }),
     docsv4: defineCollection({
       type: 'page',
       source: [docsV4Source, examplesV4Source],
@@ -228,15 +251,15 @@ export default defineContentConfig({
       type: 'page',
       source: [
         { include: 'index.md' },
-        // { include: 'blog.yml' },
-        // { include: 'modules.yml' },
-        // { include: 'deploy.yml' },
-        // { include: 'templates.yml' },
-        // { include: 'video-courses.yml' },
-        // { include: 'enterprise/sponsors.yml' },
-        // { include: 'enterprise/agencies.yml' },
-        // { include: 'newsletter.yml' },
-        // { include: 'enterprise/jobs.yml' }
+        { include: 'blog.yml' },
+        { include: 'modules.yml' },
+        { include: 'deploy.yml' },
+        { include: 'templates.yml' },
+        { include: 'video-courses.yml' },
+        { include: 'enterprise/sponsors.yml' },
+        { include: 'enterprise/agencies.yml' },
+        { include: 'newsletter.yml' },
+        { include: 'enterprise/jobs.yml' }
       ],
       schema: PageHero
     }),
@@ -420,6 +443,15 @@ export default defineContentConfig({
           avatar: Image,
           links: z.array(Link)
         }))
+      })
+    }),
+    evals: defineCollection({
+      type: 'data',
+      source: 'evals.yml',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        githubUrl: z.string().url()
       })
     })
   }

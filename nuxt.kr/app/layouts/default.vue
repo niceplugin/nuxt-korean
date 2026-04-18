@@ -16,8 +16,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="[(route.path.startsWith('/docs/') || route.path.startsWith('/deploy')) && 'root']">
-    <UBanner
+  <div :class="[route.path.startsWith('/docs/') && 'root']">
+    <!-- <UBanner
       id="mn-nuxt-b"
       title="Black Friday: Get 40% OFF the complete Mastering Nuxt course"
       icon="i-lucide-ticket-percent"
@@ -33,7 +33,7 @@ onMounted(() => {
           to: 'https://masteringnuxt.com/?utm_source=nuxt.com&utm_medium=banner&utm_campaign=nuxt.com'
         }
       ]"
-    />
+    /> -->
 
     <Header />
 

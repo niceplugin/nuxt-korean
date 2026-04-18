@@ -6,38 +6,38 @@ function _useHeaderLinks() {
   const { version } = useDocsVersion()
 
   const headerLinks = computed(() => {
-    const to = version.value.path
+    const docsPath = version.value.path
 
     return [{
       label: '문서',
       icon: 'i-lucide-book-marked',
-      to,
+      to: docsPath,
       search: false,
-      active: route.path.startsWith(to),
+      active: route.path.startsWith(docsPath),
       children: [{
         label: '시작하기',
         description: 'Nuxt로 첫 앱을 만드는 방법을 배워보세요.',
         icon: 'i-lucide-rocket',
-        to: `${to}/getting-started/installation`,
-        active: route.path.startsWith(`${to}/getting-started`)
+        to: `${docsPath}/getting-started/installation`,
+        active: route.path.startsWith(`${docsPath}/getting-started`)
       }, {
         label: '구조',
         description: 'Nuxt 프로젝트의 디렉터리 구조를 알아보세요.',
         icon: 'i-lucide-folder-open',
-        to: `${to}/directory-structure`,
-        active: route.path.startsWith(`${to}/directory-structure`)
+        to: `${docsPath}/directory-structure`,
+        active: route.path.startsWith(`${docsPath}/directory-structure`)
       }, {
         label: '가이드',
-        description: '핵심 개념, 디렉터리 구조, 그리고 모범 사례를 확인하세요.',
+        description: '핵심 개념과 모범 사례를 확인해보세요.',
         icon: 'i-lucide-book-open',
-        to: `${to}/guide`,
-        active: route.path.startsWith(`${to}/guide`) && !route.path.startsWith(`${to}/guide/directory-structure`)
+        to: `${docsPath}/guide`,
+        active: route.path.startsWith(`${docsPath}/guide`) && !route.path.startsWith(`${docsPath}/guide/directory-structure`)
       }, {
         label: 'API',
-        description: 'Nuxt 컴포넌트, 컴포저블, 유틸리티 등 다양한 요소를 살펴보세요.',
+        description: 'Nuxt 컴포넌트, 컴포저블, 유틸리티를 살펴보세요.',
         icon: 'i-lucide-code-xml',
-        to: `${to}/api`,
-        active: route.path.startsWith(`${to}/api`)
+        to: `${docsPath}/api`,
+        active: route.path.startsWith(`${docsPath}/api`)
       }, {
         label: '배포',
         description: 'Nuxt 프로젝트를 어디에든 배포하세요.',
@@ -46,27 +46,27 @@ function _useHeaderLinks() {
         target: '_blank'
       }, {
         label: '예제',
-        description: '공식 예제와 커뮤니티 예제를 찾아보고 살펴보세요.',
+        description: '공식 예제와 커뮤니티 예제를 살펴보세요.',
         icon: 'i-lucide-app-window-mac',
-        to: `${to}/examples`,
-        active: route.path.startsWith(`${to}/examples`)
+        to: `${docsPath}/examples`,
+        active: route.path.startsWith(`${docsPath}/examples`)
       }, {
         label: '커뮤니티',
-        description: '커뮤니티로부터 답변과 지원을 받아보세요.',
+        description: '커뮤니티에서 도움과 답변을 찾아보세요.',
         icon: 'i-lucide-messages-square',
-        to: `https://nuxt.com${to}/community`,
-        target: '_blank'
+        to: `${docsPath}/community`,
+        active: route.path.startsWith(`${docsPath}/community`)
       }]
     }, {
       label: '모듈',
       icon: 'i-lucide-puzzle',
+      description: 'Nuxt 모듈 생태계를 둘러보세요.',
       to: 'https://nuxt.com/modules',
-      description: '모듈로 Nuxt 프로젝트를 더욱 강력하게 확장하세요.',
       target: '_blank'
     }, {
       label: '템플릿',
       icon: 'i-lucide-app-window',
-      description: '다음 프로젝트를 Nuxt 템플릿으로 시작하세요.',
+      description: 'Nuxt 템플릿으로 프로젝트를 빠르게 시작하세요.',
       to: 'https://nuxt.com/templates',
       target: '_blank'
     }, {
@@ -75,19 +75,19 @@ function _useHeaderLinks() {
       search: false,
       children: [{
         label: '쇼케이스',
-        description: 'Nuxt로 만든 다양한 프로젝트를 살펴보세요.',
+        description: 'Nuxt로 만든 실제 프로젝트를 살펴보세요.',
         icon: 'i-lucide-presentation',
         to: 'https://nuxt.com/showcase',
         target: '_blank'
       }, {
         label: '동영상 강의',
-        description: '동영상 강의를 통해 Nuxt를 배워보세요.',
+        description: '영상 강의로 Nuxt를 배워보세요.',
         icon: 'i-lucide-graduation-cap',
         to: 'https://nuxt.com/video-courses',
         target: '_blank'
       }, {
         label: 'Nuxt 자격증',
-        description: '공식 자격증을 취득해보세요.',
+        description: '공식 자격증 프로그램을 확인해보세요.',
         icon: 'i-lucide-medal',
         to: 'https://certification.nuxt.com',
         target: '_blank'
@@ -98,26 +98,27 @@ function _useHeaderLinks() {
       search: false,
       children: [{
         label: '지원',
-        to: 'https://nuxt.com/enterprise/support',
-        description: 'Nuxt 전문가의 전문적인 지원을 받아보세요.',
+        description: 'Nuxt 전문가의 지원 서비스를 확인해보세요.',
         icon: 'i-lucide-life-buoy',
+        to: 'https://nuxt.com/enterprise/support',
         target: '_blank'
       }, {
         label: '에이전시',
-        to: 'https://nuxt.com/enterprise/agencies',
-        description: 'Nuxt 개발에 특화된 에이전시를 확인해보세요.',
+        description: 'Nuxt 전문 에이전시를 찾아보세요.',
         icon: 'i-lucide-handshake',
+        to: 'https://nuxt.com/enterprise/agencies',
         target: '_blank'
       }, {
         label: '스폰서',
-        to: 'https://nuxt.com/enterprise/sponsors',
-        description: 'Nuxt 개발을 지속할 수 있도록 후원해주세요.',
+        description: 'Nuxt 프로젝트를 후원하는 방법을 확인해보세요.',
         icon: 'i-lucide-hand-heart',
+        to: 'https://nuxt.com/enterprise/sponsors',
         target: '_blank'
       }]
     }, {
       label: '블로그',
       icon: 'i-lucide-newspaper',
+      description: 'Nuxt 소식과 릴리스 노트를 읽어보세요.',
       to: 'https://nuxt.com/blog',
       target: '_blank'
     }]
@@ -129,47 +130,47 @@ function _useHeaderLinks() {
 export const useHeaderLinks = import.meta.client ? createSharedComposable(_useHeaderLinks) : _useHeaderLinks
 
 const footerLinks = [{
-  label: 'Community',
+  label: '커뮤니티',
   children: [{
     label: 'Nuxters',
     to: 'https://nuxters.nuxt.com',
     target: '_blank'
   }, {
-    label: 'Team',
+    label: '팀',
     to: 'https://nuxt.com/team',
     target: '_blank'
   }, {
-    label: 'Design Kit',
+    label: '디자인 키트',
     to: 'https://nuxt.com/design-kit',
     target: '_blank'
   }]
 }, {
-  label: 'Explore',
+  label: '둘러보기',
   children: [{
-    label: 'Modules',
+    label: '모듈',
     to: 'https://nuxt.com/modules',
     target: '_blank'
   }, {
-    label: 'Templates',
+    label: '템플릿',
     to: 'https://nuxt.com/templates',
     target: '_blank'
   }, {
-    label: 'Showcase',
+    label: '쇼케이스',
     to: 'https://nuxt.com/showcase',
     target: '_blank'
   }]
 }, {
-  label: 'Enterprise',
+  label: '엔터프라이즈',
   children: [{
-    label: 'Support',
+    label: '지원',
     to: 'https://nuxt.com/enterprise/support',
     target: '_blank'
   }, {
-    label: 'Agencies',
+    label: '에이전시',
     to: 'https://nuxt.com/enterprise/agencies',
     target: '_blank'
   }, {
-    label: 'Sponsors',
+    label: '스폰서',
     to: 'https://nuxt.com/enterprise/sponsors',
     target: '_blank'
   }]
@@ -180,81 +181,49 @@ export const useFooterLinks = () => ({ footerLinks })
 const _useNavigation = () => {
   const nuxtApp = useNuxtApp()
   const searchTerm = ref<string>('')
+  const { track } = useAnalytics()
 
   const { headerLinks } = useHeaderLinks()
   const { footerLinks } = useFooterLinks()
-  const { modules } = useModules()
-  const { providers } = useHostingProviders()
 
   const searchLinks = computed(() => [{
-    label: 'Ask AI',
+    label: 'AI에게 물어보기',
     icon: 'i-lucide-wand',
     to: 'javascript:void(0);',
-    onSelect: () => nuxtApp.$kapa?.openModal()
-  }, ...headerLinks.value.map((link) => {
-    // Remove `/docs` and `/enterprise` links from command palette
-    if (link.search === false) {
-      return {
-        label: link.label,
-        icon: link.icon,
-        children: link.children
-      }
+    onSelect: () => {
+      track('Ask AI Opened', { source: 'search-links' })
+      nuxtApp.$kapa?.openModal()
     }
-    return link
-  }).filter(Boolean), {
-    label: 'Team',
+  }, ...headerLinks.value.flatMap((link) => {
+    if (link.search === false) {
+      return (link.children || []).map(child => ({
+        ...child,
+        label: `${link.label} > ${child.label}`
+      }))
+    }
+
+    return [link]
+  }), {
+    label: '팀',
     icon: 'i-lucide-users',
     to: 'https://nuxt.com/team',
     target: '_blank'
   }, {
-    label: 'Design Kit',
+    label: '디자인 키트',
     icon: 'i-lucide-palette',
     to: 'https://nuxt.com/design-kit',
     target: '_blank'
   }, {
-    label: 'Newsletter',
+    label: '뉴스레터',
     icon: 'i-lucide-mail',
     to: 'https://nuxt.com/newsletter',
     target: '_blank'
   }, {
-    label: 'Source Code',
+    label: '소스 코드',
     icon: 'i-lucide-code',
     to: 'https://github.com/nuxt/nuxt.com',
     target: '_blank'
   }])
-
-  const modulesItems = computed(() => modules.value.map(module => ({
-    id: `module-${module.name}`,
-    label: module.npm,
-    suffix: module.description,
-    avatar: {
-      src: moduleImage(module.icon),
-      ui: {
-        root: 'rounded-none bg-transparent'
-      }
-    },
-    to: `/modules/${module.name}`,
-    // Store searchable fields for filtering
-    _searchFields: [module.name, module.npm, module.repo].filter(Boolean)
-  })))
-
-  const hostingItems = computed(() => providers.value.map(hosting => ({
-    id: `hosting-${hosting.path}`,
-    label: hosting.title,
-    suffix: hosting.description,
-    icon: hosting.logoIcon,
-    avatar: hosting.logoSrc
-      ? {
-          src: hosting.logoSrc,
-          ui: {
-            root: 'rounded-none bg-transparent'
-          }
-        }
-      : undefined,
-    to: hosting.path,
-    // Store searchable fields for filtering
-    _searchFields: [hosting.title].filter(Boolean)
-  })))
 
   const searchGroups = computed<CommandPaletteGroup[]>(() => [{
     id: 'ask-ai-search',
@@ -264,25 +233,25 @@ const _useNavigation = () => {
       if (!searchTerm) {
         return []
       }
+
       return items
     },
     items: [{
-      label: 'Ask AI',
+      label: 'AI에게 물어보기',
       icon: 'i-lucide-wand',
       to: 'javascript:void(0);',
       onSelect() {
+        track('Ask AI Opened', { source: 'search-palette', query: searchTerm.value })
         nuxtApp.$kapa?.openModal(searchTerm.value)
       }
     }]
-  }, {
-    id: 'modules-search',
-    label: 'Modules',
-    items: modulesItems.value
-  }, {
-    id: 'hosting-search',
-    label: 'Hosting',
-    items: hostingItems.value
   }])
+
+  watchDebounced(searchTerm, (term) => {
+    if (term) {
+      track('Search Performed', { term })
+    }
+  }, { debounce: 500 })
 
   return {
     searchTerm,

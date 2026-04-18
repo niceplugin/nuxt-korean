@@ -1,41 +1,48 @@
 <script setup lang="ts">
 import { joinURL } from 'ufo'
-import type { Module } from '~/types'
 
 definePageMeta({
   heroBackground: '-z-10'
 })
 
-const [{ data: page }, { data: officialModules }, { data: showcase }, { getFilteredSponsors }] = await Promise.all([
+const [{ data: page }, { data: showcase }] = await Promise.all([
   useAsyncData('index', () => queryCollection('index').first()),
-  useFetch('https://api.nuxt.com/modules', {
-    key: 'official-modules',
-    transform: (res: { modules: Module[], stats: Stats }) => res.modules
-      .filter(module => module.type === 'official')
-      .sort((a, b) => b.stats.stars - a.stats.stars)
-  }),
-  useAsyncData('showcase', () => queryCollection('showcase').first()),
-  useSponsors()
+  useAsyncData('showcase', () => queryCollection('showcase').first())
 ])
 
+const { fetchList: fetchModules, modules } = useModules()
+const { getFilteredSponsors } = await useSponsors()
 const sponsorGroups = getFilteredSponsors(['diamond', 'platinum', 'gold'])
-
 const stats = useStats()
+const { data: fetchedStats } = await useFetch('/api/stats', { key: 'stats' })
+const { track } = useAnalytics()
 
+if (!stats.value && fetchedStats.value) {
+  stats.value = fetchedStats.value
+}
+
+await fetchModules()
+
+const hasStats = computed(() => Boolean(stats.value))
 const videoModalOpen = ref(false)
 
+function openVideoModal() {
+  track('Video Modal Opened')
+  videoModalOpen.value = true
+}
+
 const site = useSiteConfig()
-const title = 'Nuxt: 프로그레시브 웹 프레임워크'
+const title = 'Nuxt: 직관적인 풀스택 Vue 프레임워크'
 useSeoMeta({
   title,
   titleTemplate: '%s'
 })
 
 if (import.meta.server) {
-  const description = 'Nuxt는 Vue.js를 사용한 풀스택 개발을 직관적으로 만들어 주는 오픈 소스 프레임워크로, 고품질 웹 애플리케이션을 손쉽게 구축할 수 있게 해줍니다.'
+  const description = 'Nuxt는 Vue 기반의 프로덕션급 웹 앱을 빠르게 만들 수 있도록 라우팅, 자동 임포트, 서버 렌더링까지 한 번에 제공하는 오픈 소스 프레임워크입니다.'
   useSeoMeta({
     ogTitle: title,
-    description: description,
+    description,
     ogDescription: description,
     ogImage: joinURL(site.url, '/new-social.jpg'),
     twitterImage: joinURL(site.url, '/new-social.jpg')
@@ -53,7 +60,6 @@ const activeBundlerIndex = ref(0)
 const groupedFoundationItems = computed(() => {
   const result = [] as Array<{
     id: string
-    // TODO: make these types better
     item?: any
     items?: any[]
     classes: string
@@ -76,7 +82,7 @@ const groupedFoundationItems = computed(() => {
 
       result.push({
         id: item.id,
-        item: item,
+        item,
         classes: `${borderClasses} ${item.gradient}`
       })
     }
@@ -107,34 +113,30 @@ onMounted(() => {
       }"
     >
       <template #headline>
-        <NuxtLink :to="page.hero.cta.to">
+        <NuxtLink to="/docs/getting-started/installation">
           <UBadge variant="subtle" size="lg" class="px-3 relative rounded-full font-semibold dark:hover:bg-primary-400/15 dark:hover:ring-primary-700">
-            {{ page?.hero.cta.label }}
-            <UIcon
-              v-if="page?.hero.cta.icon"
-              :name="page?.hero.cta.icon"
-              class="size-4 pointer-events-none"
-            />
+            한국어로 읽는 Nuxt 문서
+            <UIcon name="i-lucide-arrow-right" class="size-4 pointer-events-none" />
           </UBadge>
         </NuxtLink>
       </template>
 
       <template #title>
-        프로그레시브<br><span class="text-primary">웹 프레임워크</span>
+        직관적인<br><span class="text-primary">풀스택 Vue 프레임워크</span>
       </template>
 
       <template #description>
-        <LazyMDC :value="page?.hero.description" unwrap="p" cache-key="index-hero-description" hydrate-never />
+        <LazyMDC :value="page.hero.description" unwrap="p" cache-key="index-hero-description" hydrate-never />
       </template>
 
       <template #links>
         <div class="flex flex-col gap-4">
           <div class="flex items-center flex-wrap gap-2">
-            <UButton to="/docs/4.x/getting-started/installation" size="xl">
+            <UButton to="/docs/getting-started/installation" size="xl">
               시작하기
             </UButton>
-            <UButton size="xl" color="neutral" variant="subtle" trailing-icon="i-lucide-play-circle" @click="videoModalOpen = true">
-              Nuxt in 100 seconds
+            <UButton size="xl" color="neutral" variant="subtle" trailing-icon="i-lucide-play-circle" @click="openVideoModal">
+              100초 만에 보는 Nuxt
             </UButton>
           </div>
           <UInputCopy value="npm create nuxt@latest" label="npm create nuxt@latest" size="xl" />
@@ -167,7 +169,7 @@ onMounted(() => {
           :unmount-on-hide="false"
           :ui="{
             list: 'px-0 bg-transparent lg:pr-4 overflow-x-auto',
-            trigger: 'group data-[state=active]:text-highlighted',
+            trigger: 'group data-[state=active]:text-highlighted shrink-0',
             indicator: 'bg-default',
             leadingIcon: 'group-data-[state=active]:text-primary size-4 hidden sm:inline-flex',
             content: 'lg:h-[450px] bg-default [@media(min-width:2400px)]:border-e [@media(min-width:2400px)]:border-default [@media(min-width:2400px)]:rounded-l-[calc(var(--ui-radius)*1.5)] transition-opacity duration-500 data-[state=inactive]:opacity-0 opacity-100'
@@ -179,10 +181,11 @@ onMounted(() => {
         </UTabs>
       </UPageCard>
     </UPageHero>
+
     <UPageSection :ui="{ container: '!pt-0' }">
-      <UPageLogos :marquee="isMobile" :title="page?.logos.title" :ui="{ title: 'text-left text-muted font-medium text-lg', logos: 'mt-4' }">
+      <UPageLogos :marquee="isMobile" :title="page.logos.title" :ui="{ title: 'text-left text-muted font-medium text-lg', logos: 'mt-4' }">
         <Motion
-          v-for="(company, index) in page?.logos.companies"
+          v-for="(company, index) in page.logos.companies"
           :key="company.alt"
           as-child
           :initial="{ opacity: 0, transform: 'translateY(20px)' }"
@@ -192,7 +195,6 @@ onMounted(() => {
         >
           <div class="opacity-0">
             <UColorModeImage
-              :key="company.alt"
               :light="company.light"
               :dark="company.dark"
               :alt="`${company.alt} logo`"
@@ -205,13 +207,14 @@ onMounted(() => {
         </Motion>
       </UPageLogos>
     </UPageSection>
+
     <UPageSection
-      :title="page?.features.title"
-      :description="page?.features.description"
+      :title="page.features.title"
+      :description="page.features.description"
       :ui="{
         title: 'text-left',
         description: 'text-left',
-        root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-default',
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-default',
         features: 'xl:grid-cols-4 lg:gap-10'
       }"
     >
@@ -225,10 +228,7 @@ onMounted(() => {
           :transition="{ delay: 0.1 * index }"
           :in-view-options="{ once: true }"
         >
-          <UPageFeature
-            v-bind="feature"
-            orientation="vertical"
-          />
+          <UPageFeature v-bind="feature" orientation="vertical" />
         </Motion>
         <Motion
           as="li"
@@ -250,7 +250,7 @@ onMounted(() => {
 
     <UPageSection
       :ui="{
-        root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-default'
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-default'
       }"
     >
       <template #title>
@@ -318,6 +318,26 @@ onMounted(() => {
         </template>
       </div>
     </UPageSection>
+
+    <UPageSection
+      :title="page.modules.title"
+      :description="page.modules.description"
+      :links="page.modules.links"
+      orientation="horizontal"
+      :ui="{
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-default',
+        title: 'text-left',
+        description: 'text-left',
+        links: 'justify-start'
+      }"
+    >
+      <div class="relative w-full min-h-[22rem] overflow-hidden rounded-xl border border-default bg-default">
+        <ClientOnly>
+          <LazyModulesMarquee v-if="modules.length" :modules="modules" />
+        </ClientOnly>
+      </div>
+    </UPageSection>
+
     <UPageCTA
       :description="page.testimonial.quote"
       variant="subtle"
@@ -327,18 +347,15 @@ onMounted(() => {
         description: 'text-base! text-balance before:content-[open-quote] before:text-5xl before:mr-1 before:leading-0 before:inline-block before:transform before:translate-y-4 before:align-baseline before:text-dimmed after:content-[close-quote] after:text-5xl after:leading-0 after:ml-1 after:inline-block after:transform after:translate-y-7 after:align-baseline after:text-dimmed'
       }"
     >
-      <UUser
-        v-bind="page.testimonial.author"
-        size="xl"
-        class="justify-center"
-      />
+      <UUser v-bind="page.testimonial.author" size="xl" class="justify-center" />
     </UPageCTA>
+
     <UPageSection
       :title="page.stats.title"
       :description="page.stats.description"
       class="relative"
       :ui="{
-        root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-default'
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-default'
       }"
     >
       <div class="flex flex-col md:flex-row gap-4">
@@ -350,10 +367,10 @@ onMounted(() => {
               </div>
               <div class="flex flex-col">
                 <span class="font-semibold text-lg text-highlighted">
-                  {{ formatNumber(stats.monthlyDownloads) }}
+                  {{ formatNumber(stats?.monthlyDownloads || 0) }}
                 </span>
                 <p class="text-sm">
-                  Monthly downloads
+                  월간 다운로드
                 </p>
               </div>
             </div>
@@ -366,10 +383,10 @@ onMounted(() => {
               </div>
               <div class="flex flex-col">
                 <span class="font-semibold text-lg text-highlighted">
-                  {{ formatNumber(stats.stars) }}
+                  {{ formatNumber(stats?.stars || 0) }}
                 </span>
                 <p class="text-sm">
-                  GitHub Stars
+                  GitHub 스타
                 </p>
               </div>
             </div>
@@ -400,7 +417,7 @@ onMounted(() => {
                 <span class="font-medium">
                   {{ page.stats.x }}
                 </span>
-                <p>Followers</p>
+                <p>팔로워</p>
               </div>
             </div>
           </UPageCard>
@@ -414,7 +431,7 @@ onMounted(() => {
                 <span class="font-medium">
                   {{ page.stats.discord }}
                 </span>
-                <p>Members</p>
+                <p>멤버</p>
               </div>
             </div>
           </UPageCard>
@@ -428,7 +445,7 @@ onMounted(() => {
       :links="page.deploy.links"
       orientation="horizontal"
       :ui="{
-        root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-default'
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-default'
       }"
     >
       <NuxtImg
@@ -448,7 +465,7 @@ onMounted(() => {
       orientation="horizontal"
       class="relative"
       :ui="{
-        root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-20% to-default',
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-20% to-default',
         title: 'text-left',
         description: 'text-left',
         links: 'justify-start'
@@ -486,6 +503,7 @@ onMounted(() => {
         />
       </UPageCard>
     </UPageSection>
+
     <UPageSection
       :title="page.contributors.title"
       :description="page.contributors.description"
@@ -493,24 +511,16 @@ onMounted(() => {
       orientation="horizontal"
       reverse
       :ui="{
-        root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-default'
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-default'
       }"
     >
       <HomeSectionContributors />
     </UPageSection>
 
     <UPageSection
-      v-if="false"
       id="showcase"
-      headline="Showcase"
-      title="Real-world Web Applications built with Nuxt"
-      :links="[{
-        label: 'View all websites',
-        to: 'https://nuxt.com/showcase',
-        target: '_blank',
-        color: 'neutral',
-        size: 'md'
-      }]"
+      headline="쇼케이스"
+      title="Nuxt로 만든 실제 웹 애플리케이션"
       class="overflow-hidden border-x border-t border-default"
       :ui="{
         title: 'max-w-2xl mx-auto',
@@ -544,14 +554,16 @@ onMounted(() => {
           }"
         >
           <template #title>
-            <span>
-              {{ item.name }}
-            </span>
+            <span>{{ item.name }}</span>
             <UIcon name="i-lucide-arrow-up-right" class="opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-in-out text-primary" />
           </template>
           <NuxtImg
             :src="getWebsiteScreenShotUrl(item)"
             :alt="item.name"
+            width="646"
+            height="363"
+            sizes="587px sm:445px lg:646px"
+            format="webp"
             class="rounded-none sm:rounded-lg w-full border border-default aspect-video"
             loading="lazy"
           />
@@ -565,7 +577,7 @@ onMounted(() => {
       :links="page.sponsors.links"
       class="relative"
       :ui="{
-        root: 'bg-gradient-to-b border-t border-default from-muted dark:from-muted/40 to-default',
+        root: 'bg-linear-to-b border-t border-default from-muted dark:from-muted/40 to-default',
         container: 'py-12 sm:py-16 lg:py-20'
       }"
     >
@@ -573,7 +585,7 @@ onMounted(() => {
         <template v-for="({ tier, sponsors }) of sponsorGroups" :key="tier">
           <div class="w-full mb-24">
             <UBadge color="neutral" variant="subtle" class="capitalize mb-2">
-              {{ tier }} sponsors
+              {{ tier }} 스폰서
             </UBadge>
 
             <div class="w-full border border-default rounded-lg">
