@@ -1,8 +1,10 @@
 import { createResolver } from 'nuxt/kit'
+import { pathToFileURL } from 'node:url'
 import { parseMdc } from './helpers/mdc-parser.mjs'
 
 const { resolve } = createResolver(import.meta.url)
 const isVercel = Boolean(process.env.VERCEL)
+const customHeadingIdPlugin = pathToFileURL(resolve('./helpers/remark-custom-heading-id.mjs')).href
 const publicExternalRouteRules = {
   '/blog': { redirect: 'https://nuxt.com/blog' },
   '/blog/**': { redirect: 'https://nuxt.com/blog/**' },
@@ -91,6 +93,9 @@ export default defineNuxtConfig({
     }
   },
   mdc: {
+    remarkPlugins: {
+      [customHeadingIdPlugin]: {}
+    },
     highlight: {
       noApiRoute: false
     }
