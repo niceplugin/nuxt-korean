@@ -1,14 +1,6 @@
-import type { Stats } from '~/composables/useStats'
+import type { Stats } from '#shared/types'
 
-export default defineNuxtPlugin(async () => {
+export default defineNuxtPlugin(() => {
   const stats = useStats()
-
-  if (import.meta.server) {
-    stats.value = await $fetch<Stats>('https://api.nuxt.com/stats').catch(() => null)
-  }
-  onNuxtReady(async () => {
-    if (!stats.value) {
-      stats.value = await $fetch<Stats>('https://api.nuxt.com/stats')
-    }
-  })
+  stats.value ||= null as Stats | null
 })

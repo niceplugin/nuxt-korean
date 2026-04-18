@@ -20,5 +20,4 @@ defineProps<Props>()
   <UPageLinks title="Community" :links="communityLinks" />
   <USeparator type="dashed" />
   <SocialLinks />
-  <Ads />
 </template>
