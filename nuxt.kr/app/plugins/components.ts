@@ -1,4 +1,4 @@
-import { UButton, UPageGrid, UPageCard, NuxtImg, NuxtLink } from '#components'
+import { UButton, UPageGrid, UPageCard, NuxtImg, NuxtLink, ProseCodeTree } from '#components'
 
 // Add them to main entry (useful for content usage)
 export default defineNuxtPlugin((nuxtApp) => {
@@ -7,4 +7,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('UButton', UButton)
   nuxtApp.vueApp.component('UPageGrid', UPageGrid)
   nuxtApp.vueApp.component('UPageCard', UPageCard)
+  nuxtApp.vueApp.component('ProseCodeTree', ProseCodeTree)
 })
