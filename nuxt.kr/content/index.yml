@@ -1,16 +1,12 @@
 hero:
-  title: '프로그레시브 웹 프레임워크'
-  description: 고품질 웹 애플리케이션을 만들 수 있는 Nuxt는 Vue.js 기반 풀스택 개발을 직관적으로 만들어주는 오픈 소스 프레임워크입니다.
-  cta:
-    label: Nuxt MCP Server is out
-    to: /docs/4.x/guide/ai/mcp
-    icon: i-lucide-arrow-right
+  title: '직관적인 풀스택 Vue 프레임워크'
+  description: Vue로 빠르고 안정적인 프로덕션 웹 앱을 만드세요. 파일 기반 라우팅, 자동 임포트, 서버 렌더링까지 기본으로 제공됩니다.
   tabs:
-    - title: Minimal
+    - title: 최소 구성
       icon: i-lucide-leaf
       content: |
-        ::code-tree{defaultValue="app.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
-        ```vue [app.vue]
+        ::code-tree{defaultValue="app/app.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
+        ```vue [app/app.vue]
         <script setup lang="ts">
         const version = 4
         </script>
@@ -27,7 +23,6 @@ hero:
         }
         </style>
         ```
-
         ```json [package.json]
         {
           "name": "hello-nuxt",
@@ -45,16 +40,28 @@ hero:
         }
         ```
         ::
-    - title: Routing
+    - title: 라우팅
       icon: i-lucide-milestone
       content: |
-        ::code-tree{defaultValue="pages/index.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
-        ```vue [app.vue]
+        ::code-tree{defaultValue="app/pages/index.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
+        ```vue [app/pages/index.vue]
+        <template>
+          <h1>Index page</h1>
+          <NuxtLink to="/blog/hello-world">
+            Go to blog post
+          </NuxtLink>
+        </template>
+        ```
+        ```vue [app/pages/blog/[slug\\].vue]
+        <template>
+          <h1>Blog post {{ $route.params.slug }}</h1>
+        </template>
+        ```
+        ```vue [app/app.vue]
         <template>
           <NuxtPage />
         </template>
         ```
-
         ```json [package.json]
         {
           "name": "nuxt-routing",
@@ -71,31 +78,41 @@ hero:
           }
         }
         ```
+        ::
+    - title: 데이터 패칭
+      icon: i-lucide-unplug
+      content: |
+        ::code-tree{defaultValue="app/pages/index.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
+        ```vue [app/pages/index.vue]
+        <script setup lang="ts">
+        const { data: page } = await useFetch('/api/cms/home')
+        </script>
 
-        ```vue [pages/index.vue]
         <template>
-          <h1>Index page</h1>
+          <h1>{{ page.title }}</h1>
           <NuxtLink to="/blog/hello-world">
             Go to blog post
           </NuxtLink>
         </template>
         ```
-        ```vue [pages/blog/[slug\\].vue]
+        ```vue [app/pages/blog/[slug\\].vue]
+        <script setup lang="ts">
+          const { slug } = useRoute().params
+          const { data: post } = await useFetch(`/api/cms/blog/${slug}`)
+        </script>
+
         <template>
-          <h1>Blog post {{ $route.params.slug }}</h1>
+          <h1>{{ post.title }}</h1>
+          <NuxtLink to="/">
+            Go to home
+          </NuxtLink>
         </template>
         ```
-        ::
-    - title: Data Fetching
-      icon: i-lucide-unplug
-      content: |
-        ::code-tree{defaultValue="pages/index.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
-        ```vue [app.vue]
+        ```vue [app/app.vue]
         <template>
           <NuxtPage />
         </template>
         ```
-
         ```json [package.json]
         {
           "name": "nuxt-data-fetching",
@@ -112,38 +129,12 @@ hero:
           }
         }
         ```
-
-        ```vue [pages/index.vue]
-        <script setup lang="ts">
-        const { data: page } = await useFetch('/api/cms/home')
-        </script>
-
-        <template>
-          <h1>{{ page.title }}</h1>
-          <NuxtLink to="/blog/hello-world">
-            Go to blog post
-          </NuxtLink>
-        </template>
-        ```
-        ```vue [pages/blog/[slug\\].vue]
-        <script setup lang="ts">
-          const { slug } = useRoute().params
-          const { data: post } = await useFetch(`/api/cms/blog/${slug}`)
-        </script>
-
-        <template>
-          <h1>{{ post.title }}</h1>
-          <NuxtLink to="/">
-            Go to home
-          </NuxtLink>
-        </template>
-        ```
         ::
-    - title: Auto-Imports
+    - title: 자동 임포트
       icon: i-lucide-wand-sparkles
       content: |
-        ::code-tree{defaultValue="app.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
-        ```vue [app.vue]
+        ::code-tree{defaultValue="app/app.vue" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
+        ```vue [app/app.vue]
         <script setup>
         const message = ref('Nuxt')
         const hello = () => sayHello(message.value)
@@ -159,8 +150,7 @@ hero:
           </main>
         </template>
         ```
-
-        ```vue [components/MyInput.vue]
+        ```vue [app/components/MyInput.vue]
         <script setup>
         const modelValue = defineModel<string>()
         </script>
@@ -169,12 +159,11 @@ hero:
           <input v-model="modelValue" />
         </template>
         ```
-        ```ts [composables/say-hello.ts]
+        ```ts [app/composables/say-hello.ts]
         export function sayHello(message = 'World') {
           alert(`Hello ${upperCase(message)}!`)
         }
         ```
-
         ```json [package.json]
         {
           "name": "hello-nuxt",
@@ -192,13 +181,23 @@ hero:
         }
         ```
         ::
-    - title: API Routes
+    - title: API 라우트
       icon: i-lucide-pc-case
       content: |
         ::code-tree{defaultValue="server/api/hello.ts" class="lg:rounded-r-none lg:border-r-0 dark:[--ui-border-muted:var(--color-gray-800)] my-0!"}
-        ```vue [app.vue]
+        ```vue [app/app.vue]
         <template>
           <NuxtPage />
+        </template>
+        ```
+
+        ```vue [app/pages/index.vue]
+        <script setup lang="ts">
+        const { data } = await useFetch('/api/hello')
+        </script>
+
+        <template>
+          <h1>{{ data.message }}</h1>
         </template>
         ```
 
@@ -219,16 +218,6 @@ hero:
         }
         ```
 
-        ```vue [pages/index.vue]
-        <script setup lang="ts">
-        const { data } = await useFetch('/api/hello')
-        </script>
-
-        <template>
-          <h1>{{ data.message }}</h1>
-        </template>
-        ```
-
         ```ts [server/api/hello.ts]
         export default defineEventHandler((event) => {
           return {
@@ -238,7 +227,7 @@ hero:
         ```
         ::
 logos:
-  title: 세계 유수 기업들이 선택한 기술
+  title: 전 세계 주요 기업이 Nuxt를 선택했습니다
   companies:
     - light: /assets/brands/light/louis-vuitton.svg
       dark: /assets/brands/dark/louis-vuitton.svg
@@ -281,54 +270,54 @@ logos:
       height: 40
       width: 51
 features:
-  title: 성장 단계에 맞춰 기능 확장
-  description: Nuxt는 뛰어난 개발자 경험과 함께 필요에 맞게 확장되도록 설계되었습니다. 간단한 랜딩 페이지부터 개발자 수백 명 규모의 복잡한 웹 애플리케이션까지 구축할 수 있습니다.
+  title: 필요한 것은 모두, 복잡함은 최소로
+  description: Nuxt가 아키텍처를 맡고, 여러분은 제품 개발에 집중할 수 있습니다.
   features:
     - icon: i-lucide-sparkles
-      title: 제로 구성
-      description: Vue 또는 TypeScript로 즉시 코딩을 시작하십시오 — Nuxt가 모든 설정을 처리합니다.
+      title: 설정 최소화
+      description: Vue와 TypeScript 코딩을 바로 시작하세요. Nuxt가 초기 설정을 대신 처리합니다.
     - icon: i-lucide-file-code-2
-      title: 렌더링 모드
-      description: 서버 사이드 렌더링, 클라이언트 사이드 렌더링, 정적 사이트 생성까지 페이지 단위로 원하는 방식을 선택할 수 있습니다.
+      title: 다양한 렌더링 모드
+      description: SSR, CSR, 정적 생성까지 페이지 단위로 원하는 방식으로 선택할 수 있습니다.
     - icon: i-lucide-milestone
-      title: 라우팅 & 레이아웃
-      description: 파일 기반 라우팅 시스템을 활용해 복잡한 URL 기반 뷰를 구축하고 구성 요소를 재사용하여 성능을 최적화하십시오.
+      title: 라우팅과 레이아웃
+      description: 파일 기반 라우팅으로 복잡한 화면을 구성하고, 컴포넌트 재사용으로 성능도 챙길 수 있습니다.
     - icon: i-lucide-unplug
       title: 데이터 패칭
-      description: Vue 컴포넌트를 async로 만들고 데이터를 기다리십시오. Nuxt는 범용 데이터 패칭을 위한 강력한 composable을 제공합니다.
+      description: 컴포넌트를 async로 만들고 데이터를 await 하세요. 범용 데이터 패칭용 강력한 컴포저블이 제공됩니다.
     - icon: i-lucide-bug
-      title: 오류 처리
-      description: 내장 핸들러와 사용자 정의 오류 페이지로 애플리케이션 오류를 추적하고 처리하십시오.
+      title: 에러 처리
+      description: 내장 핸들러와 커스텀 에러 페이지로 애플리케이션 오류를 안정적으로 처리할 수 있습니다.
     - icon: i-lucide-flip-horizontal
-      title: 전환 효과
-      description: 레이아웃, 페이지, 컴포넌트 간 부드러운 전환을 구현하십시오.
+      title: 트랜지션
+      description: 레이아웃, 페이지, 컴포넌트 전환을 부드럽게 구성할 수 있습니다.
     - icon: i-lucide-image
-      title: 에셋 & 스타일
-      description: 자동 이미지, 폰트, 스크립트 최적화를 통해 더욱 효율적으로 작업하십시오.
+      title: 에셋과 스타일
+      description: 이미지, 폰트, 스크립트 최적화를 내장 지원으로 손쉽게 활용할 수 있습니다.
     - icon: i-lucide-file-search
-      title: SEO & 메타 태그
-      description: 검색 엔진에서 완전히 색인될 수 있는 프로덕션 준비 완료 애플리케이션을 생성하십시오.
+      title: SEO와 메타 태그
+      description: 검색 엔진 친화적인 프로덕션급 애플리케이션을 만들 수 있습니다.
     - icon: i-lucide-puzzle
-      title: 모듈형 구조
-      description: 200개 이상의 모듈로 Nuxt 기능을 확장하여 개발 속도를 높이십시오.
+      title: 모듈 확장성
+      description: 200개 이상의 모듈로 기능을 빠르게 확장하고 개발 속도를 높일 수 있습니다.
     - icon: i-lucide-shield-check
       title: 미들웨어
-      description: 페이지 렌더링 전에 보호 규칙 또는 사용자 정의 로직(현지화, A/B 테스트 등)을 추가하십시오.
+      description: 렌더링 전에 인증, 현지화, A/B 테스트 같은 로직을 적용할 수 있습니다.
     - icon: i-simple-icons-typescript
       title: TypeScript 기반 타입 안정성
-      description: 자동 생성되는 타입과 tsconfig.json으로 타입 안전한 코드를 작성하십시오.
+      description: 자동 생성된 타입과 tsconfig를 바탕으로 안전하게 코드를 작성할 수 있습니다.
   cta:
-    title: '지금 바로 Nuxt 깊이 알아보기'
+    title: '이제 Nuxt를 깊이 있게 살펴보세요'
     label: 문서 읽기 시작
     to: /docs
     icon: i-lucide-arrow-right
 foundation:
-  title: 견고한 기반 위에 구축됨
-  description: Nuxt는 뛰어난 품질의 오픈 소스 기술 위에 구축되었으며, 다양한 빌드 도구 중에서 선택할 수 있는 유연성을 제공합니다.
+  title: 검증된 도구 위에 구축된 프레임워크
+  description: 프런트엔드는 Vue, 서버는 Nitro, 번들러는 원하는 선택지를 사용할 수 있습니다.
   items:
     - id: vue
-      title: Vue.js 기반 프론트엔드
-      description: Nuxt는 Vue.js 위에 구축되어 반응형 컴포넌트 아키텍처를 활용해 강력하고 확장 가능한 웹 애플리케이션을 제공합니다.
+      title: Vue.js 기반 프런트엔드
+      description: Nuxt는 Vue.js 위에 구축되어 반응형 컴포넌트 아키텍처를 바탕으로 강력하고 확장 가능한 웹 앱을 만들 수 있게 합니다.
       logo: i-custom-vue
       color: '#42B883'
       gradient: 'bg-gradient-to-br from-[#42B883]/10 from-5% via-transparent via-50% to-transparent'
@@ -336,8 +325,8 @@ foundation:
         label: vuejs.org
         to: https://vuejs.org
     - id: bundler
-      title: Vite 기반 번들러
-      description: Nuxt는 Vite의 프론트엔드 빌드 기능을 활용하여 즉각적인 HMR과 빠른 개발 경험을 제공합니다.
+      title: Vite 번들링
+      description: Vite의 빠른 번들링과 즉시 반영 HMR로 더 쾌적한 개발 경험을 제공합니다.
       logo: i-custom-vite
       color: '#A156FE'
       gradient: 'bg-gradient-to-br from-[#A156FE]/10 from-5% via-transparent via-50% to-transparent'
@@ -345,8 +334,8 @@ foundation:
         label: vite.dev
         to: https://vite.dev
     - id: bundler
-      title: Webpack 기반 번들러
-      description: Nuxt는 Webpack의 강력한 번들링 및 최적화 기능을 활용하여 안정적이고 확장 가능한 개발 경험을 제공합니다.
+      title: Webpack 번들링
+      description: Webpack의 성숙한 번들링과 최적화 기능으로 안정적이고 확장 가능한 개발 환경을 제공합니다.
       logo: i-custom-webpack
       color: '#8ED6FB'
       gradient: 'bg-gradient-to-br from-[#8ED6FB]/10 from-5% via-transparent via-50% to-transparent'
@@ -354,8 +343,8 @@ foundation:
         label: webpack.js.org
         to: https://webpack.js.org
     - id: bundler
-      title: Rspack 기반 번들러
-      description: Nuxt는 Rspack의 고성능 번들링을 통합하여 대규모 개발 환경에서 빌드 및 HMR을 가속화합니다.
+      title: Rspack 번들링
+      description: Rspack의 고성능 번들링으로 빌드와 HMR 속도를 높여 대규모 프로젝트에서도 빠른 개발을 지원합니다.
       logo: i-custom-rspack
       color: '#F93920'
       gradient: 'bg-gradient-to-br from-[#F93920]/10 from-5% via-transparent via-50% to-transparent'
@@ -363,8 +352,8 @@ foundation:
         label: rspack.dev
         to: https://rspack.dev
     - id: nitro
-      title: Nitro 서버 엔진
-      description: Nuxt는 Nitro를 서버 엔진으로 사용하여 모든 플랫폼에서 배포 가능한 범용 풀스택 웹 애플리케이션을 구축합니다.
+      title: Nitro 기반 서버 엔진
+      description: Nuxt는 Nitro를 서버 엔진으로 사용해 어떤 플랫폼에도 배포 가능한 풀스택 웹 앱을 구축합니다.
       logo: i-custom-nitro
       color: '#FB848E'
       gradient: 'bg-gradient-to-br from-[#FB848E]/10 from-5% via-transparent via-50% to-transparent'
@@ -372,43 +361,40 @@ foundation:
         label: nitro.build
         to: https://nitro.build
 modules:
-  title: 플러그 앤 플레이 모듈로 Nuxt 확장
-  description: Nuxt는 공식 및 커뮤니티 기반 모듈 생태계를 갖추고 있어 공통 기능을 빠르게 구현할 수 있도록 도와줍니다.
+  title: 플러그 앤 플레이 모듈로 Nuxt 확장하기
+  description: 공식 모듈과 커뮤니티 모듈이 풍부하게 준비되어 있어, 자주 필요한 기능을 더 빠르게 도입할 수 있습니다.
   links:
-    - label: 모든 모듈 살펴보기
+    - label: 모든 모듈 둘러보기
       to: https://nuxt.com/modules
-      target: _blank
       icon: i-lucide-arrow-right
       color: neutral
       trailing: true
 testimonial:
-  quote: "Nuxt는 SEO 친화적이고 성능 좋은 풀스택 Vue 앱을 구축할 수 있는 훌륭한 솔루션과 생태계를 제공합니다. SSR과 SSG를 선택할 수 있는 유연성은 말 그대로 케이크 위의 아이싱입니다."
+  quote: "Nuxt는 성능과 SEO를 모두 챙긴 풀스택 Vue 애플리케이션을 만들 수 있게 해주는 강력한 솔루션입니다. SSR과 SSG를 유연하게 고를 수 있는 점도 아주 큰 장점입니다."
   author:
     name: 'Evan You'
-    description: 'Vue.js 및 Vite 창시자'
+    description: 'Vue.js와 Vite의 창시자'
     to: 'https://x.com/youyuxi'
     avatar:
       src: 'https://ipx.nuxt.com/f_auto,s_40x40/gh_avatar/yyx990803'
       srcset: 'https://ipx.nuxt.com/f_auto,s_80x80/gh_avatar/yyx990803 2x'
       provider: 'ipx'
+      loading: 'lazy'
 deploy:
-  title: 어디서든 앱 배포
-  description: 한 줄 명령과 제로 구성 옵션을 통해 Nuxt 앱을 쉽게 라이브로 배포할 수 있습니다. 플랫폼을 선택하기만 하면 Nuxt가 나머지를 처리합니다.
+  title: 어디에나 배포하세요
+  description: 한 번의 명령으로 배포하세요. SSR, 정적 생성, 엣지 환경까지 Nuxt가 플랫폼에 맞춰 동작합니다.
   links:
-    - label: 지금 배포 방법 알아보기
+    - label: 배포 가이드 보기
       to: https://nuxt.com/deploy
-      target: _blank
       icon: i-lucide-arrow-right
       color: neutral
       trailing: true
 stats:
-  title: 단순하고 강력한 웹 앱을 위한 개발자들의 선택
-  description: |
-    Nuxt는 생산성 및 플랫폼 성능을 향상하기 위해 개발자의 필요에서 탄생했습니다.
-    Vue 기반 자동화 및 서버 사이드 렌더링 솔루션으로 시작된 Nuxt는 이제 전 세계 스타트업과 엔터프라이즈에서 신뢰받고 있습니다.
+  title: 전 세계 개발자가 신뢰하는 프레임워크
+  description: 스타트업부터 엔터프라이즈까지, 100% 오픈 소스로 성장하고 있습니다.
   community:
-    title: 오픈 소스
-    description: Nuxt는 100% 열정적인 오픈 소스 커뮤니티에 의해 만들어졌습니다. Nuxt의 모든 코드는 여러분 같은 개발자들이 작성합니다.
+    title: 오픈 소스 커뮤니티
+    description: Nuxt의 모든 코드는 여러분과 같은 개발자들의 기여로 만들어집니다.
   x: 102k
   discord: 32k
   cta:
@@ -419,8 +405,8 @@ stats:
     icon: i-simple-icons-github
     trailing: true
 contributors:
-  title: '전 세계 개발자들이 함께 구축합니다.'
-  description: 'Nuxt 및 생태계 개발은 국제 팀이 주도합니다. 다양한 배경과 기술을 가진 기여자와 개발자 옹호자들이 커뮤니티를 구성합니다. 질문 답변, 발표, 모듈 작성, 코어 기여 등 다양한 방식으로 누구나 참여할 수 있습니다.'
+  title: '전 세계 개발자와 함께 만드는 Nuxt'
+  description: '수백 명의 기여자가 매일 Nuxt를 더 나은 프레임워크로 만들고 있습니다. 지금 함께하세요.'
   links:
     - label: Nuxters
       to: https://nuxters.nuxt.com
@@ -434,7 +420,7 @@ contributors:
       color: neutral
       variant: ghost
       size: xl
-      title: Nuxt Discord 참여
+      title: Nuxt Discord 참여하기
     - icon: i-simple-icons-x
       to: https://go.nuxt.com/x
       target: _blank
@@ -452,16 +438,16 @@ contributors:
 support:
   title: Nuxt 엔터프라이즈 지원
   description: |
-    Nuxt 프로젝트가 최대 잠재력을 발휘할 수 있도록 Vue, Nuxt, Vite 핵심 기여자로 구성된 Nuxt 전문가 팀이 완전한 지원 서비스를 제공합니다.
+    Nuxt 프로젝트의 잠재력을 최대한 끌어낼 수 있도록, :icon{name=i-custom-vue .align-middle} Vue, :icon{name=i-custom-nuxt .align-middle} Nuxt, :icon{name=i-custom-vite .align-middle} Vite 핵심 기여자로 구성된 전문가 팀이 종합적인 지원 서비스를 제공합니다.
   features:
     - title: 성능 최적화
-      description: 전문가 최적화를 통해 Nuxt 성능과 안정성을 향상하십시오.
+      description: 전문적인 최적화로 Nuxt 애플리케이션의 성능과 안정성을 높일 수 있습니다.
       icon: i-lucide-rocket
-    - title: Nuxt로 마이그레이션
-      description: 처음부터 배포까지 성공적이고 원활한 마이그레이션을 보장합니다.
+    - title: Nuxt 마이그레이션
+      description: 기획부터 배포까지 부담을 줄이며 안정적으로 Nuxt로 이전할 수 있습니다.
       icon: i-lucide-circle-arrow-up
     - title: Nuxt 워크숍
-      description: 교육과 지원을 통해 전문 팀을 육성하십시오.
+      description: 교육과 지원을 통해 팀의 Nuxt 역량을 빠르게 끌어올릴 수 있습니다.
       icon: i-lucide-school
   companies:
     - src: /assets/enterprise/support/malt.svg
@@ -477,21 +463,19 @@ support:
   links:
     - label: Nuxt 전문가와 상담하기
       to: https://nuxt.com/enterprise/support
-      target: _blank
       icon: i-lucide-arrow-right
       color: neutral
       trailing: true
 sponsors:
   title: 스폰서
-  description: Nuxt는 기여자와 스폰서 덕분에 지금도, 앞으로도 MIT 라이선스 하에 자유롭고 오픈 소스로 유지됩니다.
+  description: Nuxt는 기여자와 스폰서의 도움으로 앞으로도 MIT 라이선스 기반의 무료 오픈 소스로 유지됩니다.
   links:
     - label: 스폰서 되기
       to: 'https://opencollective.com/nuxtjs'
       color: neutral
       trailingIcon: i-lucide-heart
       trailing: true
-    - label: 모든 스폰서 보기
+    - label: 전체 스폰서 보기
       to: https://nuxt.com/enterprise/sponsors
-      target: _blank
       color: neutral
       variant: outline

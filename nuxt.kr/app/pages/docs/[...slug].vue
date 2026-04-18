@@ -17,7 +17,6 @@ const route = useRoute()
 const nuxtApp = useNuxtApp()
 const { version } = useDocsVersion()
 const { headerLinks } = useHeaderLinks()
-
 const path = computed(() => route.path.replace(/\/$/, ''))
 
 const ignoredPaths = ['.nuxt', '.output', '.env', 'node_modules']
@@ -25,59 +24,54 @@ const navClass = (item: ContentNavigationItem) => {
   if (ignoredPaths.includes(item.title) && !route.path.includes(item.path)) {
     return 'opacity-70 hover:opacity-100'
   }
+
   return ''
 }
 
 const asideNavigation = computed(() => {
-  const path = [version.value.path, route.params.slug?.[version.value.path.split('/').length - 2]].filter(Boolean).join('/')
-
-  const nav = navPageFromPath(path, navigation.value)?.children || []
+  const currentPath = [version.value.path, route.params.slug?.[version.value.path.split('/').length - 2]].filter(Boolean).join('/')
+  const nav = navPageFromPath(currentPath, navigation.value)?.children || []
 
   return nav.map(item => ({
     ...item,
     class: navClass(item)
   }))
 })
-function paintResponse() {
-  if (import.meta.server) {
-    return Promise.resolve()
-  }
-  return new Promise((resolve) => {
-    setTimeout(resolve, 100)
-    requestAnimationFrame(() => setTimeout(resolve, 0))
-  })
-}
 
 const [{ data: page, status }, { data: surround }] = await Promise.all([
-  useAsyncData(kebabCase(path.value), () => paintResponse().then(() => nuxtApp.static[kebabCase(path.value)] ?? queryCollection(version.value.collection).path(path.value).first()), {
+  useAsyncData(kebabCase(path.value), () => queryCollection(version.value.collection).path(path.value).first(), {
     watch: [path]
   }),
-  useAsyncData(`${kebabCase(path.value)}-surround`, () => paintResponse().then(() => nuxtApp.static[`${kebabCase(path.value)}-surround`] ?? queryCollectionItemSurroundings(version.value.collection, path.value, {
+  useAsyncData(`${kebabCase(path.value)}-surround`, () => queryCollectionItemSurroundings(version.value.collection, path.value, {
     fields: ['description']
-  })), { watch: [path] })
+  }), {
+    watch: [path]
+  })
 ])
 
-watch(status, (status) => {
-  if (status === 'pending') {
+watch(status, (currentStatus) => {
+  if (currentStatus === 'pending') {
     nuxtApp.hooks.callHook('page:loading:start')
-  } else if (status === 'success' || status === 'error') {
+  } else if (currentStatus === 'success' || currentStatus === 'error') {
     nuxtApp.hooks.callHook('page:loading:end')
   }
 })
 
-watch(route, () => {
+watch(() => route.fullPath, () => {
   menuDrawerOpen.value = false
   onThisPageDrawerOpen.value = false
 })
 
-watch(page, (page) => {
-  if (!page) {
+watch(page, (currentPage) => {
+  if (!currentPage) {
     throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
   }
 }, { immediate: true })
 
-// Get the -2 item of the breadcrumb
-const currentSectionTitle = computed(() => headerLinks.value[0].children.find(link => path.value.includes(link.to))?.label || findPageBreadcrumb(navigation.value, path.value).slice(-1)[0].title)
+const currentSectionTitle = computed(() =>
+  headerLinks.value[0]?.children?.find(link => path.value.includes(link.to))?.label
+  || findPageBreadcrumb(navigation.value, path.value).slice(-1)[0]?.title
+  || '')
 
 const breadcrumb = computed(() => {
   const links = mapContentNavigation(findPageBreadcrumb(navigation.value, path.value)).map(link => ({
@@ -91,6 +85,7 @@ const breadcrumb = computed(() => {
       to: `${version.value.path}/getting-started/upgrade`
     })
   }
+
   if (!links.length) {
     links.push({
       label: currentSectionTitle.value,
@@ -100,8 +95,8 @@ const breadcrumb = computed(() => {
 
   return links
 })
-const editLink = computed(() => `https://github.com/nuxt/nuxt/edit/${version.value.branch}/${page?.value?.stem?.replace(/docs\/\d\.x/, 'docs')}.${page?.value?.extension}`)
 
+const editLink = computed(() => `https://github.com/nuxt/nuxt/edit/${version.value.branch}/${page?.value?.stem?.replace(/docs\/\d\.x/, 'docs')}.${page?.value?.extension}`)
 const communityLinks = [{
   icon: 'i-lucide-heart',
   label: 'Become a Sponsor',
@@ -120,7 +115,7 @@ const communityLinks = [{
 }]
 
 const title = computed(() => page.value?.seo?.title || page.value?.title)
-const titleTemplate = computed(() => `${findTitleTemplate(page, navigation)} ${version.value.shortTag}`)
+const titleTemplate = computed(() => `${findTitleTemplate(page, navigation, version.value.path)} ${version.value.shortTag}`)
 
 useSeoMeta({
   titleTemplate,
@@ -129,6 +124,7 @@ useSeoMeta({
 
 if (import.meta.server) {
   const description = page.value?.seo?.description || page.value?.description
+
   useSeoMeta({
     description,
     ogDescription: description,
@@ -143,7 +139,10 @@ if (import.meta.server) {
 }
 
 function refreshHeading(opened: boolean) {
-  if (!opened) return
+  if (!opened) {
+    return
+  }
+
   nextTick(() => nuxtApp.callHook('page:loading:end'))
 }
 </script>
@@ -184,14 +183,12 @@ function refreshHeading(opened: boolean) {
                 <UAvatar v-bind="link.avatar" size="2xs" :alt="`${link.label} avatar`" />
               </template>
             </UButton>
-            <PageHeaderLinks :key="page.path" />
           </template>
         </UPageHeader>
 
         <UPageBody>
           <ContentRenderer v-if="page.body" :value="page" />
           <div>
-            <Feedback :page="page" />
             <USeparator class="mt-6 mb-10">
               <div class="flex items-center gap-2 text-sm text-muted">
                 <UButton

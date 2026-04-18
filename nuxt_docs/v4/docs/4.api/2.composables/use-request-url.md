@@ -8,12 +8,12 @@ links:
     size: xs
 ---
 
-`useRequestURL`은 서버 사이드와 클라이언트 사이드 모두에서 동작하는 [URL 객체](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)를 반환하는 헬퍼 함수입니다.
+`useRequestURL`은 서버 사이드와 클라이언트 사이드 모두에서 동작하는 [URL object](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)를 반환하는 헬퍼 함수입니다.
 
 ::important
-[하이브리드 렌더링](/docs/4.x/guide/concepts/rendering#hybrid-rendering)을 캐시 전략과 함께 사용할 때, [Nitro 캐싱 레이어](https://nitro.build/guide/cache)를 통해 캐시된 응답을 처리하는 경우 모든 들어오는 요청 헤더가 제거됩니다(이는 `useRequestURL`이 `host`에 대해 `localhost`를 반환한다는 의미입니다).
+캐시 전략과 함께 [Hybrid Rendering](/docs/4.x/guide/concepts/rendering#hybrid-rendering)을 사용할 때는 [Nitro caching layer](https://nitro.build/guide/cache)를 통해 캐시된 응답을 처리하면서 들어오는 모든 요청 헤더가 제거됩니다(즉, `useRequestURL`의 `host`는 `localhost`를 반환합니다).
 
-멀티 테넌트 환경에서 `host` 및 `x-forwarded-host`와 같이, 응답을 캐싱하고 제공할 때 고려해야 할 헤더를 지정하기 위해 [`cache.varies` 옵션](https://nitro.build/guide/cache#options)을 정의할 수 있습니다.
+멀티 테넌트 환경의 `host`, `x-forwarded-host`처럼 응답을 캐시하고 제공할 때 고려할 헤더를 지정하려면 [`cache.varies` option](https://nitro.build/guide/cache#options)을 정의할 수 있습니다.
 ::
 
 ::code-group
@@ -37,5 +37,5 @@ const url = useRequestURL()
 ::
 
 ::tip{icon="i-simple-icons-mdnwebdocs" to="https://developer.mozilla.org/en-US/docs/Web/API/URL#instance_properties" target="_blank"}
-MDN 문서에서 URL 인스턴스 속성에 대해 읽어보세요.
+MDN 문서에서 URL 인스턴스 속성에 대해 알아보세요.
 ::

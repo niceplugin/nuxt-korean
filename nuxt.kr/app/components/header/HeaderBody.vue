@@ -4,24 +4,17 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const { headerLinks } = useHeaderLinks()
 
 const mobileNavigation = computed<ContentNavigationItem[]>(() => {
-  return [
-    ...headerLinks.value.map(link => ({
-      ...link,
-      title: link.label,
-      path: link.to,
-      icon: link.children?.length ? undefined : link.icon,
-      children: link.children?.map(child => ({
-        ...child,
-        title: child.label,
-        path: child.to
-      }))
-    } as ContentNavigationItem)),
-    {
-      title: 'Design Kit',
-      icon: 'i-lucide-palette',
-      path: '/design-kit'
-    }
-  ].filter((item): item is ContentNavigationItem => Boolean(item))
+  return headerLinks.value.map(link => ({
+    ...link,
+    title: link.label,
+    path: link.to,
+    icon: link.children?.length ? undefined : link.icon,
+    children: link.children?.map(child => ({
+      ...child,
+      title: child.label,
+      path: child.to
+    }))
+  } as ContentNavigationItem)).filter((item): item is ContentNavigationItem => Boolean(item))
 })
 </script>
 

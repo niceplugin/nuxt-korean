@@ -55,15 +55,15 @@ In this case, you will have to set the preset manually.
 
 1. Build your project for Cloudflare Pages:
 
-    ```bash [Terminal]
-    npx nuxi build --preset=cloudflare_pages
-    ```
+```bash [Terminal]
+npx nuxi build --preset=cloudflare_pages
+```
 
 2. Deploy, it will ask you to create a project for the first time:
 
-    ```bash [Terminal]
-    npx wrangler pages deploy dist/
-    ```
+```bash [Terminal]
+npx wrangler pages deploy dist/
+```
 
 ## Learn more
 
@@ -122,6 +122,6 @@ Head over **CloudFlare Pages** documentation to learn more about it.
 
 ## Learn more
 
-::read-more{to="https://nitro.unjs.io/deploy/providers/cloudflare" target="_blank"}
+::read-more{to="https://v2.nitro.build/deploy/providers/cloudflare" target="_blank"}
 Head over **Nitro documentation** to learn more about the cloudflare deployment preset.
 ::

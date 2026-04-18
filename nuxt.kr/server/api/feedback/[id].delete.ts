@@ -1,5 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { db } from '../../db/client'
+import * as schema from '../../db/schema'
 
 const deleteParamsSchema = z.object({
   id: z.coerce.number()

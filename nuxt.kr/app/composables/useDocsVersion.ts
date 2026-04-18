@@ -2,32 +2,40 @@ import type { BadgeProps } from '@nuxt/ui'
 
 interface Version {
   label: string
-  shortTag: 'v4' | 'v3' | 'v2'
+  shortTag: 'v5' | 'v4' | 'v3' | 'v2'
   branch: string
   tagColor: BadgeProps['color']
   path: string
-  collection?: 'docsv3' | 'docsv4'
+  collection?: 'docsv3' | 'docsv4' | 'docsv5'
 }
 
 const versions: Version[] = [
   {
-    label: 'Version 4',
-    shortTag: 'v4',
+    label: '버전 5',
+    shortTag: 'v5',
     branch: 'main',
+    tagColor: 'warning',
+    path: '/docs/5.x',
+    collection: 'docsv5'
+  },
+  {
+    label: '버전 4',
+    shortTag: 'v4',
+    branch: '4.x',
     tagColor: 'primary',
     path: '/docs/4.x',
     collection: 'docsv4'
   },
   {
-    label: 'Version 3',
+    label: '버전 3',
     shortTag: 'v3',
     branch: '3.x',
     tagColor: 'neutral',
-    path: 'https://nuxt.com/docs/3.x',
+    path: '/docs/3.x',
     collection: 'docsv3'
   },
   {
-    label: 'Version 2',
+    label: '버전 2',
     shortTag: 'v2',
     branch: '2.x',
     tagColor: 'neutral',
@@ -35,34 +43,34 @@ const versions: Version[] = [
   }
 ]
 
-const tagMap: Record<Version['shortTag'], string> = {
-  v3: '3x',
-  v4: '4x',
-  v2: '2x'
+const staticTags: Record<Version['shortTag'], string> = {
+  v5: '5',
+  v4: '4',
+  v3: '3',
+  v2: '2'
 }
 
 export const useDocsTags = () => {
-  const { data: tags } = useAsyncData('versions', async () => {
-    const { 'dist-tags': distTags } = await $fetch<{ 'dist-tags': Record<string, string> }>('https://registry.npmjs.org/nuxt')
-    return Object.fromEntries(
-      Object.entries(tagMap).map(([shortTag]: [keyof typeof tagMap, string]) => {
-        return [shortTag, distTags[tagMap[shortTag]] ?? distTags.latest]
-      })
-    )
-  }, { default: () => ({}) })
+  const tags = computed(() => staticTags)
 
   return { tags }
 }
 
 export const useDocsVersion = () => {
   const route = useRoute()
+  const { track } = useAnalytics()
 
   const version = computed(() => {
+    if (route.path.startsWith('/docs/5.x')) {
+      return versions.find(v => v.path === '/docs/5.x')
+    }
+
     if (route.path.startsWith('/docs/3.x')) {
       return versions.find(v => v.path === '/docs/3.x')
     }
 
-    return versions[0]
+    // Default to v4 (current stable)
+    return versions.find(v => v.path === '/docs/4.x')
   })
 
   const items = computed(() => versions.map(v => ({
@@ -74,7 +82,8 @@ export const useDocsVersion = () => {
           type: 'checkbox' as const
         }
       : {
-          to: v.path === 'https://v2.nuxt.com' ? v.path : route.path.replace(version.value.path, v.path)
+          to: v.path === 'https://v2.nuxt.com' ? v.path : route.path.replace(version.value.path, v.path),
+          onSelect: () => track('Version Switched', { version: v.shortTag })
         })
   })))
 

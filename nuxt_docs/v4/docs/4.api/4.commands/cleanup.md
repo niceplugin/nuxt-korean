@@ -14,25 +14,25 @@ npx nuxt cleanup [ROOTDIR] [--cwd=<directory>]
 ```
 <!--/cleanup-cmd-->
 
-`cleanup` 명령은 다음을 포함하여 일반적으로 생성되는 Nuxt 파일과 캐시를 제거합니다:
+`cleanup` 명령어는 다음을 포함한 일반적으로 생성되는 Nuxt 파일과 캐시를 제거합니다:
 
 - `.nuxt`
 - `.output`
 - `node_modules/.vite`
 - `node_modules/.cache`
 
-## Arguments %{arguments}%
+## 인자 %{#arguments}%
 
 <!--cleanup-args-->
-Argument | Description
---- | ---
-`ROOTDIR="."` | 작업 디렉터리를 지정합니다 (기본값: `.`)
+| Argument      | Description                                    |
+|---------------|------------------------------------------------|
+| `ROOTDIR="."` | 작업 디렉터리를 지정합니다 (기본값: `.`)       |
 <!--/cleanup-args-->
 
-## Options %{options}%
+## 옵션 %{#options}%
 
 <!--cleanup-opts-->
-Option | Default | Description
---- | --- | ---
-`--cwd=<directory>` |  | 작업 디렉터리를 지정합니다. 이 값은 ROOTDIR보다 우선합니다 (기본값: `.`)
+| Option              | Default | Description                                                                      |
+|---------------------|---------|----------------------------------------------------------------------------------|
+| `--cwd=<directory>` |         | 작업 디렉터리를 지정합니다. ROOTDIR보다 우선합니다 (기본값: `.`)                |
 <!--/cleanup-opts-->

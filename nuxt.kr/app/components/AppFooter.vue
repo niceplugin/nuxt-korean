@@ -32,7 +32,7 @@ const { footerLinks } = useFooterLinks()
         target="_blank"
         icon="i-simple-icons-x"
       >
-        <span class="sr-only">Nuxt on X</span>
+        <span class="sr-only">Nuxt의 X 계정</span>
       </UButton>
       <UButton
         color="neutral"
@@ -41,7 +41,7 @@ const { footerLinks } = useFooterLinks()
         target="_blank"
         icon="i-simple-icons-bluesky"
       >
-        <span class="sr-only">Nuxt on BlueSky</span>
+        <span class="sr-only">Nuxt의 Bluesky 계정</span>
       </UButton>
       <UButton
         color="neutral"
@@ -50,7 +50,7 @@ const { footerLinks } = useFooterLinks()
         target="_blank"
         icon="i-simple-icons-linkedin"
       >
-        <span class="sr-only">Nuxt on LinkedIn</span>
+        <span class="sr-only">Nuxt의 LinkedIn 계정</span>
       </UButton>
       <UButton
         color="neutral"
@@ -59,7 +59,7 @@ const { footerLinks } = useFooterLinks()
         target="_blank"
         icon="i-simple-icons-discord"
       >
-        <span class="sr-only">Nuxt on Discord</span>
+        <span class="sr-only">Nuxt Discord</span>
       </UButton>
       <UButton
         color="neutral"
@@ -68,7 +68,7 @@ const { footerLinks } = useFooterLinks()
         target="_blank"
         icon="i-simple-icons-github"
       >
-        <span class="sr-only">Nuxt on GitHub</span>
+        <span class="sr-only">Nuxt GitHub</span>
       </UButton>
     </template>
   </UFooter>

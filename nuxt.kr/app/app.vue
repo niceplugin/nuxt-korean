@@ -1,43 +1,18 @@
 <script setup lang="ts">
 const colorMode = useColorMode()
 const { version } = useDocsVersion()
-const { searchGroups, searchLinks, searchTerm } = useNavigation()
-const { fetchList: fetchModules } = useModules()
-const { fetchList: fetchHosting } = useHostingProviders()
 
 const color = computed(() => colorMode.value === 'dark' ? '#020420' : 'white')
+const { data: navigation } = await useFetch('/api/navigation.json')
 
-const [{ data: navigation }, { data: files }] = await Promise.all([
-  useAsyncData('navigation', () => {
-    return Promise.all([
-      queryCollectionNavigation('docsv3', ['titleTemplate']).then(data => data[0]?.children),
-      queryCollectionNavigation('docsv4', ['titleTemplate']).then(data => data[0]?.children),
-      queryCollectionNavigation('blog')
-    ])
-  }, {
-    transform: data => data.flat(),
-    watch: [version]
-  }),
-  useLazyAsyncData('search', () => {
-    return Promise.all([
-      queryCollectionSearchSections('docsv3', { ignoredTags: ['style'] }),
-      queryCollectionSearchSections('docsv4', { ignoredTags: ['style'] }),
-      queryCollectionSearchSections('blog')
-    ])
-  }, {
-    server: false,
-    transform: data => data.flat(),
-    watch: [version]
-  })
-])
-
-onNuxtReady(() => {
-  fetchModules()
-  fetchHosting()
+watch(() => colorMode.preference, (newMode, oldMode) => {
+  if (oldMode && newMode !== oldMode) {
+    useAnalytics().track('Color Mode Changed', { mode: newMode })
+  }
 })
 
 useHead({
-  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: The Intuitive Web Framework',
+  titleTemplate: title => title ? `${title} · Nuxt` : 'Nuxt: 직관적인 웹 프레임워크',
   meta: [
     { key: 'theme-color', name: 'theme-color', content: color }
   ]
@@ -52,9 +27,10 @@ if (import.meta.server) {
       { rel: 'icon', type: 'image/png', href: '/icon.png' }
     ],
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ko'
     }
   })
+
   useSeoMeta({
     ogSiteName: 'Nuxt',
     ogType: 'website',
@@ -63,24 +39,9 @@ if (import.meta.server) {
   })
 }
 
-const versionNavigation = computed(() => navigation.value?.filter(item => item.path === version.value.path || item.path === '/blog') ?? [])
-const versionFiles = computed(() => files.value?.filter((file) => {
-  return (version.value.path === '/docs/4.x' ? file.id.startsWith('/docs/4.x/') : !file.id.startsWith('/docs/4.x')) || file.id.startsWith('/blog/')
-}) ?? [])
+const versionNavigation = computed(() => navigation.value?.filter(item => item.path === version.value.path) ?? [])
 
 provide('navigation', versionNavigation)
-
-const appear = ref(false)
-const appeared = ref(false)
-
-onMounted(() => {
-  setTimeout(() => {
-    appear.value = true
-    setTimeout(() => {
-      appeared.value = true
-    }, 1000)
-  }, 0)
-})
 </script>
 
 <template>
@@ -90,22 +51,6 @@ onMounted(() => {
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-
-    <ClientOnly>
-      <LazyUContentSearch
-        v-model:search-term="searchTerm"
-        :files="versionFiles"
-        :navigation="versionNavigation"
-        :groups="searchGroups"
-        :links="searchLinks"
-        :fuse="{
-          resultLimit: 42,
-          fuseOptions: {
-            threshold: 0
-          }
-        }"
-      />
-    </ClientOnly>
   </UApp>
 </template>
 
