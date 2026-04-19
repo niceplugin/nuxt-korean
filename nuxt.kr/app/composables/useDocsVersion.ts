@@ -6,6 +6,7 @@ interface Version {
   branch: string
   tagColor: BadgeProps['color']
   path: string
+  switchPath?: string
   collection?: 'docsv3' | 'docsv4' | 'docsv5'
 }
 
@@ -32,6 +33,7 @@ const versions: Version[] = [
     branch: '3.x',
     tagColor: 'neutral',
     path: '/docs/3.x',
+    switchPath: 'https://nuxt.com/docs/3.x',
     collection: 'docsv3'
   },
   {
@@ -82,7 +84,7 @@ export const useDocsVersion = () => {
           type: 'checkbox' as const
         }
       : {
-          to: v.path === 'https://v2.nuxt.com' ? v.path : route.path.replace(version.value.path, v.path),
+          to: route.path.replace(version.value.path, v.switchPath || v.path),
           onSelect: () => track('Version Switched', { version: v.shortTag })
         })
   })))
