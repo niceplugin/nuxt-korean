@@ -25,6 +25,29 @@ const publicExternalRouteRules = {
   '/video-courses': { redirect: 'https://nuxt.com/video-courses' }
 }
 
+type RouteRule = Record<string, unknown>
+
+function withLegacyDocs3Redirects<T extends Record<string, RouteRule>>(routeRules: T) {
+  const overriddenRouteRules = { ...routeRules } as Record<string, RouteRule>
+
+  for (const path of Object.keys(overriddenRouteRules)) {
+    if (path === '/docs/3.x' || path.startsWith('/docs/3.x/')) {
+      overriddenRouteRules[path] = {
+        ...overriddenRouteRules[path],
+        redirect: `https://nuxt.com${path}`,
+        prerender: false
+      }
+    }
+  }
+
+  overriddenRouteRules['/docs/3.x/**'] = {
+    redirect: 'https://nuxt.com/docs/3.x/**',
+    prerender: false
+  }
+
+  return overriddenRouteRules as T
+}
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
@@ -124,12 +147,12 @@ export default defineNuxtConfig({
       audienceId: ''
     }
   },
-  routeRules: {
+  routeRules: withLegacyDocs3Redirects({
     // Pre-render
     '/': { prerender: true },
     '/sitemap.xml': { prerender: true },
     '/404.html': { prerender: true },
-    '/docs/3.x/getting-started/introduction': { prerender: true },
+    '/docs/3.x/getting-started/introduction': { prerender: false },
     '/docs/4.x/getting-started/introduction': { prerender: true },
     '/docs/5.x/getting-started/introduction': { prerender: true },
     // API
@@ -413,7 +436,7 @@ export default defineNuxtConfig({
     '/docs/4.x/robots.txt': { redirect: '/robots.txt', prerender: false },
     '/docs/5.x/robots.txt': { redirect: '/robots.txt', prerender: false },
     '/deploy/nuxthub': { redirect: 'https://nuxt.com/deploy/vercel', prerender: false }
-  },
+  }),
   sourcemap: true,
   experimental: {
     payloadExtraction: false,
@@ -438,7 +461,7 @@ export default defineNuxtConfig({
         '/api/navigation.json',
         '/api/search.json',
         '/docs/getting-started/installation',
-        '/docs/3.x/getting-started/introduction',
+        // '/docs/3.x/getting-started/introduction',
         '/docs/4.x/getting-started/introduction',
         '/docs/5.x/getting-started/introduction'
       ],
@@ -459,6 +482,10 @@ export default defineNuxtConfig({
 
           if (route === '/api/stats' || route === '/api/sponsors' || route === '/api/v1/modules') {
             return false
+          }
+
+          if (route.startsWith('/docs/3.x') || route.startsWith('/raw/docs/3.x')) {
+            return true
           }
 
           if (route.startsWith('/docs/') || route.startsWith('/raw/docs/')) {
